@@ -5,7 +5,7 @@ articles:
   benchmarks: benchmarks.html
   csfmt_rts_data_v2: csfmt_rts_data_v2.html
   cstidy: cstidy.html
-last_built: 2025-12-23T12:40Z
+last_built: 2025-12-23T12:41Z
 urls:
   reference: https://niphr.github.io/cstidy/reference
   article: https://niphr.github.io/cstidy/articles

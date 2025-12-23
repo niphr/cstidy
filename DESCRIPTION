@@ -2,14 +2,13 @@ Package: cstidy
 Title: Helpful Functions for Cleaning Surveillance Data
 Version: 2025.10.27
 Authors@R: c(
-  person(c("Richard","Aubrey"), "White", email = "hello@rwhite.no", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6747-1726")),
-  person(given = "CSIDS", role = c("cph"))
+  person(c("Richard","Aubrey"), "White", email = "hello@rwhite.no", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6747-1726"))
   )
 Description: Helpful functions for the cleaning and manipulation of surveillance data, especially with regards to the creation and validation of panel data from individual level surveillance data.
 Depends: R (>= 3.5.0)
 License: MIT + file LICENSE
-URL: https://www.csids.no/cstidy/, https://github.com/csids/cstidy
-BugReports: https://github.com/csids/cstidy/issues
+URL: https://niphr.github.io/cstidy/, https://github.com/niphr/cstidy
+BugReports: https://github.com/niphr/cstidy/issues
 Encoding: UTF-8
 LazyData: true
 Imports: data.table,

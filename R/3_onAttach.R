@@ -12,7 +12,7 @@
     "cstidy ",
     version,
     "\n",
-    "https://www.csids.no/cstidy/"
+    "https://niphr.github.io/cstidy/"
   ))
 }
 

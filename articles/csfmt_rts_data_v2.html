@@ -4,104 +4,91 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Data format (csfmt_rts_data_v2) • cstidy</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
-<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
-<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="icon" sizes="any" href="../favicon.ico">
-<link rel="manifest" href="../site.webmanifest">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Data format (csfmt_rts_data_v2)">
-<script data-goatcounter="https://csidsno.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Data format (csfmt_rts_data_v2)">
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
 </head>
-<body>
-    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+<body data-spy="scroll" data-target="#toc">
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
-    <a href="https://www.csids.no" class="external-link"><img src="https://www.csids.no/resources/logo/logo_full_white.svg" id="csidslogo"></a>
-    <a class="navbar-brand me-2" href="../index.html">cstidy</a>
+    <div class="container template-article">
+      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">cstidy</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2025.10.27</span>
+      </span>
+    </div>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2025.10.29</small>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+<li>
+  <a href="../articles/cstidy.html">Get started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Articles
 
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/cstidy.html">Get started</a></li>
-<li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/benchmarks.html">Benchmarks</a></li>
-    <li><a class="dropdown-item" href="../articles/csfmt_rts_data_v2.html">Data format (csfmt_rts_data_v2)</a></li>
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/benchmarks.html">Benchmarks</a>
+    </li>
+    <li>
+      <a href="../articles/csfmt_rts_data_v2.html">Data format (csfmt_rts_data_v2)</a>
+    </li>
   </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">News</a></li>
-<li class="nav-item"><form class="form-inline" role="search">
- <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
-</form></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-<ul class="navbar-nav">
-<li class="nav-item"><a class="external-link nav-link" href="https://www.csids.no/">Home</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-packages" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Packages</button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-packages">
-<li><a class="external-link dropdown-item" href="https://www.csids.no/packages.html">Introduction</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Analysis planning</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/org/">org</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/plnr/">plnr</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/cs9/">cs9</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Helper functions</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/csdb/">csdb</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/csstyle/">csstyle</a></li>
-    <li><a class="dropdown-item" href="https://www.csids.no/cstidy/">cstidy</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/cstime/">cstime</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/csutil/">csutil</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Surveillance</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/attrib/">attrib</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/csalert/">csalert</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Structural data</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/csdata/">csdata</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/csmaps/">csmaps</a></li>
-  </ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/niphr/cstidy/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+
+  </a>
 </li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-about" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">About</button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-about">
-<li><a class="external-link dropdown-item" href="https://www.csids.no/about.html">About CSIDS</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/get_involved.html">Get involved</a></li>
-  </ul>
-</li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/csids/cstidy/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
-
-
+<!--/.nav-collapse -->
   </div>
-</nav><div class="container template-article">
+<!--/.container -->
+</div>
+<!--/.navbar -->
 
 
 
-<script src="csfmt_rts_data_v2_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Data format (csfmt_rts_data_v2)</h1>
+      </header><div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header toc-ignore">
+      <h1 data-toc-skip>Data format (csfmt_rts_data_v2)</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/csids/cstidy/blob/HEAD/vignettes/csfmt_rts_data_v2.Rmd" class="external-link"><code>vignettes/csfmt_rts_data_v2.Rmd</code></a></small>
-      <div class="d-none name"><code>csfmt_rts_data_v2.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/niphr/cstidy/blob/main/vignettes/csfmt_rts_data_v2.Rmd" class="external-link"><code>vignettes/csfmt_rts_data_v2.Rmd</code></a></small>
+      <div class="hidden name"><code>csfmt_rts_data_v2.Rmd</code></div>
+
     </div>
 
     
@@ -109,39 +96,55 @@
 <div class="section level2">
 <h2 id="csfmt_rts_data_v2">csfmt_rts_data_v2<a class="anchor" aria-label="anchor" href="#csfmt_rts_data_v2"></a>
 </h2>
-<p>This document presents the data format <code>csfmt_rts_data_v2</code>.</p>
-<p><code>csfmt_rts_data_v2</code> is the data format that the CSIDS team recommends using for the real-time surveillance of infectious diseases.</p>
+<p>This document presents the data format
+<code>csfmt_rts_data_v2</code>.</p>
+<p><code>csfmt_rts_data_v2</code> is the data format that the CSIDS team
+recommends using for the real-time surveillance of infectious
+diseases.</p>
 </div>
 <div class="section level2">
 <h2 id="style">Style<a class="anchor" aria-label="anchor" href="#style"></a>
 </h2>
 <p><strong>Language</strong></p>
 <p>English is the primary language for our code.</p>
-<p>Names that are abbreviations or in Norwegian are kept as they are: data sources such as <code>msis</code>, <code>daar</code>, <code>sysvak</code>, <code>normomo</code>.</p>
+<p>Names that are abbreviations or in Norwegian are kept as they are:
+data sources such as <code>msis</code>, <code>daar</code>,
+<code>sysvak</code>, <code>normomo</code>.</p>
 <p><strong>Capital letters</strong></p>
-<p>Capital letters are to be avoided whenever possible. This is also the case in filenames (e.g. <code>data.rds</code> is preferred to <code>data.RDS</code>)</p>
+<p>Capital letters are to be avoided whenever possible. This is also the
+case in filenames (e.g. <code>data.rds</code> is preferred to
+<code>data.RDS</code>)</p>
 <p><strong>snake_case or camelCase?</strong></p>
 <p>Use snake_case.</p>
 <p><strong>Timestamping of file names</strong></p>
-<p>In results (e.g. reports), an indicator of time when the files are created are necessary. It allows us to find which one is the most recent version of files with the same names, and it allows easy tracking of an Airflow error.</p>
-<p>e.g. <code>Epidemiologisk_situasjonsrapport_2021-05-31_0659.docx</code> for a report generated on May 31, 2021 06:59 AM.</p>
+<p>In results (e.g. reports), an indicator of time when the files are
+created are necessary. It allows us to find which one is the most recent
+version of files with the same names, and it allows easy tracking of an
+Airflow error.</p>
+<p>e.g. <code>Epidemiologisk_situasjonsrapport_2021-05-31_0659.docx</code>
+for a report generated on May 31, 2021 06:59 AM.</p>
 </div>
 <div class="section level2">
 <h2 id="ordering-of-variables">Ordering of variables<a class="anchor" aria-label="anchor" href="#ordering-of-variables"></a>
 </h2>
-<p>Sometimes variables need to be ordered. Variables should be ordered as follows:</p>
+<p>Sometimes variables need to be ordered. Variables should be ordered
+as follows:</p>
 <ul>
 <li>time</li>
 <li>location</li>
 <li>age</li>
 <li>sex</li>
 </ul>
-<p>e.g. A database table could be called <code>msis_by_time_location_age_sex</code> or a filename could be called <code>2020_oslo_05-10_male.xlsx</code></p>
+<p>e.g. A database table could be called
+<code>msis_by_time_location_age_sex</code> or a filename could be called
+<code>2020_oslo_05-10_male.xlsx</code></p>
 </div>
 <div class="section level2">
 <h2 id="time">Time<a class="anchor" aria-label="anchor" href="#time"></a>
 </h2>
-<p>Time functions can be obtained from <a href="https://www.csids.no/cstime/" class="external-link">cstime</a>. Missing time data should be coded as <code>NA</code>. Uncommon/internal use is demarcated by a line through the text.</p>
+<p>Time functions can be obtained from <a href="https://www.csids.no/cstime/" class="external-link">cstime</a>. Missing time data should
+be coded as <code>NA</code>. Uncommon/internal use is demarcated by a
+line through the text.</p>
 <div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mwlefoodfi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -636,7 +639,7 @@
 <td headers="example" class="gt_row gt_left">"event_covid19_norway_vaccination_2020_12_02_to_9999_09_09", "event_covid19_norway_2020_02_21_to_9999_09_09"</td>
 </tr>
 </tbody>
-<tfoot class="gt_footnotes"><tr>
+<tfoot><tr class="gt_footnotes">
 <td class="gt_footnote" colspan="4">
 <span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> If the event is ongoing, then the 'to' date should be 9999_09_09.</td>
     </tr></tfoot>
@@ -1126,7 +1129,10 @@
 <div class="section level2">
 <h2 id="location">Location<a class="anchor" aria-label="anchor" href="#location"></a>
 </h2>
-<p>Locations can be obtained from <a href="https://www.csids.no/csdata/" class="external-link">csdata</a>. Valid locations (and location types) are available in <code><a href="https://www.csids.no/csdata/reference/nor_locations_names.html" class="external-link">csdata::nor_locations_names()</a></code>. Uncommon/internal use is demarcated by a line through the text.</p>
+<p>Locations can be obtained from <a href="https://www.csids.no/csdata/" class="external-link">csdata</a>. Valid locations (and
+location types) are available in
+<code><a href="https://rdrr.io/pkg/csdata/man/nor_locations_names.html" class="external-link">csdata::nor_locations_names()</a></code>. Uncommon/internal use is
+demarcated by a line through the text.</p>
 <div id="ulbfdpbcyv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ulbfdpbcyv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1609,7 +1615,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Norge-Noreg-Norway</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Norge-Noreg-Norway</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Norge_Noreg_Norway</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">norge_noreg_norway</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Norge_Noreg_Norway</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">georegion</td>
@@ -1618,7 +1624,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Nord-Norge-Davvi-Norggas</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Nord-Norge-Davvi-Norggas (landsdel)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Nord_Norge_Davvi_Norggas_landsdel</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">nord_norge_davvi_norggas_landsdel</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Nord_Norge_Davvi_Norggas_landsdel</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">county</td>
@@ -1627,7 +1633,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Agder</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Agder (fylke)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Agder_fylke</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">agder_fylke</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Agder_fylke</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">notmainlandcounty</td>
@@ -1636,7 +1642,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Utenfor fastlands-Norge (Jan Mayen)</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Utenfor fastlands-Norge (Jan Mayen) (fylke)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Utenfor_fastlands_Norge_Jan_Mayen_fylke</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">utenfor_fastlands_norge_jan_mayen_fylke</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Utenfor_fastlands_Norge_Jan_Mayen_fylke</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">missingcounty</td>
@@ -1645,7 +1651,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Ukjent fylke</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Ukjent fylke (fylke)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Ukjent_fylke</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">ukjent_fylke</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Ukjent_fylke</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">municip</td>
@@ -1654,7 +1660,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Alstahaug</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Alstahaug (kommune i Nordland-Nordlándda)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Alstahaug_kommune_i_Nordland_Nordlándda</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">alstahaug_kommune_i_nordland_nordlandda</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Alstahaug_kommune_i_Nordland_Nordlandda</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">notmainlandmunicip</td>
@@ -1663,7 +1669,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Jan Mayen</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Jan Mayen (kommune i Utenfor fastlands-Norge (Jan Mayen))</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Jan_Mayen_kommune_i_Utenfor_fastlands_Norge_Jan_Mayen</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">jan_mayen_kommune_i_utenfor_fastlands_norge_jan_mayen</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Jan_Mayen_kommune_i_Utenfor_fastlands_Norge_Jan_Mayen</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">missingmunicip</td>
@@ -1672,7 +1678,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Ukjent kommune</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Ukjent kommune (kommune i Ukjent fylke)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Ukjent_kommune_i_Ukjent_fylke</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">ukjent_kommune_i_ukjent_fylke</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Ukjent_kommune_i_Ukjent_fylke</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">wardoslo</td>
@@ -1681,7 +1687,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Alna</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Alna (bydel i Oslo-Oslove)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Alna_bydel_i_Oslo_Oslove</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">alna_bydel_i_oslo_oslove</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Alna_bydel_i_Oslo_Oslove</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">wardbergen</td>
@@ -1690,7 +1696,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Arna</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Arna (bydel i Bergen)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Arna_bydel_i_Bergen</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">arna_bydel_i_bergen</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Arna_bydel_i_Bergen</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">wardstavanger</td>
@@ -1699,7 +1705,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Eiganes og Våland</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Eiganes og Våland (bydel i Stavanger)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Eiganes_og_Våland_bydel_i_Stavanger</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">eiganes_og_valand_bydel_i_stavanger</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Eiganes_og_Valand_bydel_i_Stavanger</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">wardtrondheim</td>
@@ -1708,7 +1714,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Heimdal</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Heimdal (bydel i Trondheim)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Heimdal_bydel_i_Trondheim</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">heimdal_bydel_i_trondheim</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Heimdal_bydel_i_Trondheim</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">extrawardoslo</td>
@@ -1717,7 +1723,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Marka</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Marka (bydel i Oslo-Oslove)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Marka_bydel_i_Oslo_Oslove</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">marka_bydel_i_oslo_oslove</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Marka_bydel_i_Oslo_Oslove</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">missingwardbergen</td>
@@ -1726,7 +1732,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Ukjent bydel i Bergen</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Ukjent bydel i Bergen (bydel i Bergen)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Ukjent_bydel_i_Bergen</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">ukjent_bydel_i_bergen</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Ukjent_bydel_i_Bergen</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">missingwardoslo</td>
@@ -1735,7 +1741,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Ukjent bydel i Oslo</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Ukjent bydel i Oslo (bydel i Oslo-Oslove)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Ukjent_bydel_i_Oslo_Oslove</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">ukjent_bydel_i_oslo_oslove</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Ukjent_bydel_i_Oslo_Oslove</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">missingwardstavanger</td>
@@ -1744,7 +1750,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Ukjent bydel i Stavanger</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Ukjent bydel i Stavanger (bydel i Stavanger)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Ukjent_bydel_i_Stavanger</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">ukjent_bydel_i_stavanger</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Ukjent_bydel_i_Stavanger</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">missingwardtrondheim</td>
@@ -1753,7 +1759,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Ukjent bydel i Trondheim</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Ukjent bydel i Trondheim (bydel i Trondheim)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Ukjent_bydel_i_Trondheim</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">ukjent_bydel_i_trondheim</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Ukjent_bydel_i_Trondheim</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">baregion<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>6</sup></span>
@@ -1763,7 +1769,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Alstahaug</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Alstahaug (BA-region)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Alstahaug_BA_region</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">alstahaug_ba_region</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Alstahaug_BA_region</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">mtregion</td>
@@ -1772,7 +1778,7 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Midt-Norge</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Midt-Norge (Mattilsynet-region)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Midt_Norge_Mattilsynet_region</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">midt_norge_mattilsynet_region</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Midt_Norge_Mattilsynet_region</td>
 </tr>
 <tr>
 <td headers="granularity_geo" class="gt_row gt_left">lab</td>
@@ -1781,36 +1787,36 @@
 <td headers="location_name" class="gt_row gt_left" style="text-decoration: line-through;">Akershus Universitetssykehus</td>
 <td headers="location_name_description_nb" class="gt_row gt_left">Akershus Universitetssykehus (lab)</td>
 <td headers="location_name_file_nb_utf" class="gt_row gt_left">Akershus_Universitetssykehus_lab</td>
-<td headers="location_name_file_nb_ascii" class="gt_row gt_left">akershus_universitetssykehus_lab</td>
+<td headers="location_name_file_nb_ascii" class="gt_row gt_left">Akershus_Universitetssykehus_lab</td>
 </tr>
 </tbody>
-<tfoot class="gt_footnotes">
-<tr>
+<tfoot>
+<tr class="gt_footnotes">
 <td class="gt_footnote" colspan="7">
 <span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <span class="gt_from_md"><strong>location_code</strong>: Used a) <strong>inside datasets</strong> and b) in data <strong>file names</strong> for transfer of data/results between analytic systems. All values are unique.</span>
 </td>
     </tr>
-<tr>
+<tr class="gt_footnotes">
 <td class="gt_footnote" colspan="7">
 <span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> <span class="gt_from_md"><strong>location_name</strong>: Used (rarely) <strong>inside results</strong> (figures, tables, documents). Can be confusing as some names are duplicated. Its rare usage is demarcated by a line through the text.</span>
 </td>
     </tr>
-<tr>
+<tr class="gt_footnotes">
 <td class="gt_footnote" colspan="7">
 <span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span> <span class="gt_from_md"><strong>location_name_description_nb</strong>: Used (frequently) <strong>inside results</strong> (figures, tables, documents). All values are unique.</span>
 </td>
     </tr>
-<tr>
+<tr class="gt_footnotes">
 <td class="gt_footnote" colspan="7">
 <span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>4</sup></span> <span class="gt_from_md"><strong>location_name_file_nb_utf</strong>: Used (frequently) in the <strong>file names</strong> for results (figures, tables, documents). All values are unique.</span>
 </td>
     </tr>
-<tr>
+<tr class="gt_footnotes">
 <td class="gt_footnote" colspan="7">
 <span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>5</sup></span> <span class="gt_from_md"><strong>location_name_file_nb_ascii</strong>: Used (rarely) in the <strong>file names</strong> for results (figures, tables, documents). Used if file systems have problems with the Norwegian letters æøå. All values are unique.</span>
 </td>
     </tr>
-<tr>
+<tr class="gt_footnotes">
 <td class="gt_footnote" colspan="7">
 <span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>6</sup></span> Bo- og arbeidsmarkedsregioner. Housing and labor market regions.</td>
     </tr>
@@ -1821,8 +1827,12 @@
 <div class="section level2">
 <h2 id="ages">Ages<a class="anchor" aria-label="anchor" href="#ages"></a>
 </h2>
-<p>Ages should be coded as characters and should always contain 3 digits. If it is an age range, the two ages are joined by an underscore (e.g. <code>005_010</code>).</p>
-<p>Use <code>085p</code> instead of <code>&gt;=085</code> or <code>85+</code>, as this will allow for an easy conversion from long to wide formatted data.</p>
+<p>Ages should be coded as characters and should always contain 3
+digits. If it is an age range, the two ages are joined by an underscore
+(e.g. <code>005_010</code>).</p>
+<p>Use <code>085p</code> instead of <code>&gt;=085</code> or
+<code>85+</code>, as this will allow for an easy conversion from long to
+wide formatted data.</p>
 <div id="bwjcfdjagf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#bwjcfdjagf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2317,7 +2327,9 @@
 </tbody>
 </table>
 </div>
-<p>This format will help your data be easily sorted, kept in the right order, and generate valid variable names if converted to wide-format.</p>
+<p>This format will help your data be easily sorted, kept in the right
+order, and generate valid variable names if converted to
+wide-format.</p>
 <p>Missing ages should be coded as “missing”.</p>
 </div>
 <div class="section level2">
@@ -2813,7 +2825,8 @@
 <div class="section level2">
 <h2 id="unified-columns">Unified columns<a class="anchor" aria-label="anchor" href="#unified-columns"></a>
 </h2>
-<p>All datasets in the csverse format csfmt_rts_data_v2 will contain these 16 columns.</p>
+<p>All datasets in the csverse format csfmt_rts_data_v2 will contain
+these 16 columns.</p>
 <p>Time conversion functions can be found in package <a href="https://www.csids.no/cstime/" class="external-link">cstime</a>.</p>
 <div id="ijbfglzvne" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ijbfglzvne table {
@@ -3377,8 +3390,10 @@
 <div class="section level3">
 <h3 id="smart-assignment">Smart assignment<a class="anchor" aria-label="anchor" href="#smart-assignment"></a>
 </h3>
-<p><code>csfmt_rts_data_v2</code> does smart assignment for time and geography.</p>
-<p>When the <strong>variables in bold</strong> are assigned using <code>:=</code>, the listed variables will be automatically imputed.</p>
+<p><code>csfmt_rts_data_v2</code> does smart assignment for time and
+geography.</p>
+<p>When the <strong>variables in bold</strong> are assigned using
+<code>:=</code>, the listed variables will be automatically imputed.</p>
 <p><strong>location_code</strong>:</p>
 <ul>
 <li>granularity_geo</li>
@@ -3431,10 +3446,14 @@
 <div class="section level2">
 <h2 id="context-specific-columns">Context-specific columns<a class="anchor" aria-label="anchor" href="#context-specific-columns"></a>
 </h2>
-<p>Variable names that are not part of the <a href="#unified-columns">unified columns</a> are called context-specific columns, and are made up of 2 mandatory (description, format) and 5 optional (time, statistics, forecast, censored/status, formatted) sections, separated by underscores.</p>
+<p>Variable names that are not part of the <a href="#unified-columns">unified columns</a> are called context-specific
+columns, and are made up of 2 mandatory (description, format) and 5
+optional (time, statistics, forecast, censored/status, formatted)
+sections, separated by underscores.</p>
 <p>The format is as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="at">description[_time][_statistics]_format[_forecast][_censored/status][_formatted]</span></span></code></pre></div>
-<p>Where <code>[blah]</code> indicates an optional argument. It is rare that all of the optional arguments will be used at the same time.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="at">description[_time][_statistics]_format[_forecast][_censored/status][_formatted]</span></span></code></pre></div>
+<p>Where <code>[blah]</code> indicates an optional argument. It is rare
+that all of the optional arguments will be used at the same time.</p>
 <div id="gslqeqmfaa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#gslqeqmfaa table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -4035,72 +4054,131 @@
 <div class="section level3">
 <h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h3>
-<p>In the below examples, the description, time, statistics, format, and censor/status sections are separated by /.</p>
+<p>In the below examples, the description, time, statistics, format, and
+censor/status sections are separated by /.</p>
 <p>An example relating to death and nowcasting:</p>
 <ul>
 <li>
-<strong>deaths_registered/_n</strong>: Number of registered deaths.</li>
+<strong>deaths_registered/_n</strong>: Number of registered
+deaths.</li>
 <li>
-<strong>deaths_nowcasted/_n</strong>: Number of registered deaths, corrected for registration delay (nowcasting).</li>
+<strong>deaths_nowcasted/_n</strong>: Number of registered deaths,
+corrected for registration delay (nowcasting).</li>
 <li>
-<strong>deaths_nowcasted/_n_forecast</strong>: Has ‘deaths_nowcasted_n’ been forecasted (i.e. nowcasted)?</li>
+<strong>deaths_nowcasted/_n_forecast</strong>: Has
+‘deaths_nowcasted_n’ been forecasted (i.e. nowcasted)?</li>
 <li>
-<strong>deaths_nowcasted/_n/_censored</strong>: Has ‘deaths_nowcasted_n’ been censored?</li>
+<strong>deaths_nowcasted/_n/_censored</strong>: Has
+‘deaths_nowcasted_n’ been censored?</li>
 <li>
-<strong>deaths_nowcasted/_n/_status</strong>: Status of ‘deaths_nowcasted_n’ in relation to ’deaths_nowcasted_baseline_credintervalobs_q*_n’.</li>
+<strong>deaths_nowcasted/_n/_status</strong>: Status of
+‘deaths_nowcasted_n’ in relation to
+’deaths_nowcasted_baseline_credintervalobs_q*_n’.</li>
 <li>
-<strong>deaths_nowcasted/_credintervalobs_q02x5/_n</strong>: The 2.5th quantile of where we expect the real number of registered deaths (Bayesian).</li>
+<strong>deaths_nowcasted/_credintervalobs_q02x5/_n</strong>: The
+2.5th quantile of where we expect the real number of registered deaths
+(Bayesian).</li>
 <li>
-<strong>deaths_nowcasted_baseline/_predinterval_q02x5/_n</strong>: The 2.5th quantile of an expected new observation of nowcasted deaths (frequentist).</li>
+<strong>deaths_nowcasted_baseline/_predinterval_q02x5/_n</strong>:
+The 2.5th quantile of an expected new observation of nowcasted deaths
+(frequentist).</li>
 <li>
-<strong>deaths_nowcasted_baseline/_predinterval_q97x5/_n</strong>: The 97.5th quantile of an expected new observation of nowcasted deaths (frequentist).</li>
+<strong>deaths_nowcasted_baseline/_predinterval_q97x5/_n</strong>:
+The 97.5th quantile of an expected new observation of nowcasted deaths
+(frequentist).</li>
 <li>
-<strong>deaths_nowcasted_baseline/_credintervalobs_q02x5/_n</strong>: The 2.5th quantile of where we expect an observation of nowcasted deaths (Bayesian).</li>
+<strong>deaths_nowcasted_baseline/_credintervalobs_q02x5/_n</strong>:
+The 2.5th quantile of where we expect an observation of nowcasted deaths
+(Bayesian).</li>
 <li>
-<strong>deaths_nowcasted_baseline/_credintervalmean_q02x5/_n</strong>: The 2.5th quantile of the mean of nowcasted deaths (Bayesian).</li>
+<strong>deaths_nowcasted_baseline/_credintervalmean_q02x5/_n</strong>:
+The 2.5th quantile of the mean of nowcasted deaths (Bayesian).</li>
 </ul>
 <p>An example relating to number of covid-19 cases:</p>
 <ul>
 <li>
-<strong>covid19_cases_regdate/_n</strong>: Number of covid-19 cases by registration date.</li>
+<strong>covid19_cases_regdate/_n</strong>: Number of covid-19 cases
+by registration date.</li>
 <li>
-<strong>covid19_cases_testdate/_n</strong>: Number of covid-19 cases by testing date.</li>
+<strong>covid19_cases_testdate/_n</strong>: Number of covid-19 cases
+by testing date.</li>
 <li>
-<strong>covid19_cases_testdate/_sum0_13/_n</strong>: The sum of 14 days of cases. When granularity_time==‘date’, date==‘2022-01-20’, and the current date is ‘2022-02-07’, the value is the sum of covid19_cases_testdate_n between ‘2022-01-07’ and ‘2022-01-20’. When granularity_time==‘isoyearweek’, isoyearweek==‘2022-03’, and the current date is ‘2022-02-07’ (Monday in isoyearweek ‘2022-06’) the value is the sum of covid19_cases_testdate_n between ‘2022-01-10’ (Monday in isoyearweek ‘2022-02’) and ‘2022-01-23’ (Sunday in isoyearweek ‘2022-03’). When granularity_time==‘isoyearweek’, isoyearweek==‘2022-06’, and the current date is ‘2022-02-07’ (Monday in isoyearweek ‘2022-06’), the value is the sum of covid19_cases_testdate_n between the last day with available data and 13 days prior. When granularity_time==‘event_covid19_norway_2020_02_21_to_9999_09_09’, the value is the sum of covid19_cases_testdate_n between the last day with available data and 13 days prior.</li>
+<strong>covid19_cases_testdate/_sum0_13/_n</strong>: The sum of 14
+days of cases. When granularity_time==‘date’, date==‘2022-01-20’, and
+the current date is ‘2022-02-07’, the value is the sum of
+covid19_cases_testdate_n between ‘2022-01-07’ and ‘2022-01-20’. When
+granularity_time==‘isoyearweek’, isoyearweek==‘2022-03’, and the current
+date is ‘2022-02-07’ (Monday in isoyearweek ‘2022-06’) the value is the
+sum of covid19_cases_testdate_n between ‘2022-01-10’ (Monday in
+isoyearweek ‘2022-02’) and ‘2022-01-23’ (Sunday in isoyearweek
+‘2022-03’). When granularity_time==‘isoyearweek’,
+isoyearweek==‘2022-06’, and the current date is ‘2022-02-07’ (Monday in
+isoyearweek ‘2022-06’), the value is the sum of covid19_cases_testdate_n
+between the last day with available data and 13 days prior. When
+granularity_time==‘event_covid19_norway_2020_02_21_to_9999_09_09’, the
+value is the sum of covid19_cases_testdate_n between the last day with
+available data and 13 days prior.</li>
 <li>
-<strong>covid19_cases_testdate/_sum0_999999/_n</strong>: The sum of all recorded days of cases.</li>
+<strong>covid19_cases_testdate/_sum0_999999/_n</strong>: The sum of
+all recorded days of cases.</li>
 <li>
-<strong>covid19_cases_testdate/_sum0_13/_n</strong>: Expected number of nowcasted deaths (i.e. baseline).</li>
+<strong>covid19_cases_testdate/_sum0_13/_n</strong>: Expected number
+of nowcasted deaths (i.e. baseline).</li>
 <li>
-<strong>deaths_nowcasted_baseline/_predinterval_q02x5/_n</strong>: The 2.5th quantile of an expected new observation of nowcasted deaths (frequentist).</li>
+<strong>deaths_nowcasted_baseline/_predinterval_q02x5/_n</strong>:
+The 2.5th quantile of an expected new observation of nowcasted deaths
+(frequentist).</li>
 <li>
-<strong>deaths_nowcasted_baseline/_predinterval_q97x5/_n</strong>: The 97.5th quantile of an expected new observation of nowcasted deaths (frequentist).</li>
+<strong>deaths_nowcasted_baseline/_predinterval_q97x5/_n</strong>:
+The 97.5th quantile of an expected new observation of nowcasted deaths
+(frequentist).</li>
 <li>
-<strong>deaths_nowcasted_baseline/_credintervalobs_q02x5/_n</strong>: The 2.5th quantile of where we expect an observation of nowcasted deaths (Bayesian).</li>
+<strong>deaths_nowcasted_baseline/_credintervalobs_q02x5/_n</strong>:
+The 2.5th quantile of where we expect an observation of nowcasted deaths
+(Bayesian).</li>
 <li>
-<strong>deaths_nowcasted_baseline/_credintervalmean_q02x5/_n</strong>: The 2.5th quantile of the mean of nowcasted deaths (Bayesian).</li>
+<strong>deaths_nowcasted_baseline/_credintervalmean_q02x5/_n</strong>:
+The 2.5th quantile of the mean of nowcasted deaths (Bayesian).</li>
 </ul>
 <p>An example relating to number of covid-19 tests:</p>
 <ul>
 <li>
-<strong>covid19_testevents/_n</strong>: Number of covid-19 test events (i.e. a person getting tested within a 7 day period).</li>
+<strong>covid19_testevents/_n</strong>: Number of covid-19 test
+events (i.e. a person getting tested within a 7 day period).</li>
 <li>
-<strong>covid19_testevents_pos/_pr1</strong>: Proportion (0-1) of covid-19 test events that were positive.</li>
+<strong>covid19_testevents_pos/_pr1</strong>: Proportion (0-1) of
+covid-19 test events that were positive.</li>
 <li>
-<strong>covid19_testevents_pos/_pr100</strong>: Percentage (0-100) of covid-19 test events that were positive.</li>
+<strong>covid19_testevents_pos/_pr100</strong>: Percentage (0-100)
+of covid-19 test events that were positive.</li>
 <li>
-<strong>covid19_testevents_pos/_sum0_13/_pr100</strong>: Percentage (0-100) of covid-19 test events that were positive over the last 14 days.</li>
+<strong>covid19_testevents_pos/_sum0_13/_pr100</strong>: Percentage
+(0-100) of covid-19 test events that were positive over the last 14
+days.</li>
 <li>
-<strong>covid19_testevents_pos/_daymean0_13/_pr100</strong>: For each of the last 14 days, calculate the percentage (0-100) of covid-19 test events that were positive, and then take the mean of these 14 values.</li>
+<strong>covid19_testevents_pos/_daymean0_13/_pr100</strong>: For
+each of the last 14 days, calculate the percentage (0-100) of covid-19
+test events that were positive, and then take the mean of these 14
+values.</li>
 <li>
-<strong>covid19_testevents_pos/_isoweekmean0_13/_pr100</strong>: For each of the last 7 day periods (0-6 days, 7-13 days), calculate the percentage (0-100) of covid-19 test events that were positive, and then take the mean of these 2 values.</li>
+<strong>covid19_testevents_pos/_isoweekmean0_13/_pr100</strong>: For
+each of the last 7 day periods (0-6 days, 7-13 days), calculate the
+percentage (0-100) of covid-19 test events that were positive, and then
+take the mean of these 2 values.</li>
 </ul>
 <p>An example relating to vaccination:</p>
 <ul>
 <li>
-<strong>covid19_vax_administered_dose_1/_n</strong>: Number of people who received their first dose during this day/isoweek/event. The corresponding age is permanently fixed (a person who received their first dose when 21, will always have received their first dose when 21).</li>
+<strong>covid19_vax_administered_dose_1/_n</strong>: Number of
+people who received their first dose during this day/isoweek/event. The
+corresponding age is permanently fixed (a person who received their
+first dose when 21, will always have received their first dose when
+21).</li>
 <li>
-<strong>covid19_vax_coverage_dose_1/_n</strong>: Number of people who (on the last day of the day/isoweek/event) have received 1 dose of vaccine. The corresponding age is fixed at the last day of the day/isoweek/event.</li>
+<strong>covid19_vax_coverage_dose_1/_n</strong>: Number of people
+who (on the last day of the day/isoweek/event) have received 1 dose of
+vaccine. The corresponding age is fixed at the last day of the
+day/isoweek/event.</li>
 </ul>
 </div>
 </div>
@@ -4309,7 +4387,8 @@
 <div class="section level2">
 <h2 id="expand-time-to">Expand time to<a class="anchor" aria-label="anchor" href="#expand-time-to"></a>
 </h2>
-<p>Sometimes you need to expand the number of rows in a dataset to a future time.</p>
+<p>Sometimes you need to expand the number of rows in a dataset to a
+future time.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -4321,7 +4400,8 @@
 <div class="section level2">
 <h2 id="time-series">Time series<a class="anchor" aria-label="anchor" href="#time-series"></a>
 </h2>
-<p>We might also need to identify how many time series are in one dataset.</p>
+<p>We might also need to identify how many time series are in one
+dataset.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -4330,7 +4410,8 @@
 <div class="section level2">
 <h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h2>
-<p>We need a way to easily summarize the data structure of a dataset.</p>
+<p>We need a way to easily summarize the data structure of a
+dataset.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -4424,19 +4505,25 @@
 <div class="section level2">
 <h2 id="identifying-data-structure-of-one-column">Identifying data structure of one column<a class="anchor" aria-label="anchor" href="#identifying-data-structure-of-one-column"></a>
 </h2>
-<p>We need a way to easily summarize the data structure of one column inside a dataset.</p>
+<p>We need a way to easily summarize the data structure of one column
+inside a dataset.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/identify_data_structure.html">identify_data_structure</a></span><span class="op">(</span><span class="st">"deaths_n"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="csfmt_rts_data_v2_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+<p><img src="csfmt_rts_data_v2_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="reference-location">Reference (Location)<a class="anchor" aria-label="anchor" href="#reference-location"></a>
 </h2>
-<p>Locations can be obtained from <a href="https://www.csids.no/csdata/" class="external-link">csdata</a>. Valid locations (and location types) are available in <code><a href="https://www.csids.no/csdata/reference/nor_locations_names.html" class="external-link">csdata::nor_locations_names()</a></code>.</p>
-<p>Here we list as a reference table the valid <code>location_code</code>s and <code>location_name_description_nb</code>s (the two most commonly used locations).</p>
+<p>Locations can be obtained from <a href="https://www.csids.no/csdata/" class="external-link">csdata</a>. Valid locations (and
+location types) are available in
+<code><a href="https://rdrr.io/pkg/csdata/man/nor_locations_names.html" class="external-link">csdata::nor_locations_names()</a></code>.</p>
+<p>Here we list as a reference table the valid
+<code>location_code</code>s and
+<code>location_name_description_nb</code>s (the two most commonly used
+locations).</p>
 <div id="yesrejldsx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#yesrejldsx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -7982,22 +8069,29 @@
 </table>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
-    </nav></aside>
+  </div>
+
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
+      </div>
+
 </div>
 
 
 
-    <footer><div class="pkgdown-footer-left">
-  <p><a href="https://www.csids.no" class="external-link"><img src="https://www.csids.no/resources/logo/logo_full_blue.svg" width="200"></a></p>
+      <footer><div class="copyright">
+  <p></p>
+<p>Crafted by <a href="https://www.rwhite.no" class="external-link">Richard Aubrey White</a>.</p>
 </div>
 
-<div class="pkgdown-footer-right">
-  <p>Crafted by <a href="https://www.rwhite.no" class="external-link">Richard Aubrey White</a>.</p>
+<div class="pkgdown">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
-    </footer>
+      </footer>
 </div>
+
 
 
 

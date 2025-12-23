@@ -1,11 +1,11 @@
-pandoc: 2.9.2.1
-pkgdown: 2.1.3
+pandoc: 3.1.3
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   benchmarks: benchmarks.html
   csfmt_rts_data_v2: csfmt_rts_data_v2.html
   cstidy: cstidy.html
-last_built: 2025-10-29T13:35Z
+last_built: 2025-12-23T12:40Z
 urls:
-  reference: https://www.csids.no/cstidy/reference
-  article: https://www.csids.no/cstidy/articles
+  reference: https://niphr.github.io/cstidy/reference
+  article: https://niphr.github.io/cstidy/articles

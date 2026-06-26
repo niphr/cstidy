@@ -14,17 +14,22 @@
 #      and subsets.
 
 formats$csfmt_rts_data_v3 <- list()
-formats$csfmt_rts_data_v3$unified <- formats$csfmt_rts_data_v2$unified
+# Weekly-only column set: v2 minus the quarterly/monthly columns (isoquarter,
+# isoyearquarter, calyear, calmonth, calyearmonth), the vestigial `border`, and
+# `granularity_time` (always "isoyearweek" here -- the class carries that).
+formats$csfmt_rts_data_v3$unified <- formats$csfmt_rts_data_v2$unified[c(
+  "granularity_geo", "country_iso3", "location_code", "age", "sex",
+  "isoyear", "isoweek", "isoyearweek", "season", "seasonweek", "date"
+)]
 
 #' @method heal csfmt_rts_data_v3
 #' @export
 heal.csfmt_rts_data_v3 <- function(x, ...) {
-  granularity_time <- location_code <- granularity_geo <- country_iso3 <- NULL
+  location_code <- granularity_geo <- country_iso3 <- NULL
 
   # v3 is WEEKLY-ONLY: one heal path, isoyearweek -> derived time columns.
   # (Daily/monthly/etc. data stays on csfmt_rts_data_v2; coexistence by design.)
   if (!"isoyearweek" %in% names(x)) stop("csfmt_rts_data_v3 requires an isoyearweek column")
-  x[, granularity_time := "isoyearweek"]
 
   idx <- which(!is.na(x$isoyearweek))
   if (length(idx)) {

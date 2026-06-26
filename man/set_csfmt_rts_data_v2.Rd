@@ -73,6 +73,21 @@ When the \strong{variables in bold} are assigned using \verb{:=}, the listed var
 \item date
 }
 
+\strong{season}:
+\itemize{
+\item granularity_time
+\item isoyear
+\item isoweek
+\item isoyearweek
+\item isoquarter
+\item isoyearquarter
+\item seasonweek
+\item calyear
+\item calmonth
+\item calyearmonth
+\item date
+}
+
 \strong{date}:
 \itemize{
 \item granularity_time
@@ -150,6 +165,7 @@ Other csfmt_rts_data:
 \code{\link{identify_data_structure}()},
 \code{\link{remove_class_csfmt_rts_data}()},
 \code{\link{set_csfmt_rts_data_v1}()},
+\code{\link{set_csfmt_rts_data_v3}()},
 \code{\link{unique_time_series}()}
 }
 \concept{csfmt_rts_data}

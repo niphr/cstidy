@@ -28,6 +28,7 @@ Other csfmt_rts_data:
 \code{\link{identify_data_structure}()},
 \code{\link{set_csfmt_rts_data_v1}()},
 \code{\link{set_csfmt_rts_data_v2}()},
+\code{\link{set_csfmt_rts_data_v3}()},
 \code{\link{unique_time_series}()}
 }
 \concept{csfmt_rts_data}

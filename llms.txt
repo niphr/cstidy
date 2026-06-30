@@ -1,10 +1,3 @@
-# cstidy
-
-[![CRAN
-status](https://www.r-pkg.org/badges/version/cstidy)](https://cran.r-project.org/package=cstidy)
-[![CRAN
-downloads](https://cranlogs.r-pkg.org/badges/cstidy)](https://cran.r-project.org/package=cstidy)
-
 ## Overview
 
 [cstidy](https://niphr.github.io/cstidy/) contains helpful functions for

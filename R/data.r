@@ -23,6 +23,8 @@
 #'   \item{hospitalization_with_covid19_as_primary_cause_n}{Number of new hospitalizations with Covid-19 as the primary cause}
 #' }
 #' @source \url{https://github.com/folkehelseinstituttet/surveillance_data/blob/master/covid19/_DOCUMENTATION_data_covid19_hospital_by_time.txt}
+#' @examples
+#' head(cstidy::nor_covid19_icu_and_hospitalization_csfmt_rts_v1)
 "nor_covid19_icu_and_hospitalization_csfmt_rts_v1"
 
 
@@ -59,6 +61,8 @@
 #'   \item{covid19_cases_testdate_pr100000}{Number of confirmed covid19 cases per 100.000 population}
 #' }
 #' @source \url{https://github.com/folkehelseinstituttet/surveillance_data/blob/master/covid19/_DOCUMENTATION_data_covid19_msis_by_time_location.txt}
+#' @examples
+#' head(cstidy::nor_covid19_cases_by_time_location_csfmt_rts_v1)
 "nor_covid19_cases_by_time_location_csfmt_rts_v1"
 
 

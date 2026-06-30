@@ -13,17 +13,20 @@ identify_data_structure(x, col, ...)
 \method{identify_data_structure}{`tbl_Microsoft SQL Server`}(x, col, ...)
 }
 \arguments{
-\item{x}{An object}
+\item{x}{An object of type \code{\link{csfmt_rts_data_v2}}.}
 
-\item{col}{Column name to hash}
+\item{col}{Column name (character) whose data structure is summarised.}
 
-\item{...}{Arguments passed to or from other methods}
+\item{...}{Arguments passed to or from other methods.}
 }
 \value{
-csfmt_rts_data_structure_hash_v2, a summary object.
+csfmt_rts_data_structure_hash_v2, a summary object that can be plotted.
 }
 \description{
-Reduces the data structure of a column inside a dataset into something that describes
+Summarises the data structure of a single column inside a dataset. For each
+combination of granularity_time, granularity_geo, age, and sex it records
+whether the column is structurally missing, only NA, only data, or a mix of
+data and NA. The result can be passed to \code{plot()} for a visual overview.
 }
 \examples{
 cstidy::generate_test_data() \%>\%
@@ -32,11 +35,11 @@ cstidy::generate_test_data() \%>\%
   plot()
 }
 \seealso{
-Other csfmt_rts_data: 
-\code{\link{expand_time_to}()},
-\code{\link{remove_class_csfmt_rts_data}()},
-\code{\link{set_csfmt_rts_data_v1}()},
-\code{\link{set_csfmt_rts_data_v2}()},
-\code{\link{unique_time_series}()}
+Other csfmt_rts_data:
+\code{\link[=expand_time_to]{expand_time_to()}},
+\code{\link[=remove_class_csfmt_rts_data]{remove_class_csfmt_rts_data()}},
+\code{\link[=set_csfmt_rts_data_v1]{set_csfmt_rts_data_v1()}},
+\code{\link[=set_csfmt_rts_data_v2]{set_csfmt_rts_data_v2()}},
+\code{\link[=unique_time_series]{unique_time_series()}}
 }
 \concept{csfmt_rts_data}

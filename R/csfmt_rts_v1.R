@@ -238,10 +238,22 @@ formats$csfmt_rts_data_v1$unified$date <- list(
 # }
 
 #' Provides corresponding healed times (deprecated)
+#'
+#' @description
+#' Looks up the time columns (such as isoyear, isoweek, season, and date) that
+#' correspond to a vector of dates, isoyearweeks, or isoyears, returning them as
+#' a data.table restricted to the requested columns.
+#'
 #' @param x A vector containing either dates, isoyearweek, or isoyear.
 #' @param cols Columns to restrict the output to.
 #' @param granularity_time date, isoyearweek, or isoyear, depending on the values contained in x.
 #' @returns data.table, a dataset with time columns corresponding to the values given in x.
+#' @examples
+#' cstidy::heal_time_csfmt_rts_data_v1(
+#'   as.Date(c("2022-01-01", "2022-06-15")),
+#'   cols = c("isoyear", "isoyearweek", "date"),
+#'   granularity_time = "date"
+#' )
 #' @export
 heal_time_csfmt_rts_data_v1 <- function(x, cols, granularity_time = "date"){
   ..columns <- NULL

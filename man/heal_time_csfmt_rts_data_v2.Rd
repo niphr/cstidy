@@ -7,15 +7,24 @@
 heal_time_csfmt_rts_data_v2(x, cols, granularity_time = "date")
 }
 \arguments{
-\item{x}{A vector containing either dates, isoyearweek, or isoyear.}
+\item{x}{A vector containing dates, isoyearweek, season, or isoyear.}
 
 \item{cols}{Columns to restrict the output to.}
 
-\item{granularity_time}{date, isoyearweek, or isoyear, depending on the values contained in x.}
+\item{granularity_time}{One of "date", "isoyearweek", "season", or "isoyear", matching the values contained in x.}
 }
 \value{
 data.table, a dataset with time columns corresponding to the values given in x.
 }
 \description{
-Provides corresponding healed times
+Looks up the time columns (such as isoyear, isoweek, isoquarter, season, and
+date) that correspond to a vector of dates, isoyearweeks, seasons, or
+isoyears, returning them as a data.table restricted to the requested columns.
+}
+\examples{
+cstidy::heal_time_csfmt_rts_data_v2(
+  c("2022-01", "2022-02"),
+  cols = c("isoyear", "isoweek", "season", "date"),
+  granularity_time = "isoyearweek"
+)
 }

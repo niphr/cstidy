@@ -15,11 +15,11 @@ expand_time_to(
 \arguments{
 \item{x}{An object of type \code{\link{csfmt_rts_data_v2}}}
 
-\item{max_isoyear}{Maximum isoyear}
+\item{max_isoyear}{Maximum isoyear to expand each isoyear time series up to.}
 
-\item{max_isoyearweek}{Maximum isoyearweek}
+\item{max_isoyearweek}{Maximum isoyearweek to expand each isoyearweek time series up to.}
 
-\item{max_date}{Maximum date}
+\item{max_date}{Maximum date to expand each daily time series up to.}
 
 \item{...}{Not used.}
 }
@@ -42,12 +42,17 @@ A time series is defined as a unique combination of:
 \item *_tag
 }
 }
+\examples{
+x <- cstidy::generate_test_data() \%>\%
+  cstidy::set_csfmt_rts_data_v2()
+cstidy::expand_time_to(x, max_isoyearweek = "2022-10")
+}
 \seealso{
-Other csfmt_rts_data: 
-\code{\link{identify_data_structure}()},
-\code{\link{remove_class_csfmt_rts_data}()},
-\code{\link{set_csfmt_rts_data_v1}()},
-\code{\link{set_csfmt_rts_data_v2}()},
-\code{\link{unique_time_series}()}
+Other csfmt_rts_data:
+\code{\link[=identify_data_structure]{identify_data_structure()}},
+\code{\link[=remove_class_csfmt_rts_data]{remove_class_csfmt_rts_data()}},
+\code{\link[=set_csfmt_rts_data_v1]{set_csfmt_rts_data_v1()}},
+\code{\link[=set_csfmt_rts_data_v2]{set_csfmt_rts_data_v2()}},
+\code{\link[=unique_time_series]{unique_time_series()}}
 }
 \concept{csfmt_rts_data}

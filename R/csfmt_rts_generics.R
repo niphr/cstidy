@@ -2,18 +2,21 @@
 #' Hash the data structure of a dataset for a given column
 #'
 #' @description
-#' Reduces the data structure of a column inside a dataset into something that describes
+#' Summarises the data structure of a single column inside a dataset. For each
+#' combination of granularity_time, granularity_geo, age, and sex it records
+#' whether the column is structurally missing, only NA, only data, or a mix of
+#' data and NA. The result can be passed to `plot()` for a visual overview.
 #'
-#' @param x An object
-#' @param col Column name to hash
-#' @param ... Arguments passed to or from other methods
+#' @param x An object of type \code{\link{csfmt_rts_data_v2}}.
+#' @param col Column name (character) whose data structure is summarised.
+#' @param ... Arguments passed to or from other methods.
 #' @examples
 #' cstidy::generate_test_data() %>%
 #'   cstidy::set_csfmt_rts_data_v2() %>%
 #'   cstidy::identify_data_structure("deaths_n") %>%
 #'   plot()
 #' @family csfmt_rts_data
-#' @returns csfmt_rts_data_structure_hash_v2, a summary object.
+#' @returns csfmt_rts_data_structure_hash_v2, a summary object that can be plotted.
 #' @rdname identify_data_structure
 #' @export
 identify_data_structure <- function(x, col, ...) {
@@ -41,6 +44,10 @@ identify_data_structure <- function(x, col, ...) {
 #' @param set_time_series_id If TRUE, then `x` will have a new column called 'time_series_id'
 #' @param ... Not used.
 #' @returns data.table, a dataset that lists all the unique time series in x.
+#' @examples
+#' x <- cstidy::generate_test_data() %>%
+#'   cstidy::set_csfmt_rts_data_v2()
+#' cstidy::unique_time_series(x)
 #' @family csfmt_rts_data
 #' @export
 unique_time_series <- function(x, set_time_series_id = FALSE, ...) {
@@ -64,11 +71,15 @@ unique_time_series <- function(x, set_time_series_id = FALSE, ...) {
 #' - *_tag
 #'
 #' @param x An object of type \code{\link{csfmt_rts_data_v2}}
-#' @param max_isoyear Maximum isoyear
-#' @param max_isoyearweek Maximum isoyearweek
-#' @param max_date Maximum date
+#' @param max_isoyear Maximum isoyear to expand each isoyear time series up to.
+#' @param max_isoyearweek Maximum isoyearweek to expand each isoyearweek time series up to.
+#' @param max_date Maximum date to expand each daily time series up to.
 #' @param ... Not used.
 #' @returns csfmt_rts_data_v2, a larger dataset that includes more rows corresponding to more time.
+#' @examples
+#' x <- cstidy::generate_test_data() %>%
+#'   cstidy::set_csfmt_rts_data_v2()
+#' cstidy::expand_time_to(x, max_isoyearweek = "2022-10")
 #' @family csfmt_rts_data
 #' @export
 expand_time_to <- function(x, max_isoyear = NULL, max_isoyearweek = NULL, max_date = NULL, ...) {

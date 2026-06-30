@@ -35,4 +35,7 @@ nor_covid19_icu_and_hospitalization_csfmt_rts_v1
 \description{
 This data was extracted on 2022-05-04.
 }
+\examples{
+head(cstidy::nor_covid19_icu_and_hospitalization_csfmt_rts_v1)
+}
 \keyword{datasets}

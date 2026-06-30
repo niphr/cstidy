@@ -4,8 +4,8 @@
 
 This document presents the data format `csfmt_rts_data_v2`.
 
-`csfmt_rts_data_v2` is the data format that the CSIDS team recommends
-using for the real-time surveillance of infectious diseases.
+`csfmt_rts_data_v2` is the data format that the Core Surveillance team
+recommends using for the real-time surveillance of infectious diseases.
 
 ## Style
 
@@ -51,7 +51,7 @@ a filename could be called `2020_oslo_05-10_male.xlsx`
 ## Time
 
 Time functions can be obtained from
-[cstime](https://www.csids.no/cstime/). Missing time data should be
+[cstime](https://niphr.github.io/cstime/). Missing time data should be
 coded as `NA`. Uncommon/internal use is demarcated by a line through the
 text.
 
@@ -76,8 +76,9 @@ The following are approved events:
 
 ## Location
 
-Locations can be obtained from [csdata](https://www.csids.no/csdata/).
-Valid locations (and location types) are available in
+Locations can be obtained from
+[csdata](https://niphr.github.io/csdata/). Valid locations (and location
+types) are available in
 [`csdata::nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.html).
 Uncommon/internal use is demarcated by a line through the text.
 
@@ -127,7 +128,7 @@ All datasets in the csverse format csfmt_rts_data_v2 will contain these
 16 columns.
 
 Time conversion functions can be found in package
-[cstime](https://www.csids.no/cstime/).
+[cstime](https://niphr.github.io/cstime/).
 
 | Unified columns (18) in the csverse format csfmt_rts_data_v2 |                                                                                                                                                                                                                                                                                                                              |                                                                                                                                                                                                                                 |
 |--------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -687,8 +688,9 @@ cstidy::generate_test_data() %>%
 
 ## Reference (Location)
 
-Locations can be obtained from [csdata](https://www.csids.no/csdata/).
-Valid locations (and location types) are available in
+Locations can be obtained from
+[csdata](https://niphr.github.io/csdata/). Valid locations (and location
+types) are available in
 [`csdata::nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.html).
 
 Here we list as a reference table the valid `location_code`s and

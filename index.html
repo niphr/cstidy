@@ -89,12 +89,51 @@
 </div>
 
 <div class="cs-home">
-  <main id="main" class="cs-home-main"><div class="section level2">
+  <main id="main" class="cs-home-main"><p class="cs-section">
+Features
+</p>
+<div class="cs-cards">
+<div class="cs-card">
+<div class="cs-card-num">
+01
+</div>
+<h3>
+Standard data format
+</h3>
+<p>
+Apply <code><a href="reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2()</a></code> to stamp a dataset with the 18-column panel format used across Core Surveillance real-time pipelines.
+</p>
+</div>
+<div class="cs-card">
+<div class="cs-card-num">
+02
+</div>
+<h3>
+Smart assignment
+</h3>
+<p>
+Assigning <code>isoyear</code>, <code>isoyearweek</code>, <code>date</code>, or <code>location_code</code> with <code>:=</code> automatically fills all dependent time and geography columns.
+</p>
+</div>
+<div class="cs-card">
+<div class="cs-card-num">
+03
+</div>
+<h3>
+Panel inspection
+</h3>
+<p>
+Check completeness with <code><a href="reference/unique_time_series.html">unique_time_series()</a></code>, extend to a future time point with <code><a href="reference/expand_time_to.html">expand_time_to()</a></code>, and plot column structure with <code><a href="reference/identify_data_structure.html">identify_data_structure()</a></code>.
+</p>
+</div>
+</div>
+<div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p><a href="https://niphr.github.io/cstidy/">cstidy</a> contains helpful functions for the cleaning and manipulation of surveillance data, especially with regards to the creation and validation of panel data from individual level surveillance data.</p>
 <p>Read the introduction vignette <a href="https://niphr.github.io/cstidy/articles/cstidy.html">here</a> or run <code><a href="https://niphr.github.io/cstidy/reference">help(package="cstidy")</a></code>.</p>
 </div>
+
   </main><aside class="cs-home-aside"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
@@ -143,7 +182,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p>Crafted by <a href="https://www.rwhite.no" class="external-link">Richard Aubrey White</a>.
-<nav class="cs-family" aria-label="cs* family"><span class="cs-family-label">cs* family</span> <a href="https://niphr.github.io/cs9/" class="external-link">cs9</a> <a href="https://niphr.github.io/csalert/" class="external-link">csalert</a> <a href="https://niphr.github.io/csdata/" class="external-link">csdata</a> <a href="https://niphr.github.io/csdb/" class="external-link">csdb</a> <a href="https://niphr.github.io/csmaps/" class="external-link">csmaps</a> <a href="https://niphr.github.io/csstyle/" class="external-link">csstyle</a> <a href="https://niphr.github.io/cstidy/">cstidy</a> <a href="https://niphr.github.io/cstime/" class="external-link">cstime</a> <a href="https://niphr.github.io/csutil/" class="external-link">csutil</a>
+<nav class="cs-family" aria-label="cs* family"><a class="external-link cs-family-label" href="https://niphr.github.io/">cs* family ↗</a> <a href="https://niphr.github.io/cs9/" class="external-link">cs9</a> <a href="https://niphr.github.io/csalert/" class="external-link">csalert</a> <a href="https://niphr.github.io/csdata/" class="external-link">csdata</a> <a href="https://niphr.github.io/csdb/" class="external-link">csdb</a> <a href="https://niphr.github.io/csmaps/" class="external-link">csmaps</a> <a href="https://niphr.github.io/csstyle/" class="external-link">csstyle</a> <a href="https://niphr.github.io/cstidy/">cstidy</a> <a href="https://niphr.github.io/cstime/" class="external-link">cstime</a> <a href="https://niphr.github.io/csutil/" class="external-link">csutil</a>
 </nav></p>
 </div>
 

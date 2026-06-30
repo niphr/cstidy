@@ -17,6 +17,39 @@ template:
           text: "Browse the reference →"
           href: "reference/index.html"
 
+reference:
+  - title: "Format — set and remove the csfmt_rts_data class"
+    desc: >
+      Convert a data.table to a versioned csfmt_rts_data object, or strip the
+      class back off.
+    contents:
+      - set_csfmt_rts_data_v1
+      - set_csfmt_rts_data_v2
+      - remove_class_csfmt_rts_data
+
+  - title: "Time-series helpers"
+    desc: >
+      Expand, heal, and deduplicate time series within a csfmt_rts_data object.
+    contents:
+      - expand_time_to
+      - heal_time_csfmt_rts_data_v1
+      - heal_time_csfmt_rts_data_v2
+      - unique_time_series
+
+  - title: "Inspect and diagnose"
+    desc: >
+      Summarise or fingerprint the structure of a dataset.
+    contents:
+      - identify_data_structure
+
+  - title: "Example datasets"
+    desc: >
+      Bundled real-world and synthetic datasets for examples and testing.
+    contents:
+      - nor_covid19_cases_by_time_location_csfmt_rts_v1
+      - nor_covid19_icu_and_hospitalization_csfmt_rts_v1
+      - generate_test_data
+
 authors:
   footer:
     roles: [cre, aut]

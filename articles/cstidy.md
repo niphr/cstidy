@@ -2,9 +2,10 @@
 
 ## csfmt_rts_data_v2
 
-csfmt_rts_data_v2
+`csfmt_rts_data_v2`
 ([`vignette("csfmt_rts_data_v2", package = "cstidy")`](https://niphr.github.io/cstidy/articles/csfmt_rts_data_v2.md))
-is a data format for real-time surveillance.
+is the Core Surveillance data format for real-time surveillance of
+infectious diseases.
 
 ``` r
 d <- cstidy::generate_test_data()
@@ -163,10 +164,9 @@ d[]
 
 ### Smart assignment
 
-`csfmt_rts_data_v2` does smart assignment for time and geography.
-
-When the **variables in bold** are assigned using `:=`, the listed
-variables will be automatically imputed.
+`csfmt_rts_data_v2` supports smart assignment for time and geography.
+When the **bold** variables below are set with `:=`, the associated
+variables are automatically derived.
 
 **location_code**:
 
@@ -390,7 +390,8 @@ d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby=.(granularity_ti
 
 ### Summary
 
-We need a way to easily summarize the data structure of a dataset.
+[`summary()`](https://rdrr.io/r/base/summary.html) gives a concise
+overview of the data structure.
 
 ``` r
 cstidy::generate_test_data() %>%
@@ -483,10 +484,10 @@ cstidy::generate_test_data() %>%
 #> deaths_n (integer)
 ```
 
-### Identifying data structure of one column
+### Identifying the data structure of one column
 
-We need a way to easily summarize the data structure of one column
-inside a dataset.
+[`cstidy::identify_data_structure()`](https://niphr.github.io/cstidy/reference/identify_data_structure.md)
+inspects a single column and returns a plottable object.
 
 ``` r
 cstidy::generate_test_data() %>%

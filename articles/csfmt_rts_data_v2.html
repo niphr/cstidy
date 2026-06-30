@@ -88,39 +88,33 @@
 <div class="section level2">
 <h2 id="csfmt_rts_data_v2">csfmt_rts_data_v2<a class="anchor" aria-label="anchor" href="#csfmt_rts_data_v2"></a>
 </h2>
-<p>This document presents the data format
-<code>csfmt_rts_data_v2</code>.</p>
-<p><code>csfmt_rts_data_v2</code> is the data format that the Core
-Surveillance team recommends using for the real-time surveillance of
-infectious diseases.</p>
+<p>This document describes the <code>csfmt_rts_data_v2</code> data
+format, which the Core Surveillance team uses for real-time surveillance
+of infectious diseases.</p>
 </div>
 <div class="section level2">
 <h2 id="style">Style<a class="anchor" aria-label="anchor" href="#style"></a>
 </h2>
 <p><strong>Language</strong></p>
-<p>English is the primary language for our code.</p>
-<p>Names that are abbreviations or in Norwegian are kept as they are:
-data sources such as <code>msis</code>, <code>daar</code>,
-<code>sysvak</code>, <code>normomo</code>.</p>
+<p>English is the primary language for code. Norwegian abbreviations and
+data source names (<code>msis</code>, <code>daar</code>,
+<code>sysvak</code>, <code>normomo</code>) are kept as-is.</p>
 <p><strong>Capital letters</strong></p>
-<p>Capital letters are to be avoided whenever possible. This is also the
-case in filenames (e.g. <code>data.rds</code> is preferred to
-<code>data.RDS</code>)</p>
+<p>Avoid capital letters wherever possible, including in filenames
+(e.g. <code>data.rds</code> is preferred to <code>data.RDS</code>).</p>
 <p><strong>snake_case or camelCase?</strong></p>
 <p>Use snake_case.</p>
-<p><strong>Timestamping of file names</strong></p>
-<p>In results (e.g. reports), an indicator of time when the files are
-created are necessary. It allows us to find which one is the most recent
-version of files with the same names, and it allows easy tracking of an
-Airflow error.</p>
+<p><strong>Timestamping file names</strong></p>
+<p>Result files (e.g. reports) should include a creation timestamp in
+the filename so the most recent version is easy to identify and Airflow
+errors are easy to trace.</p>
 <p>e.g. <code>Epidemiologisk_situasjonsrapport_2021-05-31_0659.docx</code>
-for a report generated on May 31, 2021 06:59 AM.</p>
+for a report generated on 2021-05-31 at 06:59.</p>
 </div>
 <div class="section level2">
 <h2 id="ordering-of-variables">Ordering of variables<a class="anchor" aria-label="anchor" href="#ordering-of-variables"></a>
 </h2>
-<p>Sometimes variables need to be ordered. Variables should be ordered
-as follows:</p>
+<p>When variable ordering matters, use the following sequence:</p>
 <ul>
 <li>time</li>
 <li>location</li>
@@ -134,9 +128,9 @@ as follows:</p>
 <div class="section level2">
 <h2 id="time">Time<a class="anchor" aria-label="anchor" href="#time"></a>
 </h2>
-<p>Time functions can be obtained from <a href="https://niphr.github.io/cstime/" class="external-link">cstime</a>. Missing time data
-should be coded as <code>NA</code>. Uncommon/internal use is demarcated
-by a line through the text.</p>
+<p>Time conversion functions are available from <a href="https://niphr.github.io/cstime/" class="external-link">cstime</a>. Missing time values
+should be coded as <code>NA</code>. Uncommon or internal-use values are
+indicated by strikethrough text in the table.</p>
 <div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mwlefoodfi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1121,10 +1115,10 @@ by a line through the text.</p>
 <div class="section level2">
 <h2 id="location">Location<a class="anchor" aria-label="anchor" href="#location"></a>
 </h2>
-<p>Locations can be obtained from <a href="https://niphr.github.io/csdata/" class="external-link">csdata</a>. Valid locations (and
-location types) are available in
-<code><a href="https://niphr.github.io/csdata/reference/nor_locations_names.html" class="external-link">csdata::nor_locations_names()</a></code>. Uncommon/internal use is
-demarcated by a line through the text.</p>
+<p>Locations come from <a href="https://niphr.github.io/csdata/" class="external-link">csdata</a>. The full list of
+valid location codes and types is in
+<code><a href="https://niphr.github.io/csdata/reference/nor_locations_names.html" class="external-link">csdata::nor_locations_names()</a></code>. Uncommon or internal-use
+columns are indicated by strikethrough text in the table.</p>
 <div id="ulbfdpbcyv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ulbfdpbcyv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1819,12 +1813,12 @@ demarcated by a line through the text.</p>
 <div class="section level2">
 <h2 id="ages">Ages<a class="anchor" aria-label="anchor" href="#ages"></a>
 </h2>
-<p>Ages should be coded as characters and should always contain 3
-digits. If it is an age range, the two ages are joined by an underscore
+<p>Ages are stored as character strings and must always contain 3
+digits. Age ranges join the two bounds with an underscore
 (e.g. <code>005_010</code>).</p>
-<p>Use <code>085p</code> instead of <code>&gt;=085</code> or
-<code>85+</code>, as this will allow for an easy conversion from long to
-wide formatted data.</p>
+<p>Use <code>085p</code> rather than <code>&gt;=085</code> or
+<code>85+</code>; this ensures clean conversion between long and wide
+formats.</p>
 <div id="bwjcfdjagf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#bwjcfdjagf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2319,15 +2313,14 @@ wide formatted data.</p>
 </tbody>
 </table>
 </div>
-<p>This format will help your data be easily sorted, kept in the right
-order, and generate valid variable names if converted to
-wide-format.</p>
-<p>Missing ages should be coded as “missing”.</p>
+<p>This format keeps data in a consistent sort order and produces valid
+variable names when the data is pivoted to wide format.</p>
+<p>Missing ages should be coded as <code>"missing"</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="sex">Sex<a class="anchor" aria-label="anchor" href="#sex"></a>
 </h2>
-<p>Sex should be coded as characters.</p>
+<p>Sex is stored as a character string.</p>
 <div id="vsybhaaglv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#vsybhaaglv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2812,14 +2805,13 @@ wide-format.</p>
 </tbody>
 </table>
 </div>
-<p>Missing sexes should be coded as “missing”.</p>
+<p>Missing values should be coded as <code>"missing"</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="unified-columns">Unified columns<a class="anchor" aria-label="anchor" href="#unified-columns"></a>
 </h2>
-<p>All datasets in the csverse format csfmt_rts_data_v2 will contain
-these 16 columns.</p>
-<p>Time conversion functions can be found in package <a href="https://niphr.github.io/cstime/" class="external-link">cstime</a>.</p>
+<p>Every dataset in <code>csfmt_rts_data_v2</code> format contains the
+18 columns listed below. Time conversion functions are in <a href="https://niphr.github.io/cstime/" class="external-link">cstime</a>.</p>
 <div id="ijbfglzvne" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ijbfglzvne table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -3382,10 +3374,9 @@ these 16 columns.</p>
 <div class="section level3">
 <h3 id="smart-assignment">Smart assignment<a class="anchor" aria-label="anchor" href="#smart-assignment"></a>
 </h3>
-<p><code>csfmt_rts_data_v2</code> does smart assignment for time and
-geography.</p>
-<p>When the <strong>variables in bold</strong> are assigned using
-<code>:=</code>, the listed variables will be automatically imputed.</p>
+<p><code>csfmt_rts_data_v2</code> supports smart assignment for time and
+geography. When the <strong>bold</strong> variables below are set with
+<code>:=</code>, the associated columns are automatically derived.</p>
 <p><strong>location_code</strong>:</p>
 <ul>
 <li>granularity_geo</li>
@@ -3438,14 +3429,14 @@ geography.</p>
 <div class="section level2">
 <h2 id="context-specific-columns">Context-specific columns<a class="anchor" aria-label="anchor" href="#context-specific-columns"></a>
 </h2>
-<p>Variable names that are not part of the <a href="#unified-columns">unified columns</a> are called context-specific
-columns, and are made up of 2 mandatory (description, format) and 5
-optional (time, statistics, forecast, censored/status, formatted)
-sections, separated by underscores.</p>
-<p>The format is as follows:</p>
+<p>Any variable not in the <a href="#unified-columns">unified
+columns</a> is a context-specific column. Its name is built from two
+mandatory sections (description and format) and up to five optional
+sections (time, statistics, forecast, censored/status, formatted),
+joined by underscores:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="at">description[_time][_statistics]_format[_forecast][_censored/status][_formatted]</span></span></code></pre></div>
-<p>Where <code>[blah]</code> indicates an optional argument. It is rare
-that all of the optional arguments will be used at the same time.</p>
+<p>Brackets denote optional sections. In practice, most column names use
+only a subset of these.</p>
 <div id="gslqeqmfaa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#gslqeqmfaa table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -4046,9 +4037,10 @@ that all of the optional arguments will be used at the same time.</p>
 <div class="section level3">
 <h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h3>
-<p>In the below examples, the description, time, statistics, format, and
-censor/status sections are separated by /.</p>
-<p>An example relating to death and nowcasting:</p>
+<p>In the examples below, the description, time, statistics, format, and
+censor/status sections are separated by <code>/</code> for
+readability.</p>
+<p>Death and nowcasting:</p>
 <ul>
 <li>
 <strong>deaths_registered/_n</strong>: Number of registered
@@ -4086,7 +4078,7 @@ The 2.5th quantile of where we expect an observation of nowcasted deaths
 <strong>deaths_nowcasted_baseline/_credintervalmean_q02x5/_n</strong>:
 The 2.5th quantile of the mean of nowcasted deaths (Bayesian).</li>
 </ul>
-<p>An example relating to number of covid-19 cases:</p>
+<p>Covid-19 case counts:</p>
 <ul>
 <li>
 <strong>covid19_cases_regdate/_n</strong>: Number of covid-19 cases
@@ -4132,7 +4124,7 @@ The 2.5th quantile of where we expect an observation of nowcasted deaths
 <strong>deaths_nowcasted_baseline/_credintervalmean_q02x5/_n</strong>:
 The 2.5th quantile of the mean of nowcasted deaths (Bayesian).</li>
 </ul>
-<p>An example relating to number of covid-19 tests:</p>
+<p>Covid-19 test events:</p>
 <ul>
 <li>
 <strong>covid19_testevents/_n</strong>: Number of covid-19 test
@@ -4158,7 +4150,7 @@ each of the last 7 day periods (0-6 days, 7-13 days), calculate the
 percentage (0-100) of covid-19 test events that were positive, and then
 take the mean of these 2 values.</li>
 </ul>
-<p>An example relating to vaccination:</p>
+<p>Vaccination:</p>
 <ul>
 <li>
 <strong>covid19_vax_administered_dose_1/_n</strong>: Number of
@@ -4177,6 +4169,8 @@ day/isoweek/event.</li>
 <div class="section level2">
 <h2 id="in-action">In action<a class="anchor" aria-label="anchor" href="#in-action"></a>
 </h2>
+<p>The examples below show smart assignment, collapsing, and class
+removal on a small test dataset.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
@@ -4379,8 +4373,8 @@ day/isoweek/event.</li>
 <div class="section level2">
 <h2 id="expand-time-to">Expand time to<a class="anchor" aria-label="anchor" href="#expand-time-to"></a>
 </h2>
-<p>Sometimes you need to expand the number of rows in a dataset to a
-future time.</p>
+<p><code><a href="../reference/expand_time_to.html">cstidy::expand_time_to()</a></code> adds rows to extend a dataset
+up to a given future time point.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -4392,8 +4386,8 @@ future time.</p>
 <div class="section level2">
 <h2 id="time-series">Time series<a class="anchor" aria-label="anchor" href="#time-series"></a>
 </h2>
-<p>We might also need to identify how many time series are in one
-dataset.</p>
+<p><code><a href="../reference/unique_time_series.html">cstidy::unique_time_series()</a></code> counts the distinct time
+series in a dataset.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -4402,8 +4396,8 @@ dataset.</p>
 <div class="section level2">
 <h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h2>
-<p>We need a way to easily summarize the data structure of a
-dataset.</p>
+<p><code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> gives a concise overview of the data
+structure.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -4495,10 +4489,10 @@ dataset.</p>
 <span><span class="co">#&gt; deaths_n (integer)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="identifying-data-structure-of-one-column">Identifying data structure of one column<a class="anchor" aria-label="anchor" href="#identifying-data-structure-of-one-column"></a>
+<h2 id="identifying-the-data-structure-of-one-column">Identifying the data structure of one column<a class="anchor" aria-label="anchor" href="#identifying-the-data-structure-of-one-column"></a>
 </h2>
-<p>We need a way to easily summarize the data structure of one column
-inside a dataset.</p>
+<p><code><a href="../reference/identify_data_structure.html">cstidy::identify_data_structure()</a></code> inspects a single
+column and returns a plottable object.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -4509,13 +4503,10 @@ inside a dataset.</p>
 <div class="section level2">
 <h2 id="reference-location">Reference (Location)<a class="anchor" aria-label="anchor" href="#reference-location"></a>
 </h2>
-<p>Locations can be obtained from <a href="https://niphr.github.io/csdata/" class="external-link">csdata</a>. Valid locations (and
-location types) are available in
+<p>The table below lists all valid <code>location_code</code> and
+<code>location_name_description_nb</code> values — the two most commonly
+used location identifiers. The full dataset is available in
 <code><a href="https://niphr.github.io/csdata/reference/nor_locations_names.html" class="external-link">csdata::nor_locations_names()</a></code>.</p>
-<p>Here we list as a reference table the valid
-<code>location_code</code>s and
-<code>location_name_description_nb</code>s (the two most commonly used
-locations).</p>
 <div id="yesrejldsx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#yesrejldsx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';

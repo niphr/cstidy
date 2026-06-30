@@ -88,9 +88,10 @@
 <div class="section level2">
 <h2 id="csfmt_rts_data_v2">csfmt_rts_data_v2<a class="anchor" aria-label="anchor" href="#csfmt_rts_data_v2"></a>
 </h2>
-<p>csfmt_rts_data_v2
-(<code><a href="../articles/csfmt_rts_data_v2.html">vignette("csfmt_rts_data_v2", package = "cstidy")</a></code>) is a
-data format for real-time surveillance.</p>
+<p><code>csfmt_rts_data_v2</code>
+(<code><a href="../articles/csfmt_rts_data_v2.html">vignette("csfmt_rts_data_v2", package = "cstidy")</a></code>) is the
+Core Surveillance data format for real-time surveillance of infectious
+diseases.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
@@ -247,10 +248,9 @@ data format for real-time surveillance.</p>
 <div class="section level3">
 <h3 id="smart-assignment">Smart assignment<a class="anchor" aria-label="anchor" href="#smart-assignment"></a>
 </h3>
-<p><code>csfmt_rts_data_v2</code> does smart assignment for time and
-geography.</p>
-<p>When the <strong>variables in bold</strong> are assigned using
-<code>:=</code>, the listed variables will be automatically imputed.</p>
+<p><code>csfmt_rts_data_v2</code> supports smart assignment for time and
+geography. When the <strong>bold</strong> variables below are set with
+<code>:=</code>, the associated variables are automatically derived.</p>
 <p><strong>location_code</strong>:</p>
 <ul>
 <li>granularity_geo</li>
@@ -473,8 +473,8 @@ geography.</p>
 <div class="section level3">
 <h3 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h3>
-<p>We need a way to easily summarize the data structure of a
-dataset.</p>
+<p><code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> gives a concise overview of the data
+structure.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -566,10 +566,10 @@ dataset.</p>
 <span><span class="co">#&gt; deaths_n (integer)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="identifying-data-structure-of-one-column">Identifying data structure of one column<a class="anchor" aria-label="anchor" href="#identifying-data-structure-of-one-column"></a>
+<h3 id="identifying-the-data-structure-of-one-column">Identifying the data structure of one column<a class="anchor" aria-label="anchor" href="#identifying-the-data-structure-of-one-column"></a>
 </h3>
-<p>We need a way to easily summarize the data structure of one column
-inside a dataset.</p>
+<p><code><a href="../reference/identify_data_structure.html">cstidy::identify_data_structure()</a></code> inspects a single
+column and returns a plottable object.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>

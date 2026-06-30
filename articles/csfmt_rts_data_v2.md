@@ -2,43 +2,38 @@
 
 ## csfmt_rts_data_v2
 
-This document presents the data format `csfmt_rts_data_v2`.
-
-`csfmt_rts_data_v2` is the data format that the Core Surveillance team
-recommends using for the real-time surveillance of infectious diseases.
+This document describes the `csfmt_rts_data_v2` data format, which the
+Core Surveillance team uses for real-time surveillance of infectious
+diseases.
 
 ## Style
 
 **Language**
 
-English is the primary language for our code.
-
-Names that are abbreviations or in Norwegian are kept as they are: data
-sources such as `msis`, `daar`, `sysvak`, `normomo`.
+English is the primary language for code. Norwegian abbreviations and
+data source names (`msis`, `daar`, `sysvak`, `normomo`) are kept as-is.
 
 **Capital letters**
 
-Capital letters are to be avoided whenever possible. This is also the
-case in filenames (e.g. `data.rds` is preferred to `data.RDS`)
+Avoid capital letters wherever possible, including in filenames
+(e.g. `data.rds` is preferred to `data.RDS`).
 
 **snake_case or camelCase?**
 
 Use snake_case.
 
-**Timestamping of file names**
+**Timestamping file names**
 
-In results (e.g. reports), an indicator of time when the files are
-created are necessary. It allows us to find which one is the most recent
-version of files with the same names, and it allows easy tracking of an
-Airflow error.
+Result files (e.g. reports) should include a creation timestamp in the
+filename so the most recent version is easy to identify and Airflow
+errors are easy to trace.
 
 e.g. `Epidemiologisk_situasjonsrapport_2021-05-31_0659.docx` for a
-report generated on May 31, 2021 06:59 AM.
+report generated on 2021-05-31 at 06:59.
 
 ## Ordering of variables
 
-Sometimes variables need to be ordered. Variables should be ordered as
-follows:
+When variable ordering matters, use the following sequence:
 
 - time
 - location
@@ -50,10 +45,10 @@ a filename could be called `2020_oslo_05-10_male.xlsx`
 
 ## Time
 
-Time functions can be obtained from
-[cstime](https://niphr.github.io/cstime/). Missing time data should be
-coded as `NA`. Uncommon/internal use is demarcated by a line through the
-text.
+Time conversion functions are available from
+[cstime](https://niphr.github.io/cstime/). Missing time values should be
+coded as `NA`. Uncommon or internal-use values are indicated by
+strikethrough text in the table.
 
 | Valid times in the csverse format                                   |           |                       |                                                                                                              |
 |---------------------------------------------------------------------|-----------|-----------------------|--------------------------------------------------------------------------------------------------------------|
@@ -76,22 +71,21 @@ The following are approved events:
 
 ## Location
 
-Locations can be obtained from
-[csdata](https://niphr.github.io/csdata/). Valid locations (and location
-types) are available in
+Locations come from [csdata](https://niphr.github.io/csdata/). The full
+list of valid location codes and types is in
 [`csdata::nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.html).
-Uncommon/internal use is demarcated by a line through the text.
+Uncommon or internal-use columns are indicated by strikethrough text in
+the table.
 
 [TABLE]
 
 ## Ages
 
-Ages should be coded as characters and should always contain 3 digits.
-If it is an age range, the two ages are joined by an underscore
-(e.g. `005_010`).
+Ages are stored as character strings and must always contain 3 digits.
+Age ranges join the two bounds with an underscore (e.g. `005_010`).
 
-Use `085p` instead of `>=085` or `85+`, as this will allow for an easy
-conversion from long to wide formatted data.
+Use `085p` rather than `>=085` or `85+`; this ensures clean conversion
+between long and wide formats.
 
 | Valid ages in the csverse format |           |                                  |
 |----------------------------------|-----------|----------------------------------|
@@ -103,14 +97,14 @@ conversion from long to wide formatted data.
 | "missing"                        | character | Missing/unknown                  |
 | "total"                          | character | Everyone                         |
 
-This format will help your data be easily sorted, kept in the right
-order, and generate valid variable names if converted to wide-format.
+This format keeps data in a consistent sort order and produces valid
+variable names when the data is pivoted to wide format.
 
-Missing ages should be coded as “missing”.
+Missing ages should be coded as `"missing"`.
 
 ## Sex
 
-Sex should be coded as characters.
+Sex is stored as a character string.
 
 | Valid sexes in the csverse format |           |                 |
 |-----------------------------------|-----------|-----------------|
@@ -120,14 +114,12 @@ Sex should be coded as characters.
 | "missing"                         | character | Missing/unknown |
 | "total"                           | character | Everyone        |
 
-Missing sexes should be coded as “missing”.
+Missing values should be coded as `"missing"`.
 
 ## Unified columns
 
-All datasets in the csverse format csfmt_rts_data_v2 will contain these
-16 columns.
-
-Time conversion functions can be found in package
+Every dataset in `csfmt_rts_data_v2` format contains the 18 columns
+listed below. Time conversion functions are in
 [cstime](https://niphr.github.io/cstime/).
 
 | Unified columns (18) in the csverse format csfmt_rts_data_v2 |                                                                                                                                                                                                                                                                                                                              |                                                                                                                                                                                                                                 |
@@ -154,10 +146,9 @@ Time conversion functions can be found in package
 
 ### Smart assignment
 
-`csfmt_rts_data_v2` does smart assignment for time and geography.
-
-When the **variables in bold** are assigned using `:=`, the listed
-variables will be automatically imputed.
+`csfmt_rts_data_v2` supports smart assignment for time and geography.
+When the **bold** variables below are set with `:=`, the associated
+columns are automatically derived.
 
 **location_code**:
 
@@ -208,20 +199,18 @@ variables will be automatically imputed.
 
 ## Context-specific columns
 
-Variable names that are not part of the [unified
-columns](#unified-columns) are called context-specific columns, and are
-made up of 2 mandatory (description, format) and 5 optional (time,
-statistics, forecast, censored/status, formatted) sections, separated by
-underscores.
-
-The format is as follows:
+Any variable not in the [unified columns](#unified-columns) is a
+context-specific column. Its name is built from two mandatory sections
+(description and format) and up to five optional sections (time,
+statistics, forecast, censored/status, formatted), joined by
+underscores:
 
 ``` yaml
 description[_time][_statistics]_format[_forecast][_censored/status][_formatted]
 ```
 
-Where `[blah]` indicates an optional argument. It is rare that all of
-the optional arguments will be used at the same time.
+Brackets denote optional sections. In practice, most column names use
+only a subset of these.
 
 | Context-specific columns in the csverse format csfmt_rts_data_v2 |                                                                                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -257,10 +246,10 @@ the optional arguments will be used at the same time.
 
 ### Examples
 
-In the below examples, the description, time, statistics, format, and
-censor/status sections are separated by /.
+In the examples below, the description, time, statistics, format, and
+censor/status sections are separated by `/` for readability.
 
-An example relating to death and nowcasting:
+Death and nowcasting:
 
 - **deaths_registered/\_n**: Number of registered deaths.
 - **deaths_nowcasted/\_n**: Number of registered deaths, corrected for
@@ -285,7 +274,7 @@ An example relating to death and nowcasting:
 - **deaths_nowcasted_baseline/\_credintervalmean_q02x5/\_n**: The 2.5th
   quantile of the mean of nowcasted deaths (Bayesian).
 
-An example relating to number of covid-19 cases:
+Covid-19 case counts:
 
 - **covid19_cases_regdate/\_n**: Number of covid-19 cases by
   registration date.
@@ -323,7 +312,7 @@ An example relating to number of covid-19 cases:
 - **deaths_nowcasted_baseline/\_credintervalmean_q02x5/\_n**: The 2.5th
   quantile of the mean of nowcasted deaths (Bayesian).
 
-An example relating to number of covid-19 tests:
+Covid-19 test events:
 
 - **covid19_testevents/\_n**: Number of covid-19 test events (i.e. a
   person getting tested within a 7 day period).
@@ -341,7 +330,7 @@ An example relating to number of covid-19 tests:
   (0-100) of covid-19 test events that were positive, and then take the
   mean of these 2 values.
 
-An example relating to vaccination:
+Vaccination:
 
 - **covid19_vax_administered_dose_1/\_n**: Number of people who received
   their first dose during this day/isoweek/event. The corresponding age
@@ -352,6 +341,9 @@ An example relating to vaccination:
   corresponding age is fixed at the last day of the day/isoweek/event.
 
 ## In action
+
+The examples below show smart assignment, collapsing, and class removal
+on a small test dataset.
 
 ``` r
 d <- cstidy::generate_test_data()[1:5]
@@ -555,8 +547,8 @@ d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_
 
 ## Expand time to
 
-Sometimes you need to expand the number of rows in a dataset to a future
-time.
+[`cstidy::expand_time_to()`](https://niphr.github.io/cstidy/reference/expand_time_to.md)
+adds rows to extend a dataset up to a given future time point.
 
 ``` r
 cstidy::generate_test_data() %>%
@@ -569,7 +561,8 @@ cstidy::generate_test_data() %>%
 
 ## Time series
 
-We might also need to identify how many time series are in one dataset.
+[`cstidy::unique_time_series()`](https://niphr.github.io/cstidy/reference/unique_time_series.md)
+counts the distinct time series in a dataset.
 
 ``` r
 cstidy::generate_test_data() %>%
@@ -579,7 +572,8 @@ cstidy::generate_test_data() %>%
 
 ## Summary
 
-We need a way to easily summarize the data structure of a dataset.
+[`summary()`](https://rdrr.io/r/base/summary.html) gives a concise
+overview of the data structure.
 
 ``` r
 cstidy::generate_test_data() %>%
@@ -672,10 +666,10 @@ cstidy::generate_test_data() %>%
 #> deaths_n (integer)
 ```
 
-## Identifying data structure of one column
+## Identifying the data structure of one column
 
-We need a way to easily summarize the data structure of one column
-inside a dataset.
+[`cstidy::identify_data_structure()`](https://niphr.github.io/cstidy/reference/identify_data_structure.md)
+inspects a single column and returns a plottable object.
 
 ``` r
 cstidy::generate_test_data() %>%
@@ -688,13 +682,10 @@ cstidy::generate_test_data() %>%
 
 ## Reference (Location)
 
-Locations can be obtained from
-[csdata](https://niphr.github.io/csdata/). Valid locations (and location
-types) are available in
+The table below lists all valid `location_code` and
+`location_name_description_nb` values — the two most commonly used
+location identifiers. The full dataset is available in
 [`csdata::nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.html).
-
-Here we list as a reference table the valid `location_code`s and
-`location_name_description_nb`s (the two most commonly used locations).
 
 | Reference table of location_code and location_name_description_nb |                                |                                                             |
 |-------------------------------------------------------------------|--------------------------------|-------------------------------------------------------------|

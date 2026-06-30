@@ -2,6 +2,20 @@ url: https://niphr.github.io/cstidy/
 
 template:
   package: cstemplate
+  params:
+    hero:
+      overline: "R package · Tidy surveillance data"
+      title: "Clean surveillance data."
+      lede: >
+        Helpful functions for cleaning and manipulating surveillance data — especially
+        creating and validating panel data from individual-level records.
+      cta:
+        primary:
+          text: "Get started"
+          href: "articles/cstidy.html"
+        secondary:
+          text: "Browse the reference →"
+          href: "reference/index.html"
 
 authors:
   footer:

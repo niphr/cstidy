@@ -109,15 +109,15 @@ sex
 
 
 <dt id="arg-max-isoyear">max_isoyear<a class="anchor" aria-label="anchor" href="#arg-max-isoyear"></a></dt>
-<dd><p>Maximum isoyear</p></dd>
+<dd><p>Maximum isoyear to expand each isoyear time series up to.</p></dd>
 
 
 <dt id="arg-max-isoyearweek">max_isoyearweek<a class="anchor" aria-label="anchor" href="#arg-max-isoyearweek"></a></dt>
-<dd><p>Maximum isoyearweek</p></dd>
+<dd><p>Maximum isoyearweek to expand each isoyearweek time series up to.</p></dd>
 
 
 <dt id="arg-max-date">max_date<a class="anchor" aria-label="anchor" href="#arg-max-date"></a></dt>
-<dd><p>Maximum date</p></dd>
+<dd><p>Maximum date to expand each daily time series up to.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -138,6 +138,52 @@ sex
 <code><a href="unique_time_series.html">unique_time_series()</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu">expand_time_to</span><span class="op">(</span><span class="va">x</span>, max_isoyearweek <span class="op">=</span> <span class="st">"2022-10"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      granularity_time granularity_geo country_iso3 location_code border     age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;char&gt;          &lt;char&gt;       &lt;char&gt;        &lt;char&gt;  &lt;int&gt;  &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:      isoyearweek          county          nor  county_nor42     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:      isoyearweek          county          nor  county_nor42     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:      isoyearweek          county          nor  county_nor42     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:      isoyearweek          county          nor  county_nor42     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:      isoyearweek          county          nor  county_nor42     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 356:      isoyearweek          county          nor  county_nor31     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 357:      isoyearweek          county          nor  county_nor31     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 358:      isoyearweek          county          nor  county_nor31     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 359:      isoyearweek          county          nor  county_nor31     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 360:      isoyearweek          county          nor  county_nor31     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         sex isoyear isoweek isoyearweek isoquarter isoyearquarter    season</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      &lt;char&gt;   &lt;int&gt;   &lt;int&gt;      &lt;char&gt;      &lt;int&gt;         &lt;char&gt;    &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:   &lt;NA&gt;    2022       3     2022-03          1        2022-Q1 2021/2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:   &lt;NA&gt;    2022       4     2022-04          1        2022-Q1 2021/2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:   &lt;NA&gt;    2022       5     2022-05          1        2022-Q1 2021/2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:   &lt;NA&gt;    2022       6     2022-06          1        2022-Q1 2021/2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:   &lt;NA&gt;    2022       7     2022-07          1        2022-Q1 2021/2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 356:  total    2022       6     2022-06          1        2022-Q1 2021/2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 357:  total    2022       7     2022-07          1        2022-Q1 2021/2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 358:  total    2022       8     2022-08          1        2022-Q1 2021/2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 359:  total    2022       9     2022-09          1        2022-Q1 2021/2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 360:  total    2022      10     2022-10          1        2022-Q1 2021/2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      seasonweek calyear calmonth calyearmonth       date deaths_n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:         21      NA       NA         &lt;NA&gt; 2022-01-23        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:         22      NA       NA         &lt;NA&gt; 2022-01-30       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:         23      NA       NA         &lt;NA&gt; 2022-02-06       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:         24      NA       NA         &lt;NA&gt; 2022-02-13       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:         25      NA       NA         &lt;NA&gt; 2022-02-20       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 356:         24      NA       NA         &lt;NA&gt; 2022-02-13       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 357:         25      NA       NA         &lt;NA&gt; 2022-02-20       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 358:         26      NA       NA         &lt;NA&gt; 2022-02-27       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 359:         27      NA       NA         &lt;NA&gt; 2022-03-06       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 360:         28      NA       NA         &lt;NA&gt; 2022-03-13       NA</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

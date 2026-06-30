@@ -90,3 +90,9 @@ A csfmt_rts_data_v1 with 11028 rows and 18 variables:
 The raw number of cases and cases per 100.000 population are recorded.
 
 This data was extracted on 2022-05-04.
+
+## Examples
+
+``` r
+head(cstidy::nor_covid19_cases_by_time_location_csfmt_rts_v1)
+```

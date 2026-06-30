@@ -124,6 +124,111 @@ sex
 <code><a href="set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2()</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu">unique_time_series</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     granularity_time granularity_geo country_iso3 location_code border     age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;char&gt;          &lt;char&gt;       &lt;char&gt;        &lt;char&gt;  &lt;int&gt;  &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:      isoyearweek          county          nor  county_nor42     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:      isoyearweek          county          nor  county_nor32     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:      isoyearweek          county          nor  county_nor33     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:      isoyearweek          county          nor  county_nor56     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:      isoyearweek          county          nor  county_nor34     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:      isoyearweek          county          nor  county_nor15     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:      isoyearweek          county          nor  county_nor18     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:      isoyearweek          county          nor  county_nor03     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:      isoyearweek          county          nor  county_nor11     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:      isoyearweek          county          nor  county_nor40     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:      isoyearweek          county          nor  county_nor55     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:      isoyearweek          county          nor  county_nor50     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:      isoyearweek          county          nor  county_nor39     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:      isoyearweek          county          nor  county_nor46     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:      isoyearweek          county          nor  county_nor31     NA    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:      isoyearweek          county          nor  county_nor42     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:      isoyearweek          county          nor  county_nor32     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:      isoyearweek          county          nor  county_nor33     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:      isoyearweek          county          nor  county_nor56     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:      isoyearweek          county          nor  county_nor34     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:      isoyearweek          county          nor  county_nor15     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:      isoyearweek          county          nor  county_nor18     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:      isoyearweek          county          nor  county_nor03     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:      isoyearweek          county          nor  county_nor11     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:      isoyearweek          county          nor  county_nor40     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:      isoyearweek          county          nor  county_nor55     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:      isoyearweek          county          nor  county_nor50     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:      isoyearweek          county          nor  county_nor39     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:      isoyearweek          county          nor  county_nor46     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:      isoyearweek          county          nor  county_nor31     NA   total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:      isoyearweek          county          nor  county_nor42     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:      isoyearweek          county          nor  county_nor32     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:      isoyearweek          county          nor  county_nor33     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:      isoyearweek          county          nor  county_nor56     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:      isoyearweek          county          nor  county_nor34     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:      isoyearweek          county          nor  county_nor15     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:      isoyearweek          county          nor  county_nor18     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:      isoyearweek          county          nor  county_nor03     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:      isoyearweek          county          nor  county_nor11     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:      isoyearweek          county          nor  county_nor40     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:      isoyearweek          county          nor  county_nor55     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:      isoyearweek          county          nor  county_nor50     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:      isoyearweek          county          nor  county_nor39     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:      isoyearweek          county          nor  county_nor46     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:      isoyearweek          county          nor  county_nor31     NA 000_005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     granularity_time granularity_geo country_iso3 location_code border     age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;char&gt;          &lt;char&gt;       &lt;char&gt;        &lt;char&gt;  &lt;int&gt;  &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        sex time_series_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;char&gt;          &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   &lt;NA&gt;              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   &lt;NA&gt;              2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   &lt;NA&gt;              3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   &lt;NA&gt;              4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   &lt;NA&gt;              5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   &lt;NA&gt;              6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   &lt;NA&gt;              7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   &lt;NA&gt;              8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   &lt;NA&gt;              9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:   &lt;NA&gt;             10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:   &lt;NA&gt;             11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:   &lt;NA&gt;             12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:   &lt;NA&gt;             13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:   &lt;NA&gt;             14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:   &lt;NA&gt;             15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:  total             16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:  total             17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:  total             18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:  total             19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:  total             20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:  total             21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:  total             22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:  total             23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:  total             24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:  total             25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:  total             26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:  total             27</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:  total             28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:  total             29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:  total             30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:  total             31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:  total             32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:  total             33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:  total             34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:  total             35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:  total             36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:  total             37</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:  total             38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:  total             39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:  total             40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:  total             41</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:  total             42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:  total             43</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:  total             44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:  total             45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        sex time_series_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;char&gt;          &lt;int&gt;</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

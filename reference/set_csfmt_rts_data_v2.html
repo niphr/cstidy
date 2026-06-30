@@ -123,6 +123,17 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 <li><p>calmonth</p></li>
 <li><p>calyearmonth</p></li>
 <li><p>date</p></li>
+</ul><p><strong>season</strong>:</p><ul><li><p>granularity_time</p></li>
+<li><p>isoyear</p></li>
+<li><p>isoweek</p></li>
+<li><p>isoyearweek</p></li>
+<li><p>isoquarter</p></li>
+<li><p>isoyearquarter</p></li>
+<li><p>seasonweek</p></li>
+<li><p>calyear</p></li>
+<li><p>calmonth</p></li>
+<li><p>calyearmonth</p></li>
+<li><p>date</p></li>
 </ul><p><strong>date</strong>:</p><ul><li><p>granularity_time</p></li>
 <li><p>isoyear</p></li>
 <li><p>isoweek</p></li>
@@ -196,10 +207,10 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 <span class="r-out co"><span class="r-pr">#&gt;</span>    seasonweek calyear calmonth calyearmonth       date deaths_n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         21      NA       NA         &lt;NA&gt; 2022-01-23       11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
 <span class="r-in"><span><span class="va">d</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    granularity_time granularity_geo country_iso3 location_code border    age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt;          &lt;char&gt;       &lt;char&gt;        &lt;char&gt;  &lt;int&gt; &lt;char&gt;</span>
@@ -218,10 +229,10 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 <span class="r-out co"><span class="r-pr">#&gt;</span>    seasonweek calyear calmonth calyearmonth       date deaths_n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         21      NA       NA         &lt;NA&gt; 2022-01-23       11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
 <span class="r-in"><span><span class="va">d</span><span class="op">[</span><span class="fl">2</span>, <span class="va">isoyear</span> <span class="op">:=</span> <span class="fl">2019</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    granularity_time granularity_geo country_iso3 location_code border    age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt;          &lt;char&gt;       &lt;char&gt;        &lt;char&gt;  &lt;int&gt; &lt;char&gt;</span>
@@ -240,10 +251,10 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 <span class="r-out co"><span class="r-pr">#&gt;</span>    seasonweek calyear calmonth calyearmonth       date deaths_n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         21      NA       NA         &lt;NA&gt; 2022-01-23       11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
 <span class="r-in"><span><span class="va">d</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    granularity_time granularity_geo country_iso3 location_code border    age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt;          &lt;char&gt;       &lt;char&gt;        &lt;char&gt;  &lt;int&gt; &lt;char&gt;</span>
@@ -262,10 +273,10 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 <span class="r-out co"><span class="r-pr">#&gt;</span>    seasonweek calyear calmonth calyearmonth       date deaths_n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         21      NA       NA         &lt;NA&gt; 2022-01-23       11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
 <span class="r-in"><span><span class="va">d</span><span class="op">[</span><span class="fl">3</span>, <span class="va">date</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    granularity_time granularity_geo country_iso3 location_code border    age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt;          &lt;char&gt;       &lt;char&gt;        &lt;char&gt;  &lt;int&gt; &lt;char&gt;</span>
@@ -284,10 +295,10 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 <span class="r-out co"><span class="r-pr">#&gt;</span>    seasonweek calyear calmonth calyearmonth       date deaths_n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         19    2020        1     2020-M01 2020-01-01       11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         19    2020        1     2020-M01 2020-01-01        5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
 <span class="r-in"><span><span class="va">d</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    granularity_time granularity_geo country_iso3 location_code border    age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt;          &lt;char&gt;       &lt;char&gt;        &lt;char&gt;  &lt;int&gt; &lt;char&gt;</span>
@@ -306,10 +317,10 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 <span class="r-out co"><span class="r-pr">#&gt;</span>    seasonweek calyear calmonth calyearmonth       date deaths_n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         19    2020        1     2020-M01 2020-01-01       11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         19    2020        1     2020-M01 2020-01-01        5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
 <span class="r-in"><span><span class="va">d</span><span class="op">[</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"isoyear"</span>, <span class="st">"isoyearweek"</span><span class="op">)</span> <span class="op">:=</span> <span class="fu">.</span><span class="op">(</span><span class="fl">2021</span>, <span class="st">"2021-01"</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Multiple time variables specified. Smart-assignment disabled.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    granularity_time granularity_geo country_iso3 location_code border    age</span>
@@ -329,10 +340,10 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 <span class="r-out co"><span class="r-pr">#&gt;</span>    seasonweek calyear calmonth calyearmonth       date deaths_n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         19    2020        1     2020-M01 2020-01-01       11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         19    2020        1     2020-M01 2020-01-01        5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
 <span class="r-in"><span><span class="va">d</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    granularity_time granularity_geo country_iso3 location_code border    age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt;          &lt;char&gt;       &lt;char&gt;        &lt;char&gt;  &lt;int&gt; &lt;char&gt;</span>
@@ -351,10 +362,10 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 <span class="r-out co"><span class="r-pr">#&gt;</span>    seasonweek calyear calmonth calyearmonth       date deaths_n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         19    2020        1     2020-M01 2020-01-01       11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         19    2020        1     2020-M01 2020-01-01        5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
 <span class="r-in"><span><span class="va">d</span><span class="op">[</span><span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"location_code"</span><span class="op">)</span> <span class="op">:=</span> <span class="fu">.</span><span class="op">(</span><span class="st">"norge"</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    granularity_time granularity_geo country_iso3 location_code border    age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt;          &lt;char&gt;       &lt;char&gt;        &lt;char&gt;  &lt;int&gt; &lt;char&gt;</span>
@@ -373,10 +384,10 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 <span class="r-out co"><span class="r-pr">#&gt;</span>    seasonweek calyear calmonth calyearmonth       date deaths_n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         19    2020        1     2020-M01 2020-01-01       11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         19    2020        1     2020-M01 2020-01-01        5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
 <span class="r-in"><span><span class="va">d</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    granularity_time granularity_geo country_iso3 location_code border    age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt;          &lt;char&gt;       &lt;char&gt;        &lt;char&gt;  &lt;int&gt; &lt;char&gt;</span>
@@ -395,10 +406,10 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 <span class="r-out co"><span class="r-pr">#&gt;</span>    seasonweek calyear calmonth calyearmonth       date deaths_n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         19    2020        1     2020-M01 2020-01-01       11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         19    2020        1     2020-M01 2020-01-01        5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Investigating the data structure of one column inside a dataset</span></span></span>
 <span class="r-in"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>

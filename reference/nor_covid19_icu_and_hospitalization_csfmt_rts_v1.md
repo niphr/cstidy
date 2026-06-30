@@ -83,3 +83,9 @@ A csfmt_rts_data_v1 with 919 rows and 18 variables:
 ## Source
 
 <https://github.com/folkehelseinstituttet/surveillance_data/blob/master/covid19/_DOCUMENTATION_data_covid19_hospital_by_time.txt>
+
+## Examples
+
+``` r
+head(cstidy::nor_covid19_icu_and_hospitalization_csfmt_rts_v1)
+```

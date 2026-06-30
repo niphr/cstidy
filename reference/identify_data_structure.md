@@ -1,7 +1,11 @@
 # Hash the data structure of a dataset for a given column
 
-Reduces the data structure of a column inside a dataset into something
-that describes
+Summarises the data structure of a single column inside a dataset. For
+each combination of granularity_time, granularity_geo, age, and sex it
+records whether the column is structurally missing, only NA, only data,
+or a mix of data and NA. The result can be passed to
+[`plot()`](https://rdrr.io/r/graphics/plot.default.html) for a visual
+overview.
 
 ## Usage
 
@@ -19,19 +23,20 @@ identify_data_structure(x, col, ...)
 
 - x:
 
-  An object
+  An object of type
+  [`csfmt_rts_data_v2`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md).
 
 - col:
 
-  Column name to hash
+  Column name (character) whose data structure is summarised.
 
 - ...:
 
-  Arguments passed to or from other methods
+  Arguments passed to or from other methods.
 
 ## Value
 
-csfmt_rts_data_structure_hash_v2, a summary object.
+csfmt_rts_data_structure_hash_v2, a summary object that can be plotted.
 
 ## See also
 

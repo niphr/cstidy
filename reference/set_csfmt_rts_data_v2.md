@@ -103,6 +103,30 @@ variables will be automatically imputed.
 
 - date
 
+**season**:
+
+- granularity_time
+
+- isoyear
+
+- isoweek
+
+- isoyearweek
+
+- isoquarter
+
+- isoyearquarter
+
+- seasonweek
+
+- calyear
+
+- calmonth
+
+- calyearmonth
+
+- date
+
 **date**:
 
 - granularity_time
@@ -205,10 +229,10 @@ d[1, isoyearweek := "2021-01"]
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
 #> 1:         19      NA       NA         <NA> 2021-01-10        7
-#> 2:         21      NA       NA         <NA> 2022-01-23        7
-#> 3:         21      NA       NA         <NA> 2022-01-23       11
-#> 4:         21      NA       NA         <NA> 2022-01-23       10
-#> 5:         21      NA       NA         <NA> 2022-01-23        4
+#> 2:         21      NA       NA         <NA> 2022-01-23        4
+#> 3:         21      NA       NA         <NA> 2022-01-23        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        4
+#> 5:         21      NA       NA         <NA> 2022-01-23        5
 d
 #>    granularity_time granularity_geo country_iso3 location_code border    age
 #>              <char>          <char>       <char>        <char>  <int> <char>
@@ -227,10 +251,10 @@ d
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
 #> 1:         19      NA       NA         <NA> 2021-01-10        7
-#> 2:         21      NA       NA         <NA> 2022-01-23        7
-#> 3:         21      NA       NA         <NA> 2022-01-23       11
-#> 4:         21      NA       NA         <NA> 2022-01-23       10
-#> 5:         21      NA       NA         <NA> 2022-01-23        4
+#> 2:         21      NA       NA         <NA> 2022-01-23        4
+#> 3:         21      NA       NA         <NA> 2022-01-23        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        4
+#> 5:         21      NA       NA         <NA> 2022-01-23        5
 d[2, isoyear := 2019]
 #>    granularity_time granularity_geo country_iso3 location_code border    age
 #>              <char>          <char>       <char>        <char>  <int> <char>
@@ -249,10 +273,10 @@ d[2, isoyear := 2019]
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
 #> 1:         19      NA       NA         <NA> 2021-01-10        7
-#> 2:         NA      NA       NA         <NA> 2019-12-29        7
-#> 3:         21      NA       NA         <NA> 2022-01-23       11
-#> 4:         21      NA       NA         <NA> 2022-01-23       10
-#> 5:         21      NA       NA         <NA> 2022-01-23        4
+#> 2:         NA      NA       NA         <NA> 2019-12-29        4
+#> 3:         21      NA       NA         <NA> 2022-01-23        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        4
+#> 5:         21      NA       NA         <NA> 2022-01-23        5
 d
 #>    granularity_time granularity_geo country_iso3 location_code border    age
 #>              <char>          <char>       <char>        <char>  <int> <char>
@@ -271,10 +295,10 @@ d
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
 #> 1:         19      NA       NA         <NA> 2021-01-10        7
-#> 2:         NA      NA       NA         <NA> 2019-12-29        7
-#> 3:         21      NA       NA         <NA> 2022-01-23       11
-#> 4:         21      NA       NA         <NA> 2022-01-23       10
-#> 5:         21      NA       NA         <NA> 2022-01-23        4
+#> 2:         NA      NA       NA         <NA> 2019-12-29        4
+#> 3:         21      NA       NA         <NA> 2022-01-23        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        4
+#> 5:         21      NA       NA         <NA> 2022-01-23        5
 d[3, date := as.Date("2020-01-01")]
 #>    granularity_time granularity_geo country_iso3 location_code border    age
 #>              <char>          <char>       <char>        <char>  <int> <char>
@@ -293,10 +317,10 @@ d[3, date := as.Date("2020-01-01")]
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
 #> 1:         19      NA       NA         <NA> 2021-01-10        7
-#> 2:         NA      NA       NA         <NA> 2019-12-29        7
-#> 3:         19    2020        1     2020-M01 2020-01-01       11
-#> 4:         21      NA       NA         <NA> 2022-01-23       10
-#> 5:         21      NA       NA         <NA> 2022-01-23        4
+#> 2:         NA      NA       NA         <NA> 2019-12-29        4
+#> 3:         19    2020        1     2020-M01 2020-01-01        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        4
+#> 5:         21      NA       NA         <NA> 2022-01-23        5
 d
 #>    granularity_time granularity_geo country_iso3 location_code border    age
 #>              <char>          <char>       <char>        <char>  <int> <char>
@@ -315,10 +339,10 @@ d
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
 #> 1:         19      NA       NA         <NA> 2021-01-10        7
-#> 2:         NA      NA       NA         <NA> 2019-12-29        7
-#> 3:         19    2020        1     2020-M01 2020-01-01       11
-#> 4:         21      NA       NA         <NA> 2022-01-23       10
-#> 5:         21      NA       NA         <NA> 2022-01-23        4
+#> 2:         NA      NA       NA         <NA> 2019-12-29        4
+#> 3:         19    2020        1     2020-M01 2020-01-01        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        4
+#> 5:         21      NA       NA         <NA> 2022-01-23        5
 d[4, c("isoyear", "isoyearweek") := .(2021, "2021-01")]
 #> Warning: Multiple time variables specified. Smart-assignment disabled.
 #>    granularity_time granularity_geo country_iso3 location_code border    age
@@ -338,10 +362,10 @@ d[4, c("isoyear", "isoyearweek") := .(2021, "2021-01")]
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
 #> 1:         19      NA       NA         <NA> 2021-01-10        7
-#> 2:         NA      NA       NA         <NA> 2019-12-29        7
-#> 3:         19    2020        1     2020-M01 2020-01-01       11
-#> 4:         21      NA       NA         <NA> 2022-01-23       10
-#> 5:         21      NA       NA         <NA> 2022-01-23        4
+#> 2:         NA      NA       NA         <NA> 2019-12-29        4
+#> 3:         19    2020        1     2020-M01 2020-01-01        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        4
+#> 5:         21      NA       NA         <NA> 2022-01-23        5
 d
 #>    granularity_time granularity_geo country_iso3 location_code border    age
 #>              <char>          <char>       <char>        <char>  <int> <char>
@@ -360,10 +384,10 @@ d
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
 #> 1:         19      NA       NA         <NA> 2021-01-10        7
-#> 2:         NA      NA       NA         <NA> 2019-12-29        7
-#> 3:         19    2020        1     2020-M01 2020-01-01       11
-#> 4:         21      NA       NA         <NA> 2022-01-23       10
-#> 5:         21      NA       NA         <NA> 2022-01-23        4
+#> 2:         NA      NA       NA         <NA> 2019-12-29        4
+#> 3:         19    2020        1     2020-M01 2020-01-01        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        4
+#> 5:         21      NA       NA         <NA> 2022-01-23        5
 d[5, c("location_code") := .("norge")]
 #>    granularity_time granularity_geo country_iso3 location_code border    age
 #>              <char>          <char>       <char>        <char>  <int> <char>
@@ -382,10 +406,10 @@ d[5, c("location_code") := .("norge")]
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
 #> 1:         19      NA       NA         <NA> 2021-01-10        7
-#> 2:         NA      NA       NA         <NA> 2019-12-29        7
-#> 3:         19    2020        1     2020-M01 2020-01-01       11
-#> 4:         21      NA       NA         <NA> 2022-01-23       10
-#> 5:         21      NA       NA         <NA> 2022-01-23        4
+#> 2:         NA      NA       NA         <NA> 2019-12-29        4
+#> 3:         19    2020        1     2020-M01 2020-01-01        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        4
+#> 5:         21      NA       NA         <NA> 2022-01-23        5
 d
 #>    granularity_time granularity_geo country_iso3 location_code border    age
 #>              <char>          <char>       <char>        <char>  <int> <char>
@@ -404,10 +428,10 @@ d
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
 #> 1:         19      NA       NA         <NA> 2021-01-10        7
-#> 2:         NA      NA       NA         <NA> 2019-12-29        7
-#> 3:         19    2020        1     2020-M01 2020-01-01       11
-#> 4:         21      NA       NA         <NA> 2022-01-23       10
-#> 5:         21      NA       NA         <NA> 2022-01-23        4
+#> 2:         NA      NA       NA         <NA> 2019-12-29        4
+#> 3:         19    2020        1     2020-M01 2020-01-01        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        4
+#> 5:         21      NA       NA         <NA> 2022-01-23        5
 
 # Investigating the data structure of one column inside a dataset
 cstidy::generate_test_data() %>%

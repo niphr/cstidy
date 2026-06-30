@@ -32,7 +32,7 @@ library(ggplot2)
 
 This document presents the data format `csfmt_rts_data_v2`.
 
-`csfmt_rts_data_v2` is the data format that the CSIDS team recommends using for the real-time surveillance of infectious diseases.
+`csfmt_rts_data_v2` is the data format that the Core Surveillance team recommends using for the real-time surveillance of infectious diseases.
 
 ## Style
 
@@ -69,7 +69,7 @@ e.g. A database table could be called `msis_by_time_location_age_sex` or a filen
 
 ## Time
 
-Time functions can be obtained from [cstime](https://www.csids.no/cstime/). Missing time data should be coded as `NA`. Uncommon/internal use is demarcated by a line through the text.
+Time functions can be obtained from [cstime](https://niphr.github.io/cstime/). Missing time data should be coded as `NA`. Uncommon/internal use is demarcated by a line through the text.
 
 ```{r echo=FALSE, results='asis'}
 d <- rbind(
@@ -157,7 +157,7 @@ gt::gt(d) %>%
 
 ## Location
 
-Locations can be obtained from [csdata](https://www.csids.no/csdata/). Valid locations (and location types) are available in `csdata::nor_locations_names()`.  Uncommon/internal use is demarcated by a line through the text.
+Locations can be obtained from [csdata](https://niphr.github.io/csdata/). Valid locations (and location types) are available in `csdata::nor_locations_names()`.  Uncommon/internal use is demarcated by a line through the text.
 
 ```{r echo=FALSE, results='asis'}
 d <- csdata::nor_locations_names()[, .(
@@ -339,7 +339,7 @@ Missing sexes should be coded as "missing".
 
 All datasets in the csverse format csfmt_rts_data_v2 will contain these 16 columns.
 
-Time conversion functions can be found in package [cstime](https://www.csids.no/cstime/).
+Time conversion functions can be found in package [cstime](https://niphr.github.io/cstime/).
 
 ```{r echo=FALSE, results='asis'}
 d <- rbind(
@@ -817,7 +817,7 @@ cstidy::generate_test_data() %>%
 
 ## Reference (Location)
 
-Locations can be obtained from [csdata](https://www.csids.no/csdata/). Valid locations (and location types) are available in `csdata::nor_locations_names()`.
+Locations can be obtained from [csdata](https://niphr.github.io/csdata/). Valid locations (and location types) are available in `csdata::nor_locations_names()`.
 
 Here we list as a reference table the valid `location_code`s and `location_name_description_nb`s (the two most commonly used locations).
 

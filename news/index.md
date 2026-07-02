@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 2026.7.1
+
+- Inclusion of `csfmt_rts_data_v3`: a slim, weekly-only clean csfmt
+  format (11 columns) with an explicit `heal` step and a content-hash
+  `time_series_id`. `isoyear`, `isoweek`, `season`, `seasonweek`,
+  `date`, `granularity_geo` and `country_iso3` are all healed from
+  `isoyearweek`. This is the format that csalert’s
+  `collapse(heal = TRUE)` targets.
+
 ## Version 2025.10.27
 
 CRAN release: 2025-10-27

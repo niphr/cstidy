@@ -16,12 +16,12 @@ Source:
 [`DESCRIPTION`](https://github.com/niphr/cstidy/blob/main/DESCRIPTION)
 
 White RA (2026). *cstidy: Helpful Functions for Cleaning Surveillance
-Data*. R package version 2025.10.27, <https://niphr.github.io/cstidy/>.
+Data*. R package version 2026.7.1, <https://niphr.github.io/cstidy/>.
 
     @Manual{,
       title = {cstidy: Helpful Functions for Cleaning Surveillance Data},
       author = {Richard Aubrey White},
       year = {2026},
-      note = {R package version 2025.10.27},
+      note = {R package version 2026.7.1},
       url = {https://niphr.github.io/cstidy/},
     }

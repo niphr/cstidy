@@ -40,6 +40,10 @@ class back off.
 - [`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
   [`csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
   : Convert data.table to csfmt_rts_data_v2
+- [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
+  [`csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
+  : Convert a data.table to csfmt_rts_data_v3 (clean csfmt; explicit
+  healing)
 - [`remove_class_csfmt_rts_data()`](https://niphr.github.io/cstidy/reference/remove_class_csfmt_rts_data.md)
   : Remove class csfmt_rts_data\_\*
 

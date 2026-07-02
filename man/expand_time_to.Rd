@@ -48,11 +48,12 @@ x <- cstidy::generate_test_data() \%>\%
 cstidy::expand_time_to(x, max_isoyearweek = "2022-10")
 }
 \seealso{
-Other csfmt_rts_data:
-\code{\link[=identify_data_structure]{identify_data_structure()}},
-\code{\link[=remove_class_csfmt_rts_data]{remove_class_csfmt_rts_data()}},
-\code{\link[=set_csfmt_rts_data_v1]{set_csfmt_rts_data_v1()}},
-\code{\link[=set_csfmt_rts_data_v2]{set_csfmt_rts_data_v2()}},
-\code{\link[=unique_time_series]{unique_time_series()}}
+Other csfmt_rts_data: 
+\code{\link{identify_data_structure}()},
+\code{\link{remove_class_csfmt_rts_data}()},
+\code{\link{set_csfmt_rts_data_v1}()},
+\code{\link{set_csfmt_rts_data_v2}()},
+\code{\link{set_csfmt_rts_data_v3}()},
+\code{\link{unique_time_series}()}
 }
 \concept{csfmt_rts_data}

@@ -38,11 +38,12 @@ x <- cstidy::generate_test_data() \%>\%
 cstidy::unique_time_series(x)
 }
 \seealso{
-Other csfmt_rts_data:
-\code{\link[=expand_time_to]{expand_time_to()}},
-\code{\link[=identify_data_structure]{identify_data_structure()}},
-\code{\link[=remove_class_csfmt_rts_data]{remove_class_csfmt_rts_data()}},
-\code{\link[=set_csfmt_rts_data_v1]{set_csfmt_rts_data_v1()}},
-\code{\link[=set_csfmt_rts_data_v2]{set_csfmt_rts_data_v2()}}
+Other csfmt_rts_data: 
+\code{\link{expand_time_to}()},
+\code{\link{identify_data_structure}()},
+\code{\link{remove_class_csfmt_rts_data}()},
+\code{\link{set_csfmt_rts_data_v1}()},
+\code{\link{set_csfmt_rts_data_v2}()},
+\code{\link{set_csfmt_rts_data_v3}()}
 }
 \concept{csfmt_rts_data}

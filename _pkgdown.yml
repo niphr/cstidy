@@ -25,6 +25,7 @@ reference:
     contents:
       - set_csfmt_rts_data_v1
       - set_csfmt_rts_data_v2
+      - set_csfmt_rts_data_v3
       - remove_class_csfmt_rts_data
 
   - title: "Time-series helpers"

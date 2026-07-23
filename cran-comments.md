@@ -21,5 +21,9 @@ package problem; it does not appear on CI.
 
 ## Downstream dependencies
 
-None currently on CRAN. `csalert` imports `cstidy` and its next release will
-require this version, but that release is not yet submitted.
+One: `csalert` (2024.6.24 on CRAN) imports `cstidy`. It uses
+`csfmt_rts_data_v1`, `set_csfmt_rts_data_v1`, `expand_time_to`,
+`unique_time_series` and `nor_covid19_icu_and_hospitalization_csfmt_rts_v1`.
+All five are unchanged in this release: everything added here is the new
+`csfmt_rts_data_v3` format, and the only diffs to the v1 code path since
+2025.10.27 are roxygen documentation. `csalert` is therefore unaffected.

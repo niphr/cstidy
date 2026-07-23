@@ -2,6 +2,21 @@
 
 ## Version 2026.7.1
 
+- **The `season` boundary now matches `cstime`.** The internal healing
+  tables put the season cut-point at isoweek 30; `cstime` puts it at
+  isoweek 35 (`cstime::isoyearweek_to_season_c("2020-34")` is
+  `2019/2020`, `"2020-35"` is `2020/2021`). The tables have been
+  regenerated, so about five weeks per year change season: `2020-30`
+  heals to `2019/2020` where it previously gave `2020/2021`. This
+  affects
+  [`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
+  and, through
+  [`heal_time_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/heal_time_csfmt_rts_data_v2.md),
+  the new
+  [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md).
+  Anyone upgrading from 2025.10.27 should expect season-grouped results
+  (seasonal baselines, by-season summaries) to shift accordingly.
+
 - Inclusion of `csfmt_rts_data_v3`: a slim, weekly-only clean csfmt
   format (11 columns) with an explicit `heal` step and a content-hash
   `time_series_id`. `isoyear`, `isoweek`, `season`, `seasonweek`,

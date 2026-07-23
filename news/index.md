@@ -17,6 +17,18 @@
   Anyone upgrading from 2025.10.27 should expect season-grouped results
   (seasonal baselines, by-season summaries) to shift accordingly.
 
+- **The version string 2025.10.27 is ambiguous about this.** The
+  regeneration landed two days after that version was submitted to CRAN,
+  and the version was not bumped at the time. So a 2025.10.27 installed
+  from CRAN uses the isoweek-30 boundary, while a 2025.10.27 installed
+  from GitHub main after 2025-10-29 uses isoweek 35, and
+  [`packageVersion()`](https://rdrr.io/r/utils/packageDescription.html)
+  cannot tell them apart. If you need to know which one you have, test
+  it rather than trust the version:
+  `cstidy::set_csfmt_rts_data_v3(data.table::data.table(isoyearweek = "2020-34", location_code = "nation_nor"))$season`
+  returns `2019/2020` under the current (isoweek 35) boundary and
+  `2020/2021` under the old one.
+
 - Inclusion of `csfmt_rts_data_v3`: a slim, weekly-only clean csfmt
   format (11 columns) with an explicit `heal` step and a content-hash
   `time_series_id`. `isoyear`, `isoweek`, `season`, `seasonweek`,

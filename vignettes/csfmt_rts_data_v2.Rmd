@@ -400,12 +400,12 @@ d <- rbind(
   data.frame(
     variable = "season",
     accepted_values = "\"YYYY/YYYY\"",
-    definition = "Seasons start in week 30 and finish in week 29."
+    definition = "Seasons start in week 35 and finish in week 34."
   ),
   data.frame(
     variable = "seasonweek",
-    accepted_values = "1, 2, ..., 23, 23.5, 24, ..., 52",
-    definition = "isoweek = 30 -> seasonweek = 1. isoweek = 52 -> seasonweek = 23. isoweek = 53 -> seasonweek = 23.5. isoweek = 1 -> seasonweek = 24. isoweek = 29 -> seasonweek = 52. This is used primarily for plotting/analysis reasons."
+    accepted_values = "1, 2, ..., 18, 18.5, 19, ..., 52",
+    definition = "isoweek = 35 -> seasonweek = 1. isoweek = 52 -> seasonweek = 18. isoweek = 53 -> seasonweek = 18.5. isoweek = 1 -> seasonweek = 19. isoweek = 34 -> seasonweek = 52. This is used primarily for plotting/analysis reasons."
   ),
   data.frame(
     variable = "calyear",

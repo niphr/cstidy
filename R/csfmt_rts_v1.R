@@ -693,7 +693,7 @@ assert_classes.csfmt_rts_data_v1 <- function(x, ...) {
 #' @section Smart assignment:
 #' \code{csfmt_rts_data_v1} contains the smart assignment feature for time and geography.
 #'
-#' When the **variables in bold** are assigned using `:=`, the listed variables will be automatically imputed.
+#' When the **variables in bold** are assigned using `:=`, the listed variables are automatically re-derived from it. This is deterministic derivation from a calendar and a geography lookup, not statistical imputation.
 #'
 #' **location_code**:
 #' - granularity_geo
@@ -755,7 +755,7 @@ assert_classes.csfmt_rts_data_v1 <- function(x, ...) {
 #'
 #' @param x The data.table to be converted to csfmt_rts_data_v1
 #' @param create_unified_columns Do you want it to create unified columns?
-#' @param heal Do you want to impute missing values on creation?
+#' @param heal Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see `cstime` and `csdata`); nothing is statistically imputed and no count is invented.
 #' @family csfmt_rts_data
 #' @returns No return value, called for side effect of replacing the current data.table with a csfmt_rts_data_v1 in place.
 #' @export

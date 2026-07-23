@@ -400,7 +400,7 @@ d <- rbind(
   data.frame(
     variable = "season",
     accepted_values = "\"YYYY/YYYY\"",
-    definition = "Seasons start in week 35 and finish in week 34."
+    definition = "Seasons start in week 35 and finish in week 34 of the following year. This is the NIPH (Folkehelseinstituttet) standard for respiratory-disease surveillance, so a whole winter season falls in one season label."
   ),
   data.frame(
     variable = "seasonweek",

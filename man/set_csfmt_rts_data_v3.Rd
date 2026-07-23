@@ -14,7 +14,7 @@ csfmt_rts_data_v3(x, create_unified_columns = TRUE, heal = TRUE)
 
 \item{create_unified_columns}{Create the unified columns?}
 
-\item{heal}{Impute missing time/geo columns on creation?}
+\item{heal}{Derive the missing time and geography columns on creation? These are deterministically looked up from \code{isoyearweek} and \code{location_code}; nothing is statistically imputed and no count is invented.}
 }
 \value{
 x, modified by reference, invisibly.

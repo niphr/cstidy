@@ -77,7 +77,7 @@ create_unified_columns.csfmt_rts_data_v3 <- function(x, ...) {
 #' \code{time_series_id}.
 #' @param x The data.table to convert (by reference).
 #' @param create_unified_columns Create the unified columns?
-#' @param heal Impute missing time/geo columns on creation?
+#' @param heal Derive the missing time and geography columns on creation? These are deterministically looked up from `isoyearweek` and `location_code`; nothing is statistically imputed and no count is invented.
 #' @returns x, modified by reference, invisibly.
 #' @family csfmt_rts_data
 #' @export

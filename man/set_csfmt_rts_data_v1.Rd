@@ -14,7 +14,7 @@ csfmt_rts_data_v1(x, create_unified_columns = TRUE, heal = TRUE)
 
 \item{create_unified_columns}{Do you want it to create unified columns?}
 
-\item{heal}{Do you want to impute missing values on creation?}
+\item{heal}{Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see \code{cstime} and \code{csdata}); nothing is statistically imputed and no count is invented.}
 }
 \value{
 An extended \code{data.table}, which has been modified by reference and returned (invisibly).
@@ -31,7 +31,7 @@ Returns a duplicated csfmt_rts_data_v1.
 
 \code{csfmt_rts_data_v1} contains the smart assignment feature for time and geography.
 
-When the \strong{variables in bold} are assigned using \verb{:=}, the listed variables will be automatically imputed.
+When the \strong{variables in bold} are assigned using \verb{:=}, the listed variables are automatically re-derived from it. This is deterministic derivation from a calendar and a geography lookup, not statistical imputation.
 
 \strong{location_code}:
 \itemize{

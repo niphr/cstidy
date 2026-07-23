@@ -79,7 +79,7 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 
 
 <dt id="arg-heal">heal<a class="anchor" aria-label="anchor" href="#arg-heal"></a></dt>
-<dd><p>Do you want to impute missing values on creation?</p></dd>
+<dd><p>Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see <code>cstime</code> and <code>csdata</code>); nothing is statistically imputed and no count is invented.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -98,7 +98,7 @@ csfmt_rts_data_v2 creates a new csfmt_rts_data_v2 (not by reference) from either
 
 
 <p><code>csfmt_rts_data_v2</code> contains the smart assignment feature for time and geography.</p>
-<p>When the <strong>variables in bold</strong> are assigned using <code>:=</code>, the listed variables will be automatically imputed.</p>
+<p>When the <strong>variables in bold</strong> are assigned using <code>:=</code>, the listed variables are automatically re-derived from it. This is deterministic derivation from a calendar and a geography lookup, not statistical imputation.</p>
 <p><strong>location_code</strong>:</p><ul><li><p>granularity_geo</p></li>
 <li><p>country_iso3</p></li>
 </ul><p><strong>isoyear</strong>:</p><ul><li><p>granularity_time</p></li>

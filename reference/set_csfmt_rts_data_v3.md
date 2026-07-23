@@ -25,7 +25,9 @@ csfmt_rts_data_v3(x, create_unified_columns = TRUE, heal = TRUE)
 
 - heal:
 
-  Impute missing time/geo columns on creation?
+  Derive the missing time and geography columns on creation? These are
+  deterministically looked up from `isoyearweek` and `location_code`;
+  nothing is statistically imputed and no count is invented.
 
 ## Value
 

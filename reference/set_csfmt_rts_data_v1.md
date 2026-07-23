@@ -24,7 +24,10 @@ csfmt_rts_data_v1(x, create_unified_columns = TRUE, heal = TRUE)
 
 - heal:
 
-  Do you want to impute missing values on creation?
+  Derive the missing time and geography columns on creation? These are
+  deterministically looked up from the time and location columns you
+  supply (see `cstime` and `csdata`); nothing is statistically imputed
+  and no count is invented.
 
 ## Value
 
@@ -42,7 +45,9 @@ Returns a duplicated csfmt_rts_data_v1.
 geography.
 
 When the **variables in bold** are assigned using `:=`, the listed
-variables will be automatically imputed.
+variables are automatically re-derived from it. This is deterministic
+derivation from a calendar and a geography lookup, not statistical
+imputation.
 
 **location_code**:
 

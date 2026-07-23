@@ -13,3 +13,6 @@ dev
 ^CRAN-SUBMISSION$
 vignettes/_PRECOMPILER.R
 ^orig$
+^\.github$
+^index\.md$
+^.*\.DS_Store$

@@ -268,14 +268,18 @@ formats$csfmt_rts_data_v2$unified$date <- list(
 #'   cols = c("isoyear", "isoweek", "season", "date"),
 #'   granularity_time = "isoyearweek"
 #' )
+#' @family time healing lookups
+#' @seealso No vignette covers this function.
+#' \code{\link{set_csfmt_rts_data_v2}()} and \code{\link{set_csfmt_rts_data_v3}()}
+#' both call it while healing.
 #' @export
-heal_time_csfmt_rts_data_v2 <- function(x, cols, granularity_time = "date"){
+heal_time_csfmt_rts_data_v2 <- function(x, cols, granularity_time = "date") {
   ..columns <- NULL
   rm("..columns")
   . <- NULL
 
   stopifnot(granularity_time %in% c("date", "season", "isoyearweek", "isoyear"))
-  if(granularity_time=="date"){
+  if (granularity_time == "date") {
     columns <- c(
       "granularity_time",
       "isoyear",
@@ -296,7 +300,7 @@ heal_time_csfmt_rts_data_v2 <- function(x, cols, granularity_time = "date"){
         ..columns
       ]
     )
-  } else if(granularity_time=="season"){
+  } else if (granularity_time == "season") {
     columns <- c(
       "granularity_time",
       "isoyear",
@@ -317,7 +321,7 @@ heal_time_csfmt_rts_data_v2 <- function(x, cols, granularity_time = "date"){
         ..columns
       ]
     )
-  } else if(granularity_time=="isoyearweek"){
+  } else if (granularity_time == "isoyearweek") {
     columns <- c(
       "granularity_time",
       "isoyear",
@@ -338,7 +342,7 @@ heal_time_csfmt_rts_data_v2 <- function(x, cols, granularity_time = "date"){
         ..columns
       ]
     )
-  } else if(granularity_time=="isoyear"){
+  } else if (granularity_time == "isoyear") {
     columns <- c(
       "granularity_time",
       "isoweek",
@@ -387,7 +391,11 @@ heal_time_csfmt_rts_data_v2 <- function(x, cols, granularity_time = "date"){
   if (length(i) == 0) {
     # no assignment
     remove_class_csfmt_rts_data(x)
-    on.exit(set_csfmt_rts_data_v2(x, create_unified_columns = FALSE, heal = FALSE))
+    on.exit(set_csfmt_rts_data_v2(
+      x,
+      create_unified_columns = FALSE,
+      heal = FALSE
+    ))
 
     y <- eval(parse(text = deparse(modified_call)), envir = parent.frame(1:2))
     set_csfmt_rts_data_v2(y, create_unified_columns = FALSE, heal = FALSE)
@@ -408,13 +416,23 @@ heal_time_csfmt_rts_data_v2 <- function(x, cols, granularity_time = "date"){
       modified_time <- TRUE
       # one date thing is modified
       # find out which type
-      time_var_modified <- stringr::str_replace_all(lhs[time_var_modified_index], "\"", "")
+      time_var_modified <- stringr::str_replace_all(
+        lhs[time_var_modified_index],
+        "\"",
+        ""
+      )
 
       if (length(lhs) == 1) {
         # only one thing on the left
         # need to turn this call into a "multiple assignment" call
-        modified_call[[i]][[2]] <- substitute(c(x, "x_modified_timevar_97531"), list(x = deparse(orig_call[[i]][[2]])))
-        modified_call[[i]][[3]] <- substitute(.(x, y), list(x = orig_call[[i]][[3]], y = time_var_modified))
+        modified_call[[i]][[2]] <- substitute(
+          c(x, "x_modified_timevar_97531"),
+          list(x = deparse(orig_call[[i]][[2]]))
+        )
+        modified_call[[i]][[3]] <- substitute(
+          .(x, y),
+          list(x = orig_call[[i]][[3]], y = time_var_modified)
+        )
       } else {
         # multiple things on the left
         # just need to add x_modified_timevar_97531 to the right most of the multiple assignments
@@ -423,17 +441,41 @@ heal_time_csfmt_rts_data_v2 <- function(x, cols, granularity_time = "date"){
       }
 
       if (time_var_modified == "isoyear") {
-        healing_options <- names(heal_time_csfmt_rts_data_v2(2020, names(x), granularity_time="isoyear"))
-        healing_function <- glue::glue('cstidy::heal_time_csfmt_rts_data_v2(isoyear, c("{paste0(healing_options, collapse="\\",\\"")}"), granularity_time=\"isoyear\")')
+        healing_options <- names(heal_time_csfmt_rts_data_v2(
+          2020,
+          names(x),
+          granularity_time = "isoyear"
+        ))
+        healing_function <- glue::glue(
+          'cstidy::heal_time_csfmt_rts_data_v2(isoyear, c("{paste0(healing_options, collapse="\\",\\"")}"), granularity_time=\"isoyear\")'
+        )
       } else if (time_var_modified == "isoyearweek") {
-        healing_options <- names(heal_time_csfmt_rts_data_v2("2020-01", names(x), granularity_time="isoyearweek"))
-        healing_function <- glue::glue('cstidy::heal_time_csfmt_rts_data_v2(isoyearweek, c("{paste0(healing_options, collapse="\\",\\"")}"), granularity_time=\"isoyearweek\")')
+        healing_options <- names(heal_time_csfmt_rts_data_v2(
+          "2020-01",
+          names(x),
+          granularity_time = "isoyearweek"
+        ))
+        healing_function <- glue::glue(
+          'cstidy::heal_time_csfmt_rts_data_v2(isoyearweek, c("{paste0(healing_options, collapse="\\",\\"")}"), granularity_time=\"isoyearweek\")'
+        )
       } else if (time_var_modified == "season") {
-        healing_options <- names(heal_time_csfmt_rts_data_v2("2020/2021", names(x), granularity_time="season"))
-        healing_function <- glue::glue('cstidy::heal_time_csfmt_rts_data_v2(season, c("{paste0(healing_options, collapse="\\",\\"")}"), granularity_time=\"season\")')
+        healing_options <- names(heal_time_csfmt_rts_data_v2(
+          "2020/2021",
+          names(x),
+          granularity_time = "season"
+        ))
+        healing_function <- glue::glue(
+          'cstidy::heal_time_csfmt_rts_data_v2(season, c("{paste0(healing_options, collapse="\\",\\"")}"), granularity_time=\"season\")'
+        )
       } else if (time_var_modified == "date") {
-        healing_options <- names(heal_time_csfmt_rts_data_v2(as.Date("2020-01-01"), names(x), granularity_time="date"))
-        healing_function <- glue::glue('cstidy::heal_time_csfmt_rts_data_v2(date, c("{paste0(healing_options, collapse="\\",\\"")}"), granularity_time=\"date\")')
+        healing_options <- names(heal_time_csfmt_rts_data_v2(
+          as.Date("2020-01-01"),
+          names(x),
+          granularity_time = "date"
+        ))
+        healing_function <- glue::glue(
+          'cstidy::heal_time_csfmt_rts_data_v2(date, c("{paste0(healing_options, collapse="\\",\\"")}"), granularity_time=\"date\")'
+        )
       } else {
         healing_options <- NULL
         healing_function <- NULL
@@ -471,13 +513,23 @@ heal_time_csfmt_rts_data_v2 <- function(x, cols, granularity_time = "date"){
       modified_geo <- TRUE
       # one date thing is modified
       # find out which type
-      geo_var_modified <- stringr::str_replace_all(lhs[geo_var_modified_index], "\"", "")
+      geo_var_modified <- stringr::str_replace_all(
+        lhs[geo_var_modified_index],
+        "\"",
+        ""
+      )
 
       if (length(lhs) == 1) {
         # only one thing on the left
         # need to turn this call into a "multiple assignment" call
-        modified_call[[i]][[2]] <- substitute(c(x, "x_modified_geovar_97531"), list(x = deparse(orig_call[[i]][[2]])))
-        modified_call[[i]][[3]] <- substitute(.(x, y), list(x = orig_call[[i]][[3]], y = geo_var_modified))
+        modified_call[[i]][[2]] <- substitute(
+          c(x, "x_modified_geovar_97531"),
+          list(x = deparse(orig_call[[i]][[2]]))
+        )
+        modified_call[[i]][[3]] <- substitute(
+          .(x, y),
+          list(x = orig_call[[i]][[3]], y = geo_var_modified)
+        )
       } else {
         # multiple things on the left
         # just need to add x_modified_geovar_97531 to the right most of the multiple assignments
@@ -516,7 +568,11 @@ heal_time_csfmt_rts_data_v2 <- function(x, cols, granularity_time = "date"){
     # print(healing_calls)
 
     remove_class_csfmt_rts_data(x)
-    on.exit(set_csfmt_rts_data_v2(x, create_unified_columns = FALSE, heal = FALSE))
+    on.exit(set_csfmt_rts_data_v2(
+      x,
+      create_unified_columns = FALSE,
+      heal = FALSE
+    ))
 
     eval(parse(text = deparse(modified_call)), envir = parent.frame(1:2))
     for (i in seq_along(healing_calls)) {
@@ -540,7 +596,7 @@ heal.csfmt_rts_data_v2 <- function(x, ...) {
   # granularity_time is a special case because it is very
   # difficult to identify_data_structure which of the time-variables
   # takes precedence over the others (without using granularity_time)
-  if(!"granularity_time" %in% names(x)){
+  if (!"granularity_time" %in% names(x)) {
     x[, granularity_time := NA_character_]
     on.exit(x[, granularity_time := NULL])
   }
@@ -548,17 +604,21 @@ heal.csfmt_rts_data_v2 <- function(x, ...) {
   # identify if there are any granularity_time=='^event'
   # if so, set date to the last date in event, and treat as
   # granularity_time=='day'
-  if("granularity_time" %in% names(x)){
+  if ("granularity_time" %in% names(x)) {
     x[, original_granularity_time_32423432 := granularity_time]
     x[
       stringr::str_detect(granularity_time, "^event"),
       c(
-        "granularity_time", "date"
+        "granularity_time",
+        "date"
       ) := .(
         "date",
         as.Date(
           stringr::str_replace_all(
-            stringr::str_extract(granularity_time,"[0-9][0-9][0-9][0-9]_[0-9][0-9]_[0-9][0-9]$"),
+            stringr::str_extract(
+              granularity_time,
+              "[0-9][0-9][0-9][0-9]_[0-9][0-9]_[0-9][0-9]$"
+            ),
             "_",
             "-"
           )
@@ -580,12 +640,14 @@ heal.csfmt_rts_data_v2 <- function(x, ...) {
     "date"
   )
   time_vars <- time_vars[time_vars %in% names(x)]
-  time_vars_to_loop_through <- time_vars[time_vars %in% c("isoyear", "isoyearweek", "season", "date")]
-  for(i in time_vars_to_loop_through){
+  time_vars_to_loop_through <- time_vars[
+    time_vars %in% c("isoyear", "isoyearweek", "season", "date")
+  ]
+  for (i in time_vars_to_loop_through) {
     other_time_vars <- time_vars[time_vars != i]
     time_var_as_granularity_geo <- i
 
-    if(length(other_time_vars)>=1){
+    if (length(other_time_vars) >= 1) {
       txt <- glue::glue(
         '
             x[!is.na({i}) & is.na({paste0(other_time_vars, collapse=") & is.na(")}), granularity_time := "{time_var_as_granularity_geo}"]
@@ -600,7 +662,7 @@ heal.csfmt_rts_data_v2 <- function(x, ...) {
     }
     eval(parse(text = txt))
   }
-  if("granularity_time" %in% names(x)){
+  if ("granularity_time" %in% names(x)) {
     x[, granularity_time := original_granularity_time_32423432]
     x[, original_granularity_time_32423432 := NULL]
   }
@@ -661,10 +723,10 @@ heal.csfmt_rts_data_v2 <- function(x, ...) {
     )
   )
 
-  for(type in c("geo", "time")){
-    if(type=="geo"){
+  for (type in c("geo", "time")) {
+    if (type == "geo") {
       imputing_vars <- imputing_vars_geo
-    } else if(type=="time"){
+    } else if (type == "time") {
       imputing_vars <- imputing_vars_time
     } else {
       stop("")
@@ -675,11 +737,13 @@ heal.csfmt_rts_data_v2 <- function(x, ...) {
       to_be_imputed <- imputing_vars[[i]]
       to_be_imputed <- to_be_imputed[to_be_imputed %in% names(x)]
 
-      if(type=="geo"){
+      if (type == "geo") {
         extra_restriction <- ''
-      } else if(type=="time"){
+      } else if (type == "time") {
         time_var_as_granularity_time <- imputed_from
-        extra_restriction <- glue::glue('granularity_time==\"{time_var_as_granularity_time}" &')
+        extra_restriction <- glue::glue(
+          'granularity_time==\"{time_var_as_granularity_time}" &'
+        )
       } else {
         stop("")
       }
@@ -728,7 +792,9 @@ assert_classes.csfmt_rts_data_v2 <- function(x, ...) {
     x$class
   })
   # just take the ones that are intersected
-  classes_wanted <- classes_wanted[names(classes_wanted) %in% names(classes_real)]
+  classes_wanted <- classes_wanted[
+    names(classes_wanted) %in% names(classes_real)
+  ]
   classes_real <- classes_real[names(classes_real) %in% names(classes_wanted)]
   for (i in names(classes_real)) {
     if (classes_real[[i]] != classes_wanted[[i]]) {
@@ -751,7 +817,8 @@ assert_classes.csfmt_rts_data_v2 <- function(x, ...) {
 #'
 #' @description
 #' \code{set_csfmt_rts_data_v2} converts a \code{data.table} to \code{csfmt_rts_data_v2} by reference.
-#' \code{csfmt_rts_data_v2} creates a new \code{csfmt_rts_data_v2} (not by reference) from either a \code{data.table} or \code{data.frame}.
+#' \code{csfmt_rts_data_v2} creates a new \code{csfmt_rts_data_v2} (not by reference) from a \code{data.table}.
+#' Both stop with an error when \code{x} is not a \code{data.table}; call \code{data.table::setDT()} first.
 #'
 #' @section Smart assignment:
 #' \code{csfmt_rts_data_v2} contains the smart assignment feature for time and geography.
@@ -815,7 +882,7 @@ assert_classes.csfmt_rts_data_v2 <- function(x, ...) {
 #' - calyearmonth
 #'
 #' @section Unified columns:
-#' \code{csfmt_rts_data_v2} contains 16 unified columns:
+#' \code{csfmt_rts_data_v2} contains 18 unified columns:
 #' - granularity_time
 #' - granularity_geo
 #' - country_iso3
@@ -843,7 +910,7 @@ assert_classes.csfmt_rts_data_v2 <- function(x, ...) {
 #'
 #' @param x The data.table to be converted to csfmt_rts_data_v2
 #' @param create_unified_columns Do you want it to create unified columns?
-#' @param heal Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see `cstime` and `csdata`); nothing is statistically imputed and no count is invented.
+#' @param heal Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see `cstime` and `csdata`); nothing is statistically imputed and no count is invented. Time healing reads `granularity_time` to decide which time column the others are derived from, so supply it.
 #' @examples
 #' # Create some fake data as data.table
 #' d <- cstidy::generate_test_data(fmt = "csfmt_rts_data_v2")
@@ -874,9 +941,17 @@ assert_classes.csfmt_rts_data_v2 <- function(x, ...) {
 #'   cstidy::set_csfmt_rts_data_v2() %>%
 #'   summary()
 #' @family csfmt_rts_data
-#' @returns No return value, called for side effect of replacing the current data.table with a csfmt_rts_data_v2 in place.
+#' @family csfmt format converters
+#' @seealso Two vignettes run \code{set_csfmt_rts_data_v2()} in a code chunk:
+#' \code{vignette("cstidy", package = "cstidy")} and
+#' \code{vignette("csfmt_rts_data_v2", package = "cstidy")}. Neither of them
+#' runs \code{csfmt_rts_data_v2()}.
 #' @export
-set_csfmt_rts_data_v2 <- function(x, create_unified_columns = TRUE, heal = TRUE) {
+set_csfmt_rts_data_v2 <- function(
+  x,
+  create_unified_columns = TRUE,
+  heal = TRUE
+) {
   if (!is.data.table(x)) {
     stop("x must be data.table. Run setDT('x').")
   }
@@ -934,28 +1009,29 @@ summary.csfmt_rts_data_v2 <- function(object, ...) {
   }
 
   # details
-  for(i in seq_len(ncol(object))){
+  for (i in seq_len(ncol(object))) {
     var <- names(object)[i]
     details <- ""
-    if(
-      var %in% c(
-        "granularity_time",
-        "granularity_geo",
-        "country_iso3",
-        # "location_code",
-        "border",
-        "age",
-        "sex",
+    if (
+      var %in%
+        c(
+          "granularity_time",
+          "granularity_geo",
+          "country_iso3",
+          # "location_code",
+          "border",
+          "age",
+          "sex",
 
-        "isoyear",
-        #"isoweek",
-        #"isoyearweek",
-        "season"
-      ) |
-      stringr::str_detect(var, "_tag$") |
-      stringr::str_detect(var, "_status$")
-    ){
-      details <- object[, .(n=.N), keyby=.(get(var))] %>%
+          "isoyear",
+          #"isoweek",
+          #"isoyearweek",
+          "season"
+        ) |
+        stringr::str_detect(var, "_tag$") |
+        stringr::str_detect(var, "_status$")
+    ) {
+      details <- object[, .(n = .N), keyby = .(get(var))] %>%
         remove_class_csfmt_rts_data()
       setnames(details, "get", "val")
       details[is.na(val), val := "<NA>"]
@@ -998,14 +1074,24 @@ summary.csfmt_rts_data_v2 <- function(object, ...) {
       details[, max_len := max(len)]
       details[, n := stringr::str_pad(n, max_len, side = "left")]
 
-      details[, dicsay := paste0(val, " (n = ",n ,")")]
+      details[, dicsay := paste0(val, " (n = ", n, ")")]
       details <- details$dicsay
 
-      for(j in seq_along(details)) details[j] <- paste0("\n\t- ",paste0(details[j], collapse = ""))
+      for (j in seq_along(details)) {
+        details[j] <- paste0("\n\t- ", paste0(details[j], collapse = ""))
+      }
       details <- paste0(details, collapse = "")
       details <- paste0(":", details)
     }
-    cat(names(object)[i], " (", class(object[[i]]),")", details, "\n", sep = "")
+    cat(
+      names(object)[i],
+      " (",
+      class(object[[i]]),
+      ")",
+      details,
+      "\n",
+      sep = ""
+    )
   }
   cat("\n")
 }
@@ -1040,18 +1126,25 @@ identify_data_structure_internal <- function(summarized, col) {
   skeleton[is.na(num_valid), num_valid := 0]
   skeleton[is.na(num_na), num_na := 0]
 
-  skeleton[, category := dplyr::case_when(
-    num_valid == 0 & num_na == 0 ~ "structurally_missing",
-    num_valid == 0 & num_na > 0 ~ "only_na",
-    num_valid > 0 & num_na == 0 ~ "only_data",
-    num_valid > 0 & num_na > 0 ~ "data_and_na",
-  )]
+  skeleton[,
+    category := dplyr::case_when(
+      num_valid == 0 & num_na == 0 ~ "structurally_missing",
+      num_valid == 0 & num_na > 0 ~ "only_na",
+      num_valid > 0 & num_na == 0 ~ "only_data",
+      num_valid > 0 & num_na > 0 ~ "data_and_na",
+    )
+  ]
   skeleton[is.na(age), age := "missing"]
   skeleton[is.na(sex), sex := "missing"]
 
   skeleton[, num_valid := NULL]
   skeleton[, num_na := NULL]
-  skeleton[, granularity_geo := factor(granularity_geo, levels = unique(csdata::nor_locations_names()$granularity_geo))]
+  skeleton[,
+    granularity_geo := factor(
+      granularity_geo,
+      levels = unique(csdata::nor_locations_names()$granularity_geo)
+    )
+  ]
 
   # check if can merge together age groups
   skeleton_wide <- dcast.data.table(
@@ -1060,12 +1153,14 @@ identify_data_structure_internal <- function(summarized, col) {
     value.var = "category"
   )
 
-  equality <- diag(ncol(skeleton_wide)-3)
+  equality <- diag(ncol(skeleton_wide) - 3)
   colnames(equality) <- names(skeleton_wide)[4:ncol(skeleton_wide)]
   rownames(equality) <- names(skeleton_wide)[4:ncol(skeleton_wide)]
   for (i in 4:ncol(skeleton_wide)) {
     for (j in 4:ncol(skeleton_wide)) {
-      if (sum(skeleton_wide[[i]] != skeleton_wide[[j]]) == 0) equality[i - 3, j - 3] <- 1
+      if (sum(skeleton_wide[[i]] != skeleton_wide[[j]]) == 0) {
+        equality[i - 3, j - 3] <- 1
+      }
     }
   }
   while (nrow(equality) > 0) {
@@ -1102,7 +1197,9 @@ identify_data_structure_internal <- function(summarized, col) {
   for (i in rev(names(skeleton_wide))) {
     if (i == "municip") {
       break()
-    } else if (sum(skeleton_wide[[i]] != "structurally_missing", na.rm = T) == 0) {
+    } else if (
+      sum(skeleton_wide[[i]] != "structurally_missing", na.rm = T) == 0
+    ) {
       skeleton_wide[, (i) := NULL]
     } else {
       break()
@@ -1117,7 +1214,11 @@ identify_data_structure_internal <- function(summarized, col) {
     value.name = "category"
   )
 
-  setattr(skeleton_long, "class", unique(c("csfmt_rts_data_structure_hash_v2", class(skeleton_long))))
+  setattr(
+    skeleton_long,
+    "class",
+    unique(c("csfmt_rts_data_structure_hash_v2", class(skeleton_long)))
+  )
 
   return(invisible(skeleton_long))
 }
@@ -1137,16 +1238,17 @@ identify_data_structure.csfmt_rts_data_v2 <- function(x, col, ...) {
   # data <- data$cases
   # data <- data$vax
 
-  summarized <- x[, .(
-    num_valid = sum(!is.na(get(col))),
-    num_na = sum(is.na(get(col)))
-  ),
-  keyby = .(
-    granularity_time,
-    granularity_geo,
-    age,
-    sex
-  )
+  summarized <- x[,
+    .(
+      num_valid = sum(!is.na(get(col))),
+      num_na = sum(is.na(get(col)))
+    ),
+    keyby = .(
+      granularity_time,
+      granularity_geo,
+      age,
+      sex
+    )
   ]
 
   identify_data_structure_internal(
@@ -1208,8 +1310,18 @@ plot.csfmt_rts_data_structure_hash_v2 <- function(x, y, ...) {
   #   identify_data_structure("deaths_n")
 
   pd <- copy(x)
-  pd[, granularity_geo := factor(granularity_geo, levels = unique(csdata::nor_locations_names()$granularity_geo))]
-  pd[, category := factor(category, levels = c("structurally_missing", "only_na", "data_and_na", "only_data"))]
+  pd[,
+    granularity_geo := factor(
+      granularity_geo,
+      levels = unique(csdata::nor_locations_names()$granularity_geo)
+    )
+  ]
+  pd[,
+    category := factor(
+      category,
+      levels = c("structurally_missing", "only_na", "data_and_na", "only_data")
+    )
+  ]
 
   pd[, age := paste0("age=", age)]
   pd[, sex := paste0("sex=", sex)]
@@ -1226,7 +1338,11 @@ plot.csfmt_rts_data_structure_hash_v2 <- function(x, y, ...) {
 
 #' @method unique_time_series csfmt_rts_data_v2
 #' @export
-unique_time_series.csfmt_rts_data_v2 <- function(x, set_time_series_id = FALSE, ...) {
+unique_time_series.csfmt_rts_data_v2 <- function(
+  x,
+  set_time_series_id = FALSE,
+  ...
+) {
   time_series_id <- NULL
 
   ids <- unique(
@@ -1243,18 +1359,18 @@ unique_time_series.csfmt_rts_data_v2 <- function(x, set_time_series_id = FALSE, 
     )
   )
   ids <- ids[ids %in% names(x)]
-  retval <- x[, ids, with=F] %>%
+  retval <- x[, ids, with = F] %>%
     unique() %>%
     remove_class_csfmt_rts_data()
   data.table::shouldPrint(retval)
 
   # don't do anything, if "time_series_id" already exists in x
-  if("time_series_id" %in% names(retval)){
+  if ("time_series_id" %in% names(retval)) {
     return(retval)
   }
 
   retval[, time_series_id := 1:.N]
-  if(set_time_series_id){
+  if (set_time_series_id) {
     x[retval, on = ids, time_series_id := time_series_id]
     data.table::shouldPrint(x)
   }
@@ -1264,21 +1380,33 @@ unique_time_series.csfmt_rts_data_v2 <- function(x, set_time_series_id = FALSE, 
 
 #' @method expand_time_to csfmt_rts_data_v2
 #' @export
-expand_time_to.csfmt_rts_data_v2 <- function(x, max_isoyear = NULL, max_isoyearweek = NULL, max_date = NULL, ...) {
-  if(is.null(max_isoyear) & is.null(max_isoyearweek) & is.null(max_date)){
+expand_time_to.csfmt_rts_data_v2 <- function(
+  x,
+  max_isoyear = NULL,
+  max_isoyearweek = NULL,
+  max_date = NULL,
+  ...
+) {
+  if (is.null(max_isoyear) & is.null(max_isoyearweek) & is.null(max_date)) {
     stop("At least one of max_isoyear, max_isoyearweek, max_date must be used")
   }
   d1 <- d2 <- d3 <- NULL
-  if(!is.null(max_isoyear)){
-    d1 <- expand_time_to_max_isoyear.csfmt_rts_data_v2(x, max_isoyear = max_isoyear)
+  if (!is.null(max_isoyear)) {
+    d1 <- expand_time_to_max_isoyear.csfmt_rts_data_v2(
+      x,
+      max_isoyear = max_isoyear
+    )
   }
-  if(!is.null(max_isoyearweek)){
-    d2 <- expand_time_to_max_isoyearweek.csfmt_rts_data_v2(x, max_isoyearweek = max_isoyearweek)
+  if (!is.null(max_isoyearweek)) {
+    d2 <- expand_time_to_max_isoyearweek.csfmt_rts_data_v2(
+      x,
+      max_isoyearweek = max_isoyearweek
+    )
   }
-  if(!is.null(max_date)){
+  if (!is.null(max_date)) {
     d3 <- expand_time_to_max_date.csfmt_rts_data_v2(x, max_date = max_date)
   }
-  retval <- rbindlist(list(d1,d2,d3), fill = T)
+  retval <- rbindlist(list(d1, d2, d3), fill = T)
 
   # allows us to print
   data.table::shouldPrint(retval)
@@ -1286,17 +1414,23 @@ expand_time_to.csfmt_rts_data_v2 <- function(x, max_isoyear = NULL, max_isoyearw
   return(retval)
 }
 
-expand_time_to_max_isoyear.csfmt_rts_data_v2 <- function(x, max_isoyear = NULL, ...) {
+expand_time_to_max_isoyear.csfmt_rts_data_v2 <- function(
+  x,
+  max_isoyear = NULL,
+  ...
+) {
   granularity_time <- NULL
   time_series_id <- NULL
   isoyear <- NULL
   max_current_isoyear <- NULL
   . <- NULL
 
-  d <- copy(x[granularity_time=="isoyear"])
-  if(nrow(d) == 0) return(d)
+  d <- copy(x[granularity_time == "isoyear"])
+  if (nrow(d) == 0) {
+    return(d)
+  }
 
-  if(!"time_series_id" %in% names(d)){
+  if (!"time_series_id" %in% names(d)) {
     on.exit(d[, time_series_id := NULL])
     flag_to_remove_time_series_id <- TRUE
   } else {
@@ -1304,17 +1438,20 @@ expand_time_to_max_isoyear.csfmt_rts_data_v2 <- function(x, max_isoyear = NULL, 
   }
   ids <- unique_time_series(d, set_time_series_id = TRUE)
 
-  max_vals <- d[, .(max_isoyear = max(isoyear, na.rm=T)), by=.(time_series_id)]
-  ids[max_vals, on="time_series_id", max_current_isoyear := max_isoyear]
+  max_vals <- d[,
+    .(max_isoyear = max(isoyear, na.rm = T)),
+    by = .(time_series_id)
+  ]
+  ids[max_vals, on = "time_series_id", max_current_isoyear := max_isoyear]
   ids[, max_isoyear := max_isoyear]
 
   retval <- vector("list", length = nrow(ids))
-  for(i in seq_along(retval)){
-    if(ids$max_current_isoyear[i] >= ids$max_isoyear[i]){
+  for (i in seq_along(retval)) {
+    if (ids$max_current_isoyear[i] >= ids$max_isoyear[i]) {
       break()
     }
-    new_isoyears <- c((ids$max_current_isoyear[i]+1):ids$max_isoyear[i])
-    retval[[i]] <- copy(ids[rep(i,length(new_isoyears))])
+    new_isoyears <- c((ids$max_current_isoyear[i] + 1):ids$max_isoyear[i])
+    retval[[i]] <- copy(ids[rep(i, length(new_isoyears))])
     retval[[i]][, isoyear := new_isoyears]
   }
 
@@ -1324,9 +1461,15 @@ expand_time_to_max_isoyear.csfmt_rts_data_v2 <- function(x, max_isoyear = NULL, 
   cstidy::set_csfmt_rts_data_v2(x)
   setorder(x, time_series_id, date)
 
-  if(flag_to_remove_time_series_id) x[, time_series_id := NULL]
-  if("max_current_isoyear" %in% names(x)) x[, max_current_isoyear := NULL]
-  if("max_isoyear" %in% names(x)) x[, max_isoyear := NULL]
+  if (flag_to_remove_time_series_id) {
+    x[, time_series_id := NULL]
+  }
+  if ("max_current_isoyear" %in% names(x)) {
+    x[, max_current_isoyear := NULL]
+  }
+  if ("max_isoyear" %in% names(x)) {
+    x[, max_isoyear := NULL]
+  }
 
   # allows us to print
   data.table::shouldPrint(x)
@@ -1335,18 +1478,23 @@ expand_time_to_max_isoyear.csfmt_rts_data_v2 <- function(x, max_isoyear = NULL, 
 }
 
 
-
-expand_time_to_max_isoyearweek.csfmt_rts_data_v2 <- function(x, max_isoyearweek = NULL, ...) {
+expand_time_to_max_isoyearweek.csfmt_rts_data_v2 <- function(
+  x,
+  max_isoyearweek = NULL,
+  ...
+) {
   granularity_time <- NULL
   time_series_id <- NULL
   isoyearweek <- NULL
   max_current_isoyearweek <- NULL
   . <- NULL
 
-  d <- copy(x[granularity_time=="isoyearweek"])
-  if(nrow(d) == 0) return(NULL)
+  d <- copy(x[granularity_time == "isoyearweek"])
+  if (nrow(d) == 0) {
+    return(NULL)
+  }
 
-  if(!"time_series_id" %in% names(d)){
+  if (!"time_series_id" %in% names(d)) {
     on.exit(d[, time_series_id := NULL])
     flag_to_remove_time_series_id <- TRUE
   } else {
@@ -1354,19 +1502,33 @@ expand_time_to_max_isoyearweek.csfmt_rts_data_v2 <- function(x, max_isoyearweek 
   }
   ids <- unique_time_series(d, set_time_series_id = TRUE)
 
-  max_vals <- d[, .(max_isoyearweek = max(isoyearweek, na.rm=T)), by=.(time_series_id)]
-  ids[max_vals, on="time_series_id", max_current_isoyearweek := max_isoyearweek]
+  max_vals <- d[,
+    .(max_isoyearweek = max(isoyearweek, na.rm = T)),
+    by = .(time_series_id)
+  ]
+  ids[
+    max_vals,
+    on = "time_series_id",
+    max_current_isoyearweek := max_isoyearweek
+  ]
   ids[, max_isoyearweek := max_isoyearweek]
 
   retval <- vector("list", length = nrow(ids))
-  for(i in seq_along(retval)){
-    if(ids$max_current_isoyearweek[i] >= ids$max_isoyearweek[i]){
+  for (i in seq_along(retval)) {
+    if (ids$max_current_isoyearweek[i] >= ids$max_isoyearweek[i]) {
       break()
     }
-    index_min <- which(cstime::dates_by_isoyearweek$isoyearweek == ids$max_current_isoyearweek[i])+1
-    index_max <- which(cstime::dates_by_isoyearweek$isoyearweek == ids$max_isoyearweek[i])
-    new_isoyearweeks <- cstime::dates_by_isoyearweek$isoyearweek[index_min:index_max]
-    retval[[i]] <- copy(ids[rep(i,length(new_isoyearweeks))])
+    index_min <- which(
+      cstime::dates_by_isoyearweek$isoyearweek == ids$max_current_isoyearweek[i]
+    ) +
+      1
+    index_max <- which(
+      cstime::dates_by_isoyearweek$isoyearweek == ids$max_isoyearweek[i]
+    )
+    new_isoyearweeks <- cstime::dates_by_isoyearweek$isoyearweek[
+      index_min:index_max
+    ]
+    retval[[i]] <- copy(ids[rep(i, length(new_isoyearweeks))])
     retval[[i]][, isoyearweek := new_isoyearweeks]
   }
 
@@ -1376,9 +1538,15 @@ expand_time_to_max_isoyearweek.csfmt_rts_data_v2 <- function(x, max_isoyearweek 
   cstidy::set_csfmt_rts_data_v2(x)
   setorder(x, time_series_id, date)
 
-  if(flag_to_remove_time_series_id) x[, time_series_id := NULL]
-  if("max_current_isoyearweek" %in% names(x)) x[, max_current_isoyearweek := NULL]
-  if("max_isoyearweek" %in% names(x)) x[, max_isoyearweek := NULL]
+  if (flag_to_remove_time_series_id) {
+    x[, time_series_id := NULL]
+  }
+  if ("max_current_isoyearweek" %in% names(x)) {
+    x[, max_current_isoyearweek := NULL]
+  }
+  if ("max_isoyearweek" %in% names(x)) {
+    x[, max_isoyearweek := NULL]
+  }
 
   # allows us to print
   data.table::shouldPrint(x)
@@ -1392,10 +1560,12 @@ expand_time_to_max_date.csfmt_rts_data_v2 <- function(x, max_date = NULL, ...) {
   max_current_date <- NULL
   . <- NULL
 
-  d <- copy(x[granularity_time=="date"])
-  if(nrow(d) == 0) return(NULL)
+  d <- copy(x[granularity_time == "date"])
+  if (nrow(d) == 0) {
+    return(NULL)
+  }
 
-  if(!"time_series_id" %in% names(d)){
+  if (!"time_series_id" %in% names(d)) {
     on.exit(d[, time_series_id := NULL])
     flag_to_remove_time_series_id <- TRUE
   } else {
@@ -1403,17 +1573,21 @@ expand_time_to_max_date.csfmt_rts_data_v2 <- function(x, max_date = NULL, ...) {
   }
   ids <- unique_time_series(d, set_time_series_id = TRUE)
 
-  max_vals <- d[, .(max_date = max(date, na.rm=T)), by=.(time_series_id)]
-  ids[max_vals, on="time_series_id", max_current_date := max_date]
+  max_vals <- d[, .(max_date = max(date, na.rm = T)), by = .(time_series_id)]
+  ids[max_vals, on = "time_series_id", max_current_date := max_date]
   ids[, max_date := max_date]
 
   retval <- vector("list", length = nrow(ids))
-  for(i in seq_along(retval)){
-    if(ids$max_current_date[i] >= ids$max_date[i]){
+  for (i in seq_along(retval)) {
+    if (ids$max_current_date[i] >= ids$max_date[i]) {
       break()
     }
-    new_dates <- seq.Date(as.Date(ids$max_current_date[i])+1, as.Date(ids$max_date[i]), by = 1)
-    retval[[i]] <- copy(ids[rep(i,length(new_dates))])
+    new_dates <- seq.Date(
+      as.Date(ids$max_current_date[i]) + 1,
+      as.Date(ids$max_date[i]),
+      by = 1
+    )
+    retval[[i]] <- copy(ids[rep(i, length(new_dates))])
     retval[[i]][, date := new_dates]
   }
 
@@ -1423,18 +1597,21 @@ expand_time_to_max_date.csfmt_rts_data_v2 <- function(x, max_date = NULL, ...) {
   cstidy::set_csfmt_rts_data_v2(x)
   setorder(x, time_series_id, date)
 
-  if(flag_to_remove_time_series_id) x[, time_series_id := NULL]
-  if("max_current_date" %in% names(x)) x[, max_current_date := NULL]
-  if("max_date" %in% names(x)) x[, max_date := NULL]
+  if (flag_to_remove_time_series_id) {
+    x[, time_series_id := NULL]
+  }
+  if ("max_current_date" %in% names(x)) {
+    x[, max_current_date := NULL]
+  }
+  if ("max_date" %in% names(x)) {
+    x[, max_date := NULL]
+  }
 
   # allows us to print
   data.table::shouldPrint(x)
 
   return(x)
 }
-
-
-
 
 # #' Epicurve
 # #' @param x Dataset
@@ -1453,7 +1630,3 @@ expand_time_to_max_date.csfmt_rts_data_v2 <- function(x, max_date = NULL, ...) {
 #
 # }
 #
-
-
-
-

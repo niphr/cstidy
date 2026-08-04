@@ -18,8 +18,17 @@ formats$csfmt_rts_data_v3 <- list()
 # isoyearquarter, calyear, calmonth, calyearmonth), the vestigial `border`, and
 # `granularity_time` (always "isoyearweek" here -- the class carries that).
 formats$csfmt_rts_data_v3$unified <- formats$csfmt_rts_data_v2$unified[c(
-  "granularity_geo", "country_iso3", "location_code", "age", "sex",
-  "isoyear", "isoweek", "isoyearweek", "season", "seasonweek", "date"
+  "granularity_geo",
+  "country_iso3",
+  "location_code",
+  "age",
+  "sex",
+  "isoyear",
+  "isoweek",
+  "isoyearweek",
+  "season",
+  "seasonweek",
+  "date"
 )]
 
 #' @method heal csfmt_rts_data_v3
@@ -29,24 +38,40 @@ heal.csfmt_rts_data_v3 <- function(x, ...) {
 
   # v3 is WEEKLY-ONLY: one heal path, isoyearweek -> derived time columns.
   # (Daily/monthly/etc. data stays on csfmt_rts_data_v2; coexistence by design.)
-  if (!"isoyearweek" %in% names(x)) stop("csfmt_rts_data_v3 requires an isoyearweek column")
+  if (!"isoyearweek" %in% names(x)) {
+    stop("csfmt_rts_data_v3 requires an isoyearweek column")
+  }
 
   idx <- which(!is.na(x$isoyearweek))
   if (length(idx)) {
-    derived <- heal_time_csfmt_rts_data_v2(x$isoyearweek[idx], names(x),
-                                           granularity_time = "isoyearweek")
-    for (cc in names(derived)) if (cc %in% names(x))
-      data.table::set(x, i = idx, j = cc, value = derived[[cc]])
+    derived <- heal_time_csfmt_rts_data_v2(
+      x$isoyearweek[idx],
+      names(x),
+      granularity_time = "isoyearweek"
+    )
+    for (cc in names(derived)) {
+      if (cc %in% names(x)) {
+        data.table::set(x, i = idx, j = cc, value = derived[[cc]])
+      }
+    }
   }
 
   # geo columns from location_code
   if ("location_code" %in% names(x)) {
-    if ("granularity_geo" %in% names(x))
-      x[!is.na(location_code),
-        granularity_geo := csdata::location_code_to_granularity_geo(location_code)]
-    if ("country_iso3" %in% names(x))
-      x[!is.na(location_code),
-        country_iso3 := csdata::location_code_to_iso3(location_code)]
+    if ("granularity_geo" %in% names(x)) {
+      x[
+        !is.na(location_code),
+        granularity_geo := csdata::location_code_to_granularity_geo(
+          location_code
+        )
+      ]
+    }
+    if ("country_iso3" %in% names(x)) {
+      x[
+        !is.na(location_code),
+        country_iso3 := csdata::location_code_to_iso3(location_code)
+      ]
+    }
   }
 
   data.table::shouldPrint(x)
@@ -63,7 +88,9 @@ assert_classes.csfmt_rts_data_v3 <- function(x, ...) {
 #' @export
 create_unified_columns.csfmt_rts_data_v3 <- function(x, ...) {
   fmt <- attr(x, "format_unified")
-  for (i in names(fmt)) if (!i %in% names(x)) x[, (i) := fmt[[i]]$NA_class]
+  for (i in names(fmt)) {
+    if (!i %in% names(x)) x[, (i) := fmt[[i]]$NA_class]
+  }
   data.table::setcolorder(x, names(fmt))
   heal.csfmt_rts_data_v3(x)
   data.table::shouldPrint(x)
@@ -72,21 +99,60 @@ create_unified_columns.csfmt_rts_data_v3 <- function(x, ...) {
 
 #' Convert a data.table to csfmt_rts_data_v3 (clean csfmt; explicit healing)
 #'
-#' Same unified columns as \code{\link{set_csfmt_rts_data_v2}}, but without the
-#' self-healing `[` override (healing is explicit) and with a content-hash
-#' \code{time_series_id}.
+#' Eleven unified columns, taken from the 18 of
+#' \code{\link{set_csfmt_rts_data_v2}}: granularity_geo, country_iso3,
+#' location_code, age, sex, isoyear, isoweek, isoyearweek, season, seasonweek
+#' and date. It drops the self-healing `[` override (healing is explicit) and
+#' gives \code{time_series_id} a content hash.
 #' @param x The data.table to convert (by reference).
 #' @param create_unified_columns Create the unified columns?
 #' @param heal Derive the missing time and geography columns on creation? These are deterministically looked up from `isoyearweek` and `location_code`; nothing is statistically imputed and no count is invented.
 #' @returns x, modified by reference, invisibly.
+#' @examples
+#' # v3 is weekly-only: the other time columns come from isoyearweek alone.
+#' d <- data.table::data.table(
+#'   isoyearweek = c("2020-34", "2020-35"),
+#'   location_code = "nation_nor",
+#'   deaths_n = c(1L, 2L)
+#' )
+#'
+#' # set_csfmt_rts_data_v3() converts d in place and returns it invisibly.
+#' cstidy::set_csfmt_rts_data_v3(d)
+#' d[]
+#' class(d)
+#'
+#' # csfmt_rts_data_v3() copies instead, so e is left as it was.
+#' e <- data.table::data.table(
+#'   isoyearweek = c("2020-34", "2020-35"),
+#'   location_code = "nation_nor",
+#'   deaths_n = c(1L, 2L)
+#' )
+#' y <- cstidy::csfmt_rts_data_v3(e)
+#' class(y)
+#' class(e)
+#' names(e)
 #' @family csfmt_rts_data
+#' @family csfmt format converters
+#' @seealso No vignette covers csfmt_rts_data_v3. The data-format vignette
+#' documents the csfmt_rts_data_v2 columns that this format takes its own from:
+#' \code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
 #' @export
-set_csfmt_rts_data_v3 <- function(x, create_unified_columns = TRUE, heal = TRUE) {
-  if (!data.table::is.data.table(x)) stop("x must be data.table. Run setDT(x).")
+set_csfmt_rts_data_v3 <- function(
+  x,
+  create_unified_columns = TRUE,
+  heal = TRUE
+) {
+  if (!data.table::is.data.table(x)) {
+    stop("x must be data.table. Run setDT(x).")
+  }
   data.table::setattr(x, "format_unified", formats$csfmt_rts_data_v3$unified)
   data.table::setattr(x, "class", unique(c("csfmt_rts_data_v3", class(x))))
-  if (create_unified_columns) create_unified_columns.csfmt_rts_data_v3(x)
-  if (heal) heal.csfmt_rts_data_v3(x)
+  if (create_unified_columns) {
+    create_unified_columns.csfmt_rts_data_v3(x)
+  }
+  if (heal) {
+    heal.csfmt_rts_data_v3(x)
+  }
   invisible(x)
 }
 
@@ -101,11 +167,20 @@ csfmt_rts_data_v3 <- function(x, create_unified_columns = TRUE, heal = TRUE) {
 
 #' @method unique_time_series csfmt_rts_data_v3
 #' @export
-unique_time_series.csfmt_rts_data_v3 <- function(x, set_time_series_id = FALSE, ...) {
+unique_time_series.csfmt_rts_data_v3 <- function(
+  x,
+  set_time_series_id = FALSE,
+  ...
+) {
   time_series_id <- NULL
   ids <- unique(c(
-    "granularity_time", "granularity_geo", "country_iso3", "location_code",
-    "border", "age", "sex",
+    "granularity_time",
+    "granularity_geo",
+    "country_iso3",
+    "location_code",
+    "border",
+    "age",
+    "sex",
     stringr::str_subset(names(x), "_id$"),
     stringr::str_subset(names(x), "_tag$")
   ))
@@ -113,11 +188,18 @@ unique_time_series.csfmt_rts_data_v3 <- function(x, set_time_series_id = FALSE, 
   retval <- unique(remove_class_csfmt_rts_data(x[, ids, with = FALSE]))
   data.table::shouldPrint(retval)
 
-  if ("time_series_id" %in% names(retval)) return(retval)
+  if ("time_series_id" %in% names(retval)) {
+    return(retval)
+  }
 
   key <- retval[, do.call(paste, c(.SD, sep = "")), .SDcols = ids]
-  retval[, time_series_id := vapply(
-    key, function(k) digest::digest(k, algo = "xxhash64"), character(1))]
+  retval[,
+    time_series_id := vapply(
+      key,
+      function(k) digest::digest(k, algo = "xxhash64"),
+      character(1)
+    )
+  ]
   if (set_time_series_id) {
     x[retval, on = ids, time_series_id := time_series_id]
     data.table::shouldPrint(x)

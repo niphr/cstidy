@@ -24,7 +24,9 @@ expand_time_to(
 \item{...}{Not used.}
 }
 \value{
-csfmt_rts_data_v2, a larger dataset that includes more rows corresponding to more time.
+data.table, a larger dataset that includes more rows corresponding to more time.
+The csfmt_rts_data_v2 class is dropped from the result. Call
+\code{\link{set_csfmt_rts_data_v2}()} on it to put the class back.
 }
 \description{
 Attempts to expand the dataset to include more time
@@ -48,6 +50,9 @@ x <- cstidy::generate_test_data() \%>\%
 cstidy::expand_time_to(x, max_isoyearweek = "2022-10")
 }
 \seealso{
+The data-format vignette runs this function on a test dataset:
+\code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
+
 Other csfmt_rts_data: 
 \code{\link{identify_data_structure}()},
 \code{\link{remove_class_csfmt_rts_data}()},

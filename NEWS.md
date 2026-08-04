@@ -1,3 +1,68 @@
+# Version 2026.8.4
+
+Documentation only. The R files were also reformatted. Comparing the parsed
+code against the previous version, every remaining difference is a brace added
+around a single-statement body, so no function changed behaviour.
+
+- **Runnable examples on the two help pages that had none.** They cover four
+  exports: `set_csfmt_rts_data_v1()`, `csfmt_rts_data_v1()`,
+  `set_csfmt_rts_data_v3()` and `csfmt_rts_data_v3()`. Each of the two examples
+  runs the by-reference setter and the copying constructor side by side, so the
+  difference between them is shown rather than described. The pipe operator's
+  page still has no example; it is a re-export marked `@keywords internal`.
+- **Every export now resolves to a help page carrying `\seealso`.** Where a
+  vignette runs the function in a code chunk, the `\seealso` names that
+  vignette. Where no vignette runs it, the `\seealso` says so plainly. No
+  vignette runs `heal_time_csfmt_rts_data_v1()`,
+  `heal_time_csfmt_rts_data_v2()`, `set_csfmt_rts_data_v1()`,
+  `csfmt_rts_data_v1()`, `set_csfmt_rts_data_v3()`, `csfmt_rts_data_v3()` or
+  `csfmt_rts_data_v2()`. The Benchmarks vignette names
+  `set_csfmt_rts_data_v1()` in a heading, but it is precompiled and carries no
+  runnable code.
+- **Two new `@family` groups. Both are contractual, not topical**, so the
+  members really are interchangeable at a call site.
+  - `csfmt format converters` — `set_csfmt_rts_data_v1()`,
+    `set_csfmt_rts_data_v2()`, `set_csfmt_rts_data_v3()`. All three take
+    `(x, create_unified_columns = TRUE, heal = TRUE)`, stop unless `x` is a
+    `data.table`, and return `x` invisibly with that version's class prepended.
+  - `time healing lookups` — `heal_time_csfmt_rts_data_v1()` and
+    `heal_time_csfmt_rts_data_v2()`. Both take
+    `(x, cols, granularity_time = "date")` and return a `data.table`. They are
+    not identical: v1 accepts a `granularity_time` of "date", "isoyearweek" or
+    "isoyear", while v2 accepts those plus "season" and can also return
+    `isoquarter` and `isoyearquarter`.
+
+  The constructor/setter pairing (`csfmt_rts_data_v3()` against
+  `set_csfmt_rts_data_v3()`) was considered and rejected. The two share formals
+  and return class but not semantics: the setter modifies its argument, the
+  constructor leaves it untouched. Swapping one for the other silently changes
+  whether the caller's table is rewritten. They already share one help page.
+- **Corrections to help pages that described the code wrongly.** Each was
+  checked by running the function.
+  - `generate_test_data()` was documented as returning a `csfmt_rts_data_v2`.
+    It returns a plain `data.table`; you pass it to a setter yourself.
+  - `expand_time_to()` was documented as returning a `csfmt_rts_data_v2`. The
+    class is dropped from the result.
+  - `remove_class_csfmt_rts_data()` was documented as having no return value.
+    It returns `x` invisibly, which is what lets two vignettes use it inside a
+    pipe.
+  - `set_csfmt_rts_data_v1()` and `set_csfmt_rts_data_v2()` each carried two
+    contradictory `\value` paragraphs, one of them claiming no return value.
+    The false paragraph is gone from both.
+  - The v1 and v2 help pages said the copying constructor accepts a
+    `data.frame`. It does not; both stop unless `x` is a `data.table`.
+  - `csfmt_rts_data_v2` was described as having 16 unified columns while
+    listing 18. It has 18.
+  - `csfmt_rts_data_v3` was described as having the same unified columns as
+    `csfmt_rts_data_v2`. It has 11 of that format's 18.
+- **`heal` now says it needs `granularity_time`** on
+  `set_csfmt_rts_data_v1()` and `set_csfmt_rts_data_v2()`. Time healing reads
+  `granularity_time` to decide which time column the others derive from, so a
+  table carrying `isoyearweek` but no `granularity_time` comes back with its
+  time columns still `NA`. `set_csfmt_rts_data_v3()` is weekly-only and does
+  not need it.
+- `pkgdown/` and `Rplots.pdf` added to `.Rbuildignore`.
+
 # Version 2026.7.1
 
 - **The `season` boundary now matches `cstime`.** The internal healing tables

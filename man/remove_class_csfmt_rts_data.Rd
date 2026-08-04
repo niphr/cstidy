@@ -10,7 +10,8 @@ remove_class_csfmt_rts_data(x)
 \item{x}{data.table}
 }
 \value{
-No return value, called for the side effect of removing the csfmt_rts_data class from x.
+x, modified by reference, invisibly. It returns x rather than
+nothing, which is what lets it sit in the middle of a pipe.
 }
 \description{
 Remove class csfmt_rts_data_*
@@ -23,6 +24,10 @@ cstidy::remove_class_csfmt_rts_data(x)
 class(x)
 }
 \seealso{
+Two vignettes run this function inside a pipe:
+\code{vignette("cstidy", package = "cstidy")} and
+\code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
+
 Other csfmt_rts_data: 
 \code{\link{expand_time_to}()},
 \code{\link{identify_data_structure}()},

@@ -38,6 +38,9 @@ x <- cstidy::generate_test_data() \%>\%
 cstidy::unique_time_series(x)
 }
 \seealso{
+The data-format vignette runs this function on a test dataset:
+\code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
+
 Other csfmt_rts_data: 
 \code{\link{expand_time_to}()},
 \code{\link{identify_data_structure}()},

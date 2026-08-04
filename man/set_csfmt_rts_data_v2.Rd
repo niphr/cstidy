@@ -14,18 +14,17 @@ csfmt_rts_data_v2(x, create_unified_columns = TRUE, heal = TRUE)
 
 \item{create_unified_columns}{Do you want it to create unified columns?}
 
-\item{heal}{Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see \code{cstime} and \code{csdata}); nothing is statistically imputed and no count is invented.}
+\item{heal}{Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see \code{cstime} and \code{csdata}); nothing is statistically imputed and no count is invented. Time healing reads \code{granularity_time} to decide which time column the others are derived from, so supply it.}
 }
 \value{
 An extended \code{data.table}, which has been modified by reference and returned (invisibly).
-
-No return value, called for side effect of replacing the current data.table with a csfmt_rts_data_v2 in place.
 
 Returns a duplicated csfmt_rts_data_v2.
 }
 \description{
 \code{set_csfmt_rts_data_v2} converts a \code{data.table} to \code{csfmt_rts_data_v2} by reference.
-\code{csfmt_rts_data_v2} creates a new \code{csfmt_rts_data_v2} (not by reference) from either a \code{data.table} or \code{data.frame}.
+\code{csfmt_rts_data_v2} creates a new \code{csfmt_rts_data_v2} (not by reference) from a \code{data.table}.
+Both stop with an error when \code{x} is not a \code{data.table}; call \code{data.table::setDT()} first.
 }
 \details{
 For more details see the vignette:
@@ -106,7 +105,7 @@ When the \strong{variables in bold} are assigned using \verb{:=}, the listed var
 
 \section{Unified columns}{
 
-\code{csfmt_rts_data_v2} contains 16 unified columns:
+\code{csfmt_rts_data_v2} contains 18 unified columns:
 \itemize{
 \item granularity_time
 \item granularity_geo
@@ -160,6 +159,11 @@ cstidy::generate_test_data() \%>\%
   summary()
 }
 \seealso{
+Two vignettes run \code{set_csfmt_rts_data_v2()} in a code chunk:
+\code{vignette("cstidy", package = "cstidy")} and
+\code{vignette("csfmt_rts_data_v2", package = "cstidy")}. Neither of them
+runs \code{csfmt_rts_data_v2()}.
+
 Other csfmt_rts_data: 
 \code{\link{expand_time_to}()},
 \code{\link{identify_data_structure}()},
@@ -167,5 +171,10 @@ Other csfmt_rts_data:
 \code{\link{set_csfmt_rts_data_v1}()},
 \code{\link{set_csfmt_rts_data_v3}()},
 \code{\link{unique_time_series}()}
+
+Other csfmt format converters: 
+\code{\link{set_csfmt_rts_data_v1}()},
+\code{\link{set_csfmt_rts_data_v3}()}
 }
+\concept{csfmt format converters}
 \concept{csfmt_rts_data}

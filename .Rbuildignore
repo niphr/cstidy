@@ -16,3 +16,5 @@ vignettes/_PRECOMPILER.R
 ^\.github$
 ^index\.md$
 ^.*\.DS_Store$
+^pkgdown$
+^Rplots\.pdf$

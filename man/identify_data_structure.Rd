@@ -35,6 +35,10 @@ cstidy::generate_test_data() \%>\%
   plot()
 }
 \seealso{
+Two vignettes run this function and plot the result:
+\code{vignette("cstidy", package = "cstidy")} and
+\code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
+
 Other csfmt_rts_data: 
 \code{\link{expand_time_to}()},
 \code{\link{remove_class_csfmt_rts_data}()},

@@ -22,11 +22,41 @@ x, modified by reference, invisibly.
 A new csfmt_rts_data_v3 (not by reference).
 }
 \description{
-Same unified columns as \code{\link{set_csfmt_rts_data_v2}}, but without the
-self-healing \code{[} override (healing is explicit) and with a content-hash
-\code{time_series_id}.
+Eleven unified columns, taken from the 18 of
+\code{\link{set_csfmt_rts_data_v2}}: granularity_geo, country_iso3,
+location_code, age, sex, isoyear, isoweek, isoyearweek, season, seasonweek
+and date. It drops the self-healing \code{[} override (healing is explicit) and
+gives \code{time_series_id} a content hash.
+}
+\examples{
+# v3 is weekly-only: the other time columns come from isoyearweek alone.
+d <- data.table::data.table(
+  isoyearweek = c("2020-34", "2020-35"),
+  location_code = "nation_nor",
+  deaths_n = c(1L, 2L)
+)
+
+# set_csfmt_rts_data_v3() converts d in place and returns it invisibly.
+cstidy::set_csfmt_rts_data_v3(d)
+d[]
+class(d)
+
+# csfmt_rts_data_v3() copies instead, so e is left as it was.
+e <- data.table::data.table(
+  isoyearweek = c("2020-34", "2020-35"),
+  location_code = "nation_nor",
+  deaths_n = c(1L, 2L)
+)
+y <- cstidy::csfmt_rts_data_v3(e)
+class(y)
+class(e)
+names(e)
 }
 \seealso{
+No vignette covers csfmt_rts_data_v3. The data-format vignette
+documents the csfmt_rts_data_v2 columns that this format takes its own from:
+\code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
+
 Other csfmt_rts_data: 
 \code{\link{expand_time_to}()},
 \code{\link{identify_data_structure}()},
@@ -34,5 +64,10 @@ Other csfmt_rts_data:
 \code{\link{set_csfmt_rts_data_v1}()},
 \code{\link{set_csfmt_rts_data_v2}()},
 \code{\link{unique_time_series}()}
+
+Other csfmt format converters: 
+\code{\link{set_csfmt_rts_data_v1}()},
+\code{\link{set_csfmt_rts_data_v2}()}
 }
+\concept{csfmt format converters}
 \concept{csfmt_rts_data}

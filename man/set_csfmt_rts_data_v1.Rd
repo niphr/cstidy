@@ -14,18 +14,17 @@ csfmt_rts_data_v1(x, create_unified_columns = TRUE, heal = TRUE)
 
 \item{create_unified_columns}{Do you want it to create unified columns?}
 
-\item{heal}{Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see \code{cstime} and \code{csdata}); nothing is statistically imputed and no count is invented.}
+\item{heal}{Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see \code{cstime} and \code{csdata}); nothing is statistically imputed and no count is invented. Time healing reads \code{granularity_time} to decide which time column the others are derived from, so supply it.}
 }
 \value{
 An extended \code{data.table}, which has been modified by reference and returned (invisibly).
-
-No return value, called for side effect of replacing the current data.table with a csfmt_rts_data_v1 in place.
 
 Returns a duplicated csfmt_rts_data_v1.
 }
 \description{
 \code{set_csfmt_rts_data_v1} converts a \code{data.table} to \code{csfmt_rts_data_v1} by reference.
-\code{csfmt_rts_data_v1} creates a new \code{csfmt_rts_data_v1} (not by reference) from either a \code{data.table} or \code{data.frame}.
+\code{csfmt_rts_data_v1} creates a new \code{csfmt_rts_data_v1} (not by reference) from a \code{data.table}.
+Both stop with an error when \code{x} is not a \code{data.table}; call \code{data.table::setDT()} first.
 }
 \section{Smart assignment}{
 
@@ -102,7 +101,40 @@ When the \strong{variables in bold} are assigned using \verb{:=}, the listed var
 }
 }
 
+\examples{
+# granularity_time names the time column that the others are derived from.
+d <- data.table::data.table(
+  granularity_time = "isoyearweek",
+  isoyearweek = c("2022-01", "2022-02"),
+  location_code = "county_nor03",
+  deaths_n = c(3L, 5L)
+)
+
+# set_csfmt_rts_data_v1() converts d in place and returns it invisibly.
+cstidy::set_csfmt_rts_data_v1(d)
+d[]
+class(d)
+
+# csfmt_rts_data_v1() copies instead, so e is left as it was.
+e <- data.table::data.table(
+  granularity_time = "isoyearweek",
+  isoyearweek = c("2022-01", "2022-02"),
+  location_code = "county_nor03",
+  deaths_n = c(3L, 5L)
+)
+y <- cstidy::csfmt_rts_data_v1(e)
+class(y)
+class(e)
+names(e)
+}
 \seealso{
+No vignette runs this function. The benchmarks vignette reports its
+run time, but that vignette is precompiled and carries no runnable code:
+\code{vignette("benchmarks", package = "cstidy")}.
+This format is deprecated. \code{\link{set_csfmt_rts_data_v2}()} accepts
+every \code{granularity_time} this format accepts, plus "season". Use
+\code{\link{set_csfmt_rts_data_v3}()} for weekly-only data.
+
 Other csfmt_rts_data: 
 \code{\link{expand_time_to}()},
 \code{\link{identify_data_structure}()},
@@ -110,5 +142,10 @@ Other csfmt_rts_data:
 \code{\link{set_csfmt_rts_data_v2}()},
 \code{\link{set_csfmt_rts_data_v3}()},
 \code{\link{unique_time_series}()}
+
+Other csfmt format converters: 
+\code{\link{set_csfmt_rts_data_v2}()},
+\code{\link{set_csfmt_rts_data_v3}()}
 }
+\concept{csfmt format converters}
 \concept{csfmt_rts_data}

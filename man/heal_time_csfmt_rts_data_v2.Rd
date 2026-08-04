@@ -28,3 +28,12 @@ cstidy::heal_time_csfmt_rts_data_v2(
   granularity_time = "isoyearweek"
 )
 }
+\seealso{
+No vignette covers this function.
+\code{\link{set_csfmt_rts_data_v2}()} and \code{\link{set_csfmt_rts_data_v3}()}
+both call it while healing.
+
+Other time healing lookups: 
+\code{\link{heal_time_csfmt_rts_data_v1}()}
+}
+\concept{time healing lookups}

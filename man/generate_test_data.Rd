@@ -10,11 +10,19 @@ generate_test_data(fmt = "csfmt_rts_data_v2")
 \item{fmt}{Data format (\code{csfmt_rts_data_v2})}
 }
 \value{
-csfmt_rts_data_v2, a dataset containing fake data.
+data.table, a dataset containing fake data. The result is a plain
+data.table; pass it to \code{\link{set_csfmt_rts_data_v2}()} to give it the
+csfmt_rts_data_v2 class.
 }
 \description{
 Generates some test data
 }
 \examples{
 cstidy::generate_test_data("csfmt_rts_data_v2")
+}
+\seealso{
+\code{\link{set_csfmt_rts_data_v2}()} to classify the result.
+Two vignettes call this function in a code chunk:
+\code{vignette("cstidy", package = "cstidy")} and
+\code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
 }

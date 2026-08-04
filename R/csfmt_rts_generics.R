@@ -1,4 +1,3 @@
-
 #' Hash the data structure of a dataset for a given column
 #'
 #' @description
@@ -17,6 +16,9 @@
 #'   plot()
 #' @family csfmt_rts_data
 #' @returns csfmt_rts_data_structure_hash_v2, a summary object that can be plotted.
+#' @seealso Two vignettes run this function and plot the result:
+#' \code{vignette("cstidy", package = "cstidy")} and
+#' \code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
 #' @rdname identify_data_structure
 #' @export
 identify_data_structure <- function(x, col, ...) {
@@ -49,6 +51,8 @@ identify_data_structure <- function(x, col, ...) {
 #'   cstidy::set_csfmt_rts_data_v2()
 #' cstidy::unique_time_series(x)
 #' @family csfmt_rts_data
+#' @seealso The data-format vignette runs this function on a test dataset:
+#' \code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
 #' @export
 unique_time_series <- function(x, set_time_series_id = FALSE, ...) {
   UseMethod("unique_time_series", x)
@@ -75,14 +79,24 @@ unique_time_series <- function(x, set_time_series_id = FALSE, ...) {
 #' @param max_isoyearweek Maximum isoyearweek to expand each isoyearweek time series up to.
 #' @param max_date Maximum date to expand each daily time series up to.
 #' @param ... Not used.
-#' @returns csfmt_rts_data_v2, a larger dataset that includes more rows corresponding to more time.
+#' @returns data.table, a larger dataset that includes more rows corresponding to more time.
+#' The csfmt_rts_data_v2 class is dropped from the result. Call
+#' \code{\link{set_csfmt_rts_data_v2}()} on it to put the class back.
 #' @examples
 #' x <- cstidy::generate_test_data() %>%
 #'   cstidy::set_csfmt_rts_data_v2()
 #' cstidy::expand_time_to(x, max_isoyearweek = "2022-10")
 #' @family csfmt_rts_data
+#' @seealso The data-format vignette runs this function on a test dataset:
+#' \code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
 #' @export
-expand_time_to <- function(x, max_isoyear = NULL, max_isoyearweek = NULL, max_date = NULL, ...) {
+expand_time_to <- function(
+  x,
+  max_isoyear = NULL,
+  max_isoyearweek = NULL,
+  max_date = NULL,
+  ...
+) {
   UseMethod("expand_time_to", x)
 }
 
@@ -107,7 +121,9 @@ validate <- function(x) {
     # return(invisible())
   }
   status <- attr(x, "status")
-  if (is.null(status)) status <- list()
+  if (is.null(status)) {
+    status <- list()
+  }
 
   fmt <- attr(x, "format_unified")
   for (i in names(fmt)) {
@@ -121,11 +137,16 @@ validate <- function(x) {
     } else {
       # check for NAs allowed
       if (fmt_i$NA_allowed == FALSE & sum(is.na(x[[i]])) > 0) {
-        status_i$errors <- paste0(status_i$errors, "\n- NA exists (not allowed)")
+        status_i$errors <- paste0(
+          status_i$errors,
+          "\n- NA exists (not allowed)"
+        )
       }
       # if(!is.null())
 
-      if (status_i$errors == "\U274C Errors:") status_i$errors <- "\U2705 No errors"
+      if (status_i$errors == "\U274C Errors:") {
+        status_i$errors <- "\U2705 No errors"
+      }
     }
     status[[i]] <- status_i
   }
@@ -155,7 +176,11 @@ heal <- function(x, ...) {
 #' cstidy::remove_class_csfmt_rts_data(x)
 #' class(x)
 #' @family csfmt_rts_data
-#' @returns No return value, called for the side effect of removing the csfmt_rts_data class from x.
+#' @returns x, modified by reference, invisibly. It returns x rather than
+#' nothing, which is what lets it sit in the middle of a pipe.
+#' @seealso Two vignettes run this function inside a pipe:
+#' \code{vignette("cstidy", package = "cstidy")} and
+#' \code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
 #' @export
 remove_class_csfmt_rts_data <- function(x) {
   classes <- class(x)
@@ -173,7 +198,13 @@ remove_class_csfmt_rts_data <- function(x) {
 #' @param fmt Data format (\code{csfmt_rts_data_v2})
 #' @examples
 #' cstidy::generate_test_data("csfmt_rts_data_v2")
-#' @returns csfmt_rts_data_v2, a dataset containing fake data.
+#' @returns data.table, a dataset containing fake data. The result is a plain
+#' data.table; pass it to \code{\link{set_csfmt_rts_data_v2}()} to give it the
+#' csfmt_rts_data_v2 class.
+#' @seealso \code{\link{set_csfmt_rts_data_v2}()} to classify the result.
+#' Two vignettes call this function in a code chunk:
+#' \code{vignette("cstidy", package = "cstidy")} and
+#' \code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
 #' @export
 generate_test_data <- function(fmt = "csfmt_rts_data_v2") {
   granularity_geo <- NULL
@@ -187,7 +218,11 @@ generate_test_data <- function(fmt = "csfmt_rts_data_v2") {
   stopifnot(fmt %in% c("csfmt_rts_data_v2"))
 
   if (fmt == "csfmt_rts_data_v2") {
-    d1 <- data.table(location_code = csdata::nor_locations_names()[granularity_geo == "county"]$location_code)
+    d1 <- data.table(
+      location_code = csdata::nor_locations_names()[
+        granularity_geo == "county"
+      ]$location_code
+    )
     d1[, granularity_time := "isoyearweek"]
     d1[, isoyearweek := "2022-03"]
     d1[, deaths_n := stats::rpois(.N, 5)]

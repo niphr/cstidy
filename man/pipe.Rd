@@ -17,4 +17,10 @@ The result of calling \code{rhs(lhs)}.
 \description{
 See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
 }
+\seealso{
+\code{magrittr::\link[magrittr:pipe]{\%>\%}} for the operator itself.
+Two vignettes use it in a code chunk to pipe cstidy calls together:
+\code{vignette("cstidy", package = "cstidy")} and
+\code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
+}
 \keyword{internal}

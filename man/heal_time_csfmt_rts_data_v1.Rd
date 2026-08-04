@@ -28,3 +28,12 @@ cstidy::heal_time_csfmt_rts_data_v1(
   granularity_time = "date"
 )
 }
+\seealso{
+No vignette covers this function.
+\code{\link{set_csfmt_rts_data_v1}()} calls it while healing a
+csfmt_rts_data_v1.
+
+Other time healing lookups: 
+\code{\link{heal_time_csfmt_rts_data_v2}()}
+}
+\concept{time healing lookups}

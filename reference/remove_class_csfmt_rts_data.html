@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cstidy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,11 +71,15 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>No return value, called for the side effect of removing the csfmt_rts_data class from x.</p>
+    <p>x, modified by reference, invisibly. It returns x rather than
+nothing, which is what lets it sit in the middle of a pipe.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Other csfmt_rts_data:
+    <div class="dont-index"><p>Two vignettes run this function inside a pipe:
+<code><a href="../articles/cstidy.html">vignette("cstidy", package = "cstidy")</a></code> and
+<code><a href="../articles/csfmt_rts_data_v2.html">vignette("csfmt_rts_data_v2", package = "cstidy")</a></code>.</p>
+<p>Other csfmt_rts_data:
 <code><a href="expand_time_to.html">expand_time_to()</a></code>,
 <code><a href="identify_data_structure.html">identify_data_structure()</a></code>,
 <code><a href="set_csfmt_rts_data_v1.html">set_csfmt_rts_data_v1()</a></code>,

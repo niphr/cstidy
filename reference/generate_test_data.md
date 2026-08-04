@@ -16,7 +16,19 @@ generate_test_data(fmt = "csfmt_rts_data_v2")
 
 ## Value
 
-csfmt_rts_data_v2, a dataset containing fake data.
+data.table, a dataset containing fake data. The result is a plain
+data.table; pass it to
+[`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
+to give it the csfmt_rts_data_v2 class.
+
+## See also
+
+[`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
+to classify the result. Two vignettes call this function in a code
+chunk:
+[`vignette("cstidy", package = "cstidy")`](https://niphr.github.io/cstidy/articles/cstidy.md)
+and
+[`vignette("csfmt_rts_data_v2", package = "cstidy")`](https://niphr.github.io/cstidy/articles/csfmt_rts_data_v2.md).
 
 ## Examples
 

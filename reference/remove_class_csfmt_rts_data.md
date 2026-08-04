@@ -16,10 +16,15 @@ remove_class_csfmt_rts_data(x)
 
 ## Value
 
-No return value, called for the side effect of removing the
-csfmt_rts_data class from x.
+x, modified by reference, invisibly. It returns x rather than nothing,
+which is what lets it sit in the middle of a pipe.
 
 ## See also
+
+Two vignettes run this function inside a pipe:
+[`vignette("cstidy", package = "cstidy")`](https://niphr.github.io/cstidy/articles/cstidy.md)
+and
+[`vignette("csfmt_rts_data_v2", package = "cstidy")`](https://niphr.github.io/cstidy/articles/csfmt_rts_data_v2.md).
 
 Other csfmt_rts_data:
 [`expand_time_to()`](https://niphr.github.io/cstidy/reference/expand_time_to.md),

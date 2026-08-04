@@ -49,6 +49,9 @@ data.table, a dataset that lists all the unique time series in x.
 
 ## See also
 
+The data-format vignette runs this function on a test dataset:
+[`vignette("csfmt_rts_data_v2", package = "cstidy")`](https://niphr.github.io/cstidy/articles/csfmt_rts_data_v2.md).
+
 Other csfmt_rts_data:
 [`expand_time_to()`](https://niphr.github.io/cstidy/reference/expand_time_to.md),
 [`identify_data_structure()`](https://niphr.github.io/cstidy/reference/identify_data_structure.md),

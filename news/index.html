@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cstidy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,42 @@
       <small>Source: <a href="https://github.com/niphr/cstidy/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2026.8.4" id="version-202684">Version 2026.8.4<a class="anchor" aria-label="anchor" href="#version-202684"></a></h2>
+<p>Documentation only. The R files were also reformatted. Comparing the parsed code against the previous version, every remaining difference is a brace added around a single-statement body, so no function changed behaviour.</p>
+<ul><li>
+<strong>Runnable examples on the two help pages that had none.</strong> They cover four exports: <code><a href="../reference/set_csfmt_rts_data_v1.html">set_csfmt_rts_data_v1()</a></code>, <code><a href="../reference/set_csfmt_rts_data_v1.html">csfmt_rts_data_v1()</a></code>, <code><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code> and <code><a href="../reference/set_csfmt_rts_data_v3.html">csfmt_rts_data_v3()</a></code>. Each of the two examples runs the by-reference setter and the copying constructor side by side, so the difference between them is shown rather than described. The pipe operator’s page still has no example; it is a re-export marked <code>@keywords internal</code>.</li>
+<li>
+<strong>Every export now resolves to a help page carrying <code>\seealso</code>.</strong> Where a vignette runs the function in a code chunk, the <code>\seealso</code> names that vignette. Where no vignette runs it, the <code>\seealso</code> says so plainly. No vignette runs <code><a href="../reference/heal_time_csfmt_rts_data_v1.html">heal_time_csfmt_rts_data_v1()</a></code>, <code><a href="../reference/heal_time_csfmt_rts_data_v2.html">heal_time_csfmt_rts_data_v2()</a></code>, <code><a href="../reference/set_csfmt_rts_data_v1.html">set_csfmt_rts_data_v1()</a></code>, <code><a href="../reference/set_csfmt_rts_data_v1.html">csfmt_rts_data_v1()</a></code>, <code><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code>, <code><a href="../reference/set_csfmt_rts_data_v3.html">csfmt_rts_data_v3()</a></code> or <code><a href="../reference/set_csfmt_rts_data_v2.html">csfmt_rts_data_v2()</a></code>. The Benchmarks vignette names <code><a href="../reference/set_csfmt_rts_data_v1.html">set_csfmt_rts_data_v1()</a></code> in a heading, but it is precompiled and carries no runnable code.</li>
+<li>
+<strong>Two new <code>@family</code> groups. Both are contractual, not topical</strong>, so the members really are interchangeable at a call site.
+<ul><li>
+<code>csfmt format converters</code> — <code><a href="../reference/set_csfmt_rts_data_v1.html">set_csfmt_rts_data_v1()</a></code>, <code><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2()</a></code>, <code><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code>. All three take <code>(x, create_unified_columns = TRUE, heal = TRUE)</code>, stop unless <code>x</code> is a <code>data.table</code>, and return <code>x</code> invisibly with that version’s class prepended.</li>
+<li>
+<code>time healing lookups</code> — <code><a href="../reference/heal_time_csfmt_rts_data_v1.html">heal_time_csfmt_rts_data_v1()</a></code> and <code><a href="../reference/heal_time_csfmt_rts_data_v2.html">heal_time_csfmt_rts_data_v2()</a></code>. Both take <code>(x, cols, granularity_time = "date")</code> and return a <code>data.table</code>. They are not identical: v1 accepts a <code>granularity_time</code> of “date”, “isoyearweek” or “isoyear”, while v2 accepts those plus “season” and can also return <code>isoquarter</code> and <code>isoyearquarter</code>.</li>
+</ul>
+The constructor/setter pairing (<code><a href="../reference/set_csfmt_rts_data_v3.html">csfmt_rts_data_v3()</a></code> against <code><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code>) was considered and rejected. The two share formals and return class but not semantics: the setter modifies its argument, the constructor leaves it untouched. Swapping one for the other silently changes whether the caller’s table is rewritten. They already share one help page.</li>
+<li>
+<strong>Corrections to help pages that described the code wrongly.</strong> Each was checked by running the function.
+<ul><li>
+<code><a href="../reference/generate_test_data.html">generate_test_data()</a></code> was documented as returning a <code>csfmt_rts_data_v2</code>. It returns a plain <code>data.table</code>; you pass it to a setter yourself.</li>
+<li>
+<code><a href="../reference/expand_time_to.html">expand_time_to()</a></code> was documented as returning a <code>csfmt_rts_data_v2</code>. The class is dropped from the result.</li>
+<li>
+<code><a href="../reference/remove_class_csfmt_rts_data.html">remove_class_csfmt_rts_data()</a></code> was documented as having no return value. It returns <code>x</code> invisibly, which is what lets two vignettes use it inside a pipe.</li>
+<li>
+<code><a href="../reference/set_csfmt_rts_data_v1.html">set_csfmt_rts_data_v1()</a></code> and <code><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2()</a></code> each carried two contradictory <code>\value</code> paragraphs, one of them claiming no return value. The false paragraph is gone from both.</li>
+<li>The v1 and v2 help pages said the copying constructor accepts a <code>data.frame</code>. It does not; both stop unless <code>x</code> is a <code>data.table</code>.</li>
+<li>
+<code>csfmt_rts_data_v2</code> was described as having 16 unified columns while listing 18. It has 18.</li>
+<li>
+<code>csfmt_rts_data_v3</code> was described as having the same unified columns as <code>csfmt_rts_data_v2</code>. It has 11 of that format’s 18.</li>
+</ul></li>
+<li>
+<strong><code>heal</code> now says it needs <code>granularity_time</code></strong> on <code><a href="../reference/set_csfmt_rts_data_v1.html">set_csfmt_rts_data_v1()</a></code> and <code><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2()</a></code>. Time healing reads <code>granularity_time</code> to decide which time column the others derive from, so a table carrying <code>isoyearweek</code> but no <code>granularity_time</code> comes back with its time columns still <code>NA</code>. <code><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code> is weekly-only and does not need it.</li>
+<li>
+<code>pkgdown/</code> and <code>Rplots.pdf</code> added to <code>.Rbuildignore</code>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2026.7.1" id="version-202671">Version 2026.7.1<a class="anchor" aria-label="anchor" href="#version-202671"></a></h2>
 <ul><li><p><strong>The <code>season</code> boundary now matches <code>cstime</code>.</strong> The internal healing tables put the season cut-point at isoweek 30; <code>cstime</code> puts it at isoweek 35 (<code>cstime::isoyearweek_to_season_c("2020-34")</code> is <code>2019/2020</code>, <code>"2020-35"</code> is <code>2020/2021</code>). The tables have been regenerated, so about five weeks per year change season: <code>2020-30</code> heals to <code>2019/2020</code> where it previously gave <code>2020/2021</code>. This affects <code><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2()</a></code> and, through <code><a href="../reference/heal_time_csfmt_rts_data_v2.html">heal_time_csfmt_rts_data_v2()</a></code>, the new <code><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code>. Anyone upgrading from 2025.10.27 should expect season-grouped results (seasonal baselines, by-season summaries) to shift accordingly.</p></li>

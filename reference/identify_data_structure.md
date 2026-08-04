@@ -40,6 +40,11 @@ csfmt_rts_data_structure_hash_v2, a summary object that can be plotted.
 
 ## See also
 
+Two vignettes run this function and plot the result:
+[`vignette("cstidy", package = "cstidy")`](https://niphr.github.io/cstidy/articles/cstidy.md)
+and
+[`vignette("csfmt_rts_data_v2", package = "cstidy")`](https://niphr.github.io/cstidy/articles/csfmt_rts_data_v2.md).
+
 Other csfmt_rts_data:
 [`expand_time_to()`](https://niphr.github.io/cstidy/reference/expand_time_to.md),
 [`remove_class_csfmt_rts_data()`](https://niphr.github.io/cstidy/reference/remove_class_csfmt_rts_data.md),

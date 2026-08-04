@@ -2,7 +2,10 @@
 
 `set_csfmt_rts_data_v2` converts a `data.table` to `csfmt_rts_data_v2`
 by reference. `csfmt_rts_data_v2` creates a new `csfmt_rts_data_v2` (not
-by reference) from either a `data.table` or `data.frame`.
+by reference) from a `data.table`. Both stop with an error when `x` is
+not a `data.table`; call
+[`data.table::setDT()`](https://rdrr.io/pkg/data.table/man/setDT.html)
+first.
 
 ## Usage
 
@@ -27,15 +30,13 @@ csfmt_rts_data_v2(x, create_unified_columns = TRUE, heal = TRUE)
   Derive the missing time and geography columns on creation? These are
   deterministically looked up from the time and location columns you
   supply (see `cstime` and `csdata`); nothing is statistically imputed
-  and no count is invented.
+  and no count is invented. Time healing reads `granularity_time` to
+  decide which time column the others are derived from, so supply it.
 
 ## Value
 
 An extended `data.table`, which has been modified by reference and
 returned (invisibly).
-
-No return value, called for side effect of replacing the current
-data.table with a csfmt_rts_data_v2 in place.
 
 Returns a duplicated csfmt_rts_data_v2.
 
@@ -158,7 +159,7 @@ imputation.
 
 ## Unified columns
 
-`csfmt_rts_data_v2` contains 16 unified columns:
+`csfmt_rts_data_v2` contains 18 unified columns:
 
 - granularity_time
 
@@ -198,6 +199,12 @@ imputation.
 
 ## See also
 
+Two vignettes run `set_csfmt_rts_data_v2()` in a code chunk:
+[`vignette("cstidy", package = "cstidy")`](https://niphr.github.io/cstidy/articles/cstidy.md)
+and
+[`vignette("csfmt_rts_data_v2", package = "cstidy")`](https://niphr.github.io/cstidy/articles/csfmt_rts_data_v2.md).
+Neither of them runs `csfmt_rts_data_v2()`.
+
 Other csfmt_rts_data:
 [`expand_time_to()`](https://niphr.github.io/cstidy/reference/expand_time_to.md),
 [`identify_data_structure()`](https://niphr.github.io/cstidy/reference/identify_data_structure.md),
@@ -205,6 +212,10 @@ Other csfmt_rts_data:
 [`set_csfmt_rts_data_v1()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v1.md),
 [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md),
 [`unique_time_series()`](https://niphr.github.io/cstidy/reference/unique_time_series.md)
+
+Other csfmt format converters:
+[`set_csfmt_rts_data_v1()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v1.md),
+[`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
 
 ## Examples
 

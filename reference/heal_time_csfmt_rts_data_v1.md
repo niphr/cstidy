@@ -29,6 +29,15 @@ heal_time_csfmt_rts_data_v1(x, cols, granularity_time = "date")
 data.table, a dataset with time columns corresponding to the values
 given in x.
 
+## See also
+
+No vignette covers this function.
+[`set_csfmt_rts_data_v1()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v1.md)
+calls it while healing a csfmt_rts_data_v1.
+
+Other time healing lookups:
+[`heal_time_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/heal_time_csfmt_rts_data_v2.md)
+
 ## Examples
 
 ``` r

@@ -59,10 +59,15 @@ expand_time_to(
 
 ## Value
 
-csfmt_rts_data_v2, a larger dataset that includes more rows
-corresponding to more time.
+data.table, a larger dataset that includes more rows corresponding to
+more time. The csfmt_rts_data_v2 class is dropped from the result. Call
+[`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
+on it to put the class back.
 
 ## See also
+
+The data-format vignette runs this function on a test dataset:
+[`vignette("csfmt_rts_data_v2", package = "cstidy")`](https://niphr.github.io/cstidy/articles/csfmt_rts_data_v2.md).
 
 Other csfmt_rts_data:
 [`identify_data_structure()`](https://niphr.github.io/cstidy/reference/identify_data_structure.md),

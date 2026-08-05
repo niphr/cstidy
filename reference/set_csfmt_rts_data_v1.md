@@ -152,16 +152,30 @@ imputation.
 
 - date
 
+## Deprecated
+
+`csfmt_rts_data_v1` is deprecated. The format still works and nothing
+warns at run time; the mark is a signpost for new work, not a removal
+notice.
+[`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
+is the replacement. Two properties of that move were measured, and both
+come out clean. All 16 of v1's unified columns are among v2's 18, the
+two extra ones being `isoquarter` and `isoyearquarter`. v2 heals from
+every `granularity_time` v1 heals from ("date", "isoyearweek",
+"isoyear") and from "season" as well. `csdb` exports a field-type
+validator for both formats, so either can be written to the database.
+
+v2 is itself deprecated, in favour of
+[`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md).
+That further step is not lossless. Read the Deprecated section of
+[`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
+before going past v2.
+
 ## See also
 
 No vignette runs this function. The benchmarks vignette reports its run
 time, but that vignette is precompiled and carries no runnable code:
 [`vignette("benchmarks", package = "cstidy")`](https://niphr.github.io/cstidy/articles/benchmarks.md).
-This format is deprecated.
-[`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
-accepts every `granularity_time` this format accepts, plus "season". Use
-[`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
-for weekly-only data.
 
 Other csfmt_rts_data:
 [`expand_time_to()`](https://niphr.github.io/cstidy/reference/expand_time_to.md),

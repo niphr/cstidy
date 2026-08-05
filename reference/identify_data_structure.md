@@ -38,6 +38,15 @@ identify_data_structure(x, col, ...)
 
 csfmt_rts_data_structure_hash_v2, a summary object that can be plotted.
 
+## Deprecated
+
+The `csfmt_rts_data_v2` method of `identify_data_structure()` is
+deprecated along with the format it dispatches on. Nothing warns at run
+time. See
+[`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md).
+Neither the generic itself nor its `tbl_Microsoft SQL Server` method is
+deprecated.
+
 ## See also
 
 Two vignettes run this function and plot the result:

@@ -1,4 +1,4 @@
-# Convert data.table to csfmt_rts_data_v2
+# Convert data.table to csfmt_rts_data_v2 (deprecated)
 
 `set_csfmt_rts_data_v2` converts a `data.table` to `csfmt_rts_data_v2`
 by reference. `csfmt_rts_data_v2` creates a new `csfmt_rts_data_v2` (not
@@ -196,6 +196,47 @@ imputation.
 - calyearmonth
 
 - date
+
+## Deprecated
+
+`csfmt_rts_data_v2` is deprecated as a direction of travel, not because
+a finished replacement exists. The format still works, nothing warns at
+run time, and nothing has been removed.
+[`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
+is what new work should target, subject to three limits that were
+measured rather than estimated.
+
+First, v3 derives fewer columns than v2, but drops none. Counted on the
+unified set – `names(attr(x, "format_unified"))`, the columns each
+format creates when the input lacks them – v2 derives 18 and v3 derives
+11. The seven in v2's set and not in v3's are `granularity_time`,
+`border`, `isoquarter`, `isoyearquarter`, `calyear`, `calmonth` and
+`calyearmonth`. Deriving and keeping are different things.
+[`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
+removes no column, so an existing v2 object converted to v3 keeps every
+column it had, `granularity_time` and `border` included, and v3 healing
+still refreshes `isoquarter` and `isoyearquarter` when the columns are
+present. What a move to v3 costs is the guarantee: a v3 table built from
+an input that lacks those columns will not have them, where the same
+input under v2 would.
+
+Second, v3 is weekly-only, and that is what costs you the calendar
+columns. `heal.csfmt_rts_data_v3()` derives from `isoyearweek` alone.
+The isoyearweek lookup holds no calendar values at all – `calyear`,
+`calmonth` and `calyearmonth` are NA for all 7829 of its rows, under v2
+as much as under v3 – so no v3 table can populate them. Heal from `date`
+under v2 if you aggregate by calendar month or calendar year. A daily
+table converted to v3 keeps its `date` values and gets nothing else
+healed.
+
+Third, v3 cannot be stored in the database yet. `csdb` exports
+`validator_field_types_csfmt_rts_data_v1()` and
+`validator_field_types_csfmt_rts_data_v2()`, and has no v3 equivalent.
+v3 is an analysis and presentation format today, not a storage format.
+
+So keep using v2 wherever the data is written to the database, covers a
+granularity other than isoyearweek, or must derive a calendar or
+quarterly column that the input does not already carry.
 
 ## See also
 

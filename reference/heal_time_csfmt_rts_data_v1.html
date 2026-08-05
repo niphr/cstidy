@@ -11,7 +11,7 @@ a data.table restricted to the requested columns."><meta property="og:image" con
 
     <a class="navbar-brand me-2" href="../index.html">cstidy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,6 +86,18 @@ a data.table restricted to the requested columns.</p>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>data.table, a dataset with time columns corresponding to the values given in x.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="deprecated">Deprecated<a class="anchor" aria-label="anchor" href="#deprecated"></a></h2>
+
+
+<p>This lookup is deprecated along with the <code>csfmt_rts_data_v1</code> format it
+serves. Nothing warns at run time and nothing has been removed; the mark is a
+signpost for new work. <code><a href="heal_time_csfmt_rts_data_v2.html">heal_time_csfmt_rts_data_v2()</a></code> replaces
+it. The two take the same three arguments, v2 accepts every
+<code>granularity_time</code> this function accepts ("date", "isoyearweek", "isoyear")
+plus "season", and v2 can also return <code>isoquarter</code> and <code>isoyearquarter</code>. See
+<code><a href="set_csfmt_rts_data_v1.html">set_csfmt_rts_data_v1()</a></code> for the format itself.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

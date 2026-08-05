@@ -29,6 +29,19 @@ heal_time_csfmt_rts_data_v1(x, cols, granularity_time = "date")
 data.table, a dataset with time columns corresponding to the values
 given in x.
 
+## Deprecated
+
+This lookup is deprecated along with the `csfmt_rts_data_v1` format it
+serves. Nothing warns at run time and nothing has been removed; the mark
+is a signpost for new work.
+[`heal_time_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/heal_time_csfmt_rts_data_v2.md)
+replaces it. The two take the same three arguments, v2 accepts every
+`granularity_time` this function accepts ("date", "isoyearweek",
+"isoyear") plus "season", and v2 can also return `isoquarter` and
+`isoyearquarter`. See
+[`set_csfmt_rts_data_v1()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v1.md)
+for the format itself.
+
 ## See also
 
 No vignette covers this function.

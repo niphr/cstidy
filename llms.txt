@@ -55,7 +55,7 @@ class back off.
   : Convert data.table to csfmt_rts_data_v1 (deprecated)
 - [`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
   [`csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
-  : Convert data.table to csfmt_rts_data_v2
+  : Convert data.table to csfmt_rts_data_v2 (deprecated)
 - [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
   [`csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
   : Convert a data.table to csfmt_rts_data_v3 (clean csfmt; explicit
@@ -73,7 +73,7 @@ object.
 - [`heal_time_csfmt_rts_data_v1()`](https://niphr.github.io/cstidy/reference/heal_time_csfmt_rts_data_v1.md)
   : Provides corresponding healed times (deprecated)
 - [`heal_time_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/heal_time_csfmt_rts_data_v2.md)
-  : Provides corresponding healed times
+  : Provides corresponding healed times (deprecated)
 - [`unique_time_series()`](https://niphr.github.io/cstidy/reference/unique_time_series.md)
   : Unique time series
 

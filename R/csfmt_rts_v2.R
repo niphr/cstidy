@@ -251,7 +251,7 @@ formats$csfmt_rts_data_v2$unified$date <- list(
 #   csutil::apply_fn_via_hash_table(x, heal_time_csfmt_rts_data_v2_internal, cols=cols, from=from)
 # }
 
-#' Provides corresponding healed times
+#' Provides corresponding healed times (deprecated)
 #'
 #' @description
 #' Looks up the time columns (such as isoyear, isoweek, isoquarter, season, and
@@ -268,6 +268,14 @@ formats$csfmt_rts_data_v2$unified$date <- list(
 #'   cols = c("isoyear", "isoweek", "season", "date"),
 #'   granularity_time = "isoyearweek"
 #' )
+#' @section Deprecated:
+#' This lookup is deprecated as a public entry point, along with the
+#' `csfmt_rts_data_v2` format it was written for. Nothing warns at run time, and
+#' it is not going away: \code{heal.csfmt_rts_data_v3()} calls it to derive v3's
+#' time columns, so it is still the healing engine behind
+#' \code{\link{set_csfmt_rts_data_v3}()}. See
+#' \code{\link{set_csfmt_rts_data_v2}()} for what replaces the format, and for
+#' the three limits of that replacement.
 #' @family time healing lookups
 #' @seealso No vignette covers this function.
 #' \code{\link{set_csfmt_rts_data_v2}()} and \code{\link{set_csfmt_rts_data_v3}()}
@@ -364,6 +372,10 @@ heal_time_csfmt_rts_data_v2 <- function(x, cols, granularity_time = "date") {
   }
 }
 
+#' @section Deprecated:
+#' This method is deprecated along with the `csfmt_rts_data_v2` format it
+#' dispatches on. Nothing warns at run time. See
+#' \code{\link{set_csfmt_rts_data_v2}()}.
 #' @method [ csfmt_rts_data_v2
 #' @returns No return value, called for side effect of assigning values in a column.
 #' @export
@@ -813,7 +825,7 @@ assert_classes.csfmt_rts_data_v2 <- function(x, ...) {
   return(invisible(x))
 }
 
-#' Convert data.table to csfmt_rts_data_v2
+#' Convert data.table to csfmt_rts_data_v2 (deprecated)
 #'
 #' @description
 #' \code{set_csfmt_rts_data_v2} converts a \code{data.table} to \code{csfmt_rts_data_v2} by reference.
@@ -940,6 +952,42 @@ assert_classes.csfmt_rts_data_v2 <- function(x, ...) {
 #' cstidy::generate_test_data() %>%
 #'   cstidy::set_csfmt_rts_data_v2() %>%
 #'   summary()
+#' @section Deprecated:
+#' `csfmt_rts_data_v2` is deprecated as a direction of travel, not because a
+#' finished replacement exists. The format still works, nothing warns at run
+#' time, and nothing has been removed. \code{\link{set_csfmt_rts_data_v3}()} is
+#' what new work should target, subject to three limits that were measured
+#' rather than estimated.
+#'
+#' First, v3 derives fewer columns than v2, but drops none. Counted on the
+#' unified set -- \code{names(attr(x, "format_unified"))}, the columns each
+#' format creates when the input lacks them -- v2 derives 18 and v3 derives 11.
+#' The seven in v2's set and not in v3's are `granularity_time`, `border`,
+#' `isoquarter`, `isoyearquarter`, `calyear`, `calmonth` and `calyearmonth`.
+#' Deriving and keeping are different things.
+#' \code{\link{set_csfmt_rts_data_v3}()} removes no column, so an existing v2
+#' object converted to v3 keeps every column it had, `granularity_time` and
+#' `border` included, and v3 healing still refreshes `isoquarter` and
+#' `isoyearquarter` when the columns are present. What a move to v3 costs is
+#' the guarantee: a v3 table built from an input that lacks those columns will
+#' not have them, where the same input under v2 would.
+#'
+#' Second, v3 is weekly-only, and that is what costs you the calendar columns.
+#' \code{heal.csfmt_rts_data_v3()} derives from `isoyearweek` alone. The
+#' isoyearweek lookup holds no calendar values at all -- `calyear`, `calmonth`
+#' and `calyearmonth` are NA for all 7829 of its rows, under v2 as much as
+#' under v3 -- so no v3 table can populate them. Heal from `date` under v2 if
+#' you aggregate by calendar month or calendar year. A daily table converted to
+#' v3 keeps its `date` values and gets nothing else healed.
+#'
+#' Third, v3 cannot be stored in the database yet. `csdb` exports
+#' `validator_field_types_csfmt_rts_data_v1()` and
+#' `validator_field_types_csfmt_rts_data_v2()`, and has no v3 equivalent. v3 is
+#' an analysis and presentation format today, not a storage format.
+#'
+#' So keep using v2 wherever the data is written to the database, covers a
+#' granularity other than isoyearweek, or must derive a calendar or quarterly
+#' column that the input does not already carry.
 #' @family csfmt_rts_data
 #' @family csfmt format converters
 #' @seealso Two vignettes run \code{set_csfmt_rts_data_v2()} in a code chunk:
@@ -985,6 +1033,10 @@ csfmt_rts_data_v2 <- function(x, create_unified_columns = TRUE, heal = TRUE) {
   return(y)
 }
 
+#' @section Deprecated:
+#' This method is deprecated along with the `csfmt_rts_data_v2` format it
+#' dispatches on. Nothing warns at run time. See
+#' \code{\link{set_csfmt_rts_data_v2}()}.
 #' @method summary csfmt_rts_data_v2
 #' @returns No return value, called for side effect of printing a summary of the object.
 #' @export
@@ -1223,6 +1275,11 @@ identify_data_structure_internal <- function(summarized, col) {
   return(invisible(skeleton_long))
 }
 
+#' @section Deprecated:
+#' The `csfmt_rts_data_v2` method of `identify_data_structure()` is deprecated
+#' along with the format it dispatches on. Nothing warns at run time. See
+#' \code{\link{set_csfmt_rts_data_v2}()}. Neither the generic itself nor its
+#' `tbl_Microsoft SQL Server` method is deprecated.
 #' @method identify_data_structure csfmt_rts_data_v2
 #' @rdname identify_data_structure
 #' @export
@@ -1297,6 +1354,10 @@ identify_data_structure.csfmt_rts_data_v2 <- function(x, col, ...) {
   )
 }
 
+#' @section Deprecated:
+#' This method is deprecated along with the `csfmt_rts_data_v2` format whose
+#' structure hash it plots. Nothing warns at run time. See
+#' \code{\link{set_csfmt_rts_data_v2}()}.
 #' @method plot csfmt_rts_data_structure_hash_v2
 #' @export
 plot.csfmt_rts_data_structure_hash_v2 <- function(x, y, ...) {
@@ -1336,6 +1397,11 @@ plot.csfmt_rts_data_structure_hash_v2 <- function(x, y, ...) {
   q
 }
 
+#' @section Deprecated:
+#' This method is deprecated along with the `csfmt_rts_data_v2` format it
+#' dispatches on. Nothing warns at run time. See
+#' \code{\link{set_csfmt_rts_data_v2}()}. The `csfmt_rts_data_v3` method of
+#' `unique_time_series()` is not deprecated.
 #' @method unique_time_series csfmt_rts_data_v2
 #' @export
 unique_time_series.csfmt_rts_data_v2 <- function(
@@ -1378,6 +1444,10 @@ unique_time_series.csfmt_rts_data_v2 <- function(
   return(retval)
 }
 
+#' @section Deprecated:
+#' This method is deprecated along with the `csfmt_rts_data_v2` format it
+#' dispatches on. Nothing warns at run time. See
+#' \code{\link{set_csfmt_rts_data_v2}()}.
 #' @method expand_time_to csfmt_rts_data_v2
 #' @export
 expand_time_to.csfmt_rts_data_v2 <- function(

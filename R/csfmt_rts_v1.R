@@ -254,6 +254,14 @@ formats$csfmt_rts_data_v1$unified$date <- list(
 #'   cols = c("isoyear", "isoyearweek", "date"),
 #'   granularity_time = "date"
 #' )
+#' @section Deprecated:
+#' This lookup is deprecated along with the `csfmt_rts_data_v1` format it
+#' serves. Nothing warns at run time and nothing has been removed; the mark is a
+#' signpost for new work. \code{\link{heal_time_csfmt_rts_data_v2}()} replaces
+#' it. The two take the same three arguments, v2 accepts every
+#' `granularity_time` this function accepts ("date", "isoyearweek", "isoyear")
+#' plus "season", and v2 can also return `isoquarter` and `isoyearquarter`. See
+#' \code{\link{set_csfmt_rts_data_v1}()} for the format itself.
 #' @family time healing lookups
 #' @seealso No vignette covers this function.
 #' \code{\link{set_csfmt_rts_data_v1}()} calls it while healing a
@@ -325,6 +333,10 @@ heal_time_csfmt_rts_data_v1 <- function(x, cols, granularity_time = "date") {
   }
 }
 
+#' @section Deprecated:
+#' This method is deprecated along with the `csfmt_rts_data_v1` format it
+#' dispatches on. Nothing warns at run time. See
+#' \code{\link{set_csfmt_rts_data_v1}()}.
 #' @method [ csfmt_rts_data_v1
 #' @returns No return value, called for side effect of assigning values in a column.
 #' @export
@@ -842,14 +854,26 @@ assert_classes.csfmt_rts_data_v1 <- function(x, ...) {
 #' class(y)
 #' class(e)
 #' names(e)
+#' @section Deprecated:
+#' `csfmt_rts_data_v1` is deprecated. The format still works and nothing warns
+#' at run time; the mark is a signpost for new work, not a removal notice.
+#' \code{\link{set_csfmt_rts_data_v2}()} is the replacement. Two properties of
+#' that move were measured, and both come out clean. All 16 of v1's unified
+#' columns are among v2's 18, the two extra ones being `isoquarter` and
+#' `isoyearquarter`. v2 heals from every `granularity_time` v1 heals from
+#' ("date", "isoyearweek", "isoyear") and from "season" as well. `csdb` exports
+#' a field-type validator for both formats, so either can be written to the
+#' database.
+#'
+#' v2 is itself deprecated, in favour of
+#' \code{\link{set_csfmt_rts_data_v3}()}. That further step is not lossless.
+#' Read the Deprecated section of \code{\link{set_csfmt_rts_data_v2}()} before
+#' going past v2.
 #' @family csfmt_rts_data
 #' @family csfmt format converters
 #' @seealso No vignette runs this function. The benchmarks vignette reports its
 #' run time, but that vignette is precompiled and carries no runnable code:
 #' \code{vignette("benchmarks", package = "cstidy")}.
-#' This format is deprecated. \code{\link{set_csfmt_rts_data_v2}()} accepts
-#' every `granularity_time` this format accepts, plus "season". Use
-#' \code{\link{set_csfmt_rts_data_v3}()} for weekly-only data.
 #' @export
 set_csfmt_rts_data_v1 <- function(
   x,
@@ -889,6 +913,10 @@ csfmt_rts_data_v1 <- function(x, create_unified_columns = TRUE, heal = TRUE) {
   return(y)
 }
 
+#' @section Deprecated:
+#' This method is deprecated along with the `csfmt_rts_data_v1` format it
+#' dispatches on. Nothing warns at run time. See
+#' \code{\link{set_csfmt_rts_data_v1}()}.
 #' @method summary csfmt_rts_data_v1
 #' @returns No return value, called for side effect of printing a summary of the object.
 #' @export
@@ -1001,6 +1029,10 @@ summary.csfmt_rts_data_v1 <- function(object, ...) {
 }
 
 
+#' @section Deprecated:
+#' This method is deprecated along with the `csfmt_rts_data_v1` format whose
+#' structure hash it plots. Nothing warns at run time. See
+#' \code{\link{set_csfmt_rts_data_v1}()}.
 #' @method plot csfmt_rts_data_structure_hash_v1
 #' @export
 plot.csfmt_rts_data_structure_hash_v1 <- function(x, y, ...) {
@@ -1040,6 +1072,10 @@ plot.csfmt_rts_data_structure_hash_v1 <- function(x, y, ...) {
   q
 }
 
+#' @section Deprecated:
+#' This method is deprecated along with the `csfmt_rts_data_v1` format it
+#' dispatches on. Nothing warns at run time. See
+#' \code{\link{set_csfmt_rts_data_v1}()}.
 #' @method unique_time_series csfmt_rts_data_v1
 #' @export
 unique_time_series.csfmt_rts_data_v1 <- function(
@@ -1082,6 +1118,10 @@ unique_time_series.csfmt_rts_data_v1 <- function(
   return(retval)
 }
 
+#' @section Deprecated:
+#' This method is deprecated along with the `csfmt_rts_data_v1` format it
+#' dispatches on. Nothing warns at run time. See
+#' \code{\link{set_csfmt_rts_data_v1}()}.
 #' @method expand_time_to csfmt_rts_data_v1
 #' @export
 expand_time_to.csfmt_rts_data_v1 <- function(

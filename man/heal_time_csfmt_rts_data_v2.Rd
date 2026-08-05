@@ -2,7 +2,7 @@
 % Please edit documentation in R/csfmt_rts_v2.R
 \name{heal_time_csfmt_rts_data_v2}
 \alias{heal_time_csfmt_rts_data_v2}
-\title{Provides corresponding healed times}
+\title{Provides corresponding healed times (deprecated)}
 \usage{
 heal_time_csfmt_rts_data_v2(x, cols, granularity_time = "date")
 }
@@ -21,6 +21,17 @@ Looks up the time columns (such as isoyear, isoweek, isoquarter, season, and
 date) that correspond to a vector of dates, isoyearweeks, seasons, or
 isoyears, returning them as a data.table restricted to the requested columns.
 }
+\section{Deprecated}{
+
+This lookup is deprecated as a public entry point, along with the
+\code{csfmt_rts_data_v2} format it was written for. Nothing warns at run time, and
+it is not going away: \code{heal.csfmt_rts_data_v3()} calls it to derive v3's
+time columns, so it is still the healing engine behind
+\code{\link{set_csfmt_rts_data_v3}()}. See
+\code{\link{set_csfmt_rts_data_v2}()} for what replaces the format, and for
+the three limits of that replacement.
+}
+
 \examples{
 cstidy::heal_time_csfmt_rts_data_v2(
   c("2022-01", "2022-02"),

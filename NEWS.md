@@ -1,3 +1,73 @@
+# Version 2026.8.5
+
+Documentation only. No executable line changed. `csfmt_rts_data_v3` is now the
+target format, so `csfmt_rts_data_v1` and `csfmt_rts_data_v2` are marked
+deprecated in roxygen.
+
+- **The mark is a signpost, not an alarm.** No `.Deprecated()`, no
+  `lifecycle::deprecate_warn()`, no `warning()`, no `message()`, and no new
+  dependency. Every deprecated function behaves exactly as it did in 2026.8.4
+  and prints nothing extra. `norsyss.cs9` runs on `csfmt_rts_data_v2` nightly;
+  a run-time warning would flood its logs for something nobody can act on yet.
+- **What carries the mark.** One `@section Deprecated:` block, worded the same
+  way throughout, on: `csfmt_rts_data_v1()`, `set_csfmt_rts_data_v1()`,
+  `heal_time_csfmt_rts_data_v1()`, `csfmt_rts_data_v2()`,
+  `set_csfmt_rts_data_v2()`, `heal_time_csfmt_rts_data_v2()`, and the v1 and v2
+  S3 methods for `[`, `summary()`, `unique_time_series()`, `expand_time_to()`,
+  `identify_data_structure()` and `plot()`. Two titles gained a
+  "(deprecated)" suffix — `set_csfmt_rts_data_v2` and
+  `heal_time_csfmt_rts_data_v2` — matching the two v1 titles that already had
+  one, so the reference index reads the same way down the list.
+- **Nothing on v3 is deprecated**: `csfmt_rts_data_v3()`,
+  `set_csfmt_rts_data_v3()`, `unique_time_series.csfmt_rts_data_v3()` and
+  `remove_class_csfmt_rts_data()` are unmarked. The
+  `identify_data_structure()` generic and its `tbl_Microsoft SQL Server`
+  method are unmarked too; only the `csfmt_rts_data_v2` method carries the
+  note, and the note says so.
+- **v1 to v2 is lossless on the two properties measured.** All 16 of v1's
+  unified columns are among v2's 18, the extra two being `isoquarter` and
+  `isoyearquarter`. `heal_time_csfmt_rts_data_v2()` accepts every
+  `granularity_time` `heal_time_csfmt_rts_data_v1()` accepts ("date",
+  "isoyearweek", "isoyear") and "season" as well. `csdb` exports a field-type
+  validator for both formats.
+- **v2 to v3 has limits, and the v2 note states each one with the base it was
+  measured on.** Three caveats, all measured:
+  1. **v3 derives fewer columns than v2, but drops none.** Counted on the
+     unified set — `names(attr(x, "format_unified"))`, the columns each format
+     creates when the input lacks them — v2 derives 18 and v3 derives 11. The
+     seven in v2's set and not in v3's are `granularity_time`, `border`,
+     `isoquarter`, `isoyearquarter`, `calyear`, `calmonth` and `calyearmonth`.
+     Deriving is not dropping: `set_csfmt_rts_data_v3()` removes no column, so
+     an existing v2 object converted to v3 keeps every column it had,
+     `granularity_time` and `border` included, and v3 healing still refreshes
+     `isoquarter` and `isoyearquarter` when the columns are present. Counted on
+     an object instead of the unified set, a v2 table with one value column
+     whose input carried `granularity_time` and `border` has 19 columns and its
+     v3 conversion has 19 too; the same input without those two gives 19 under
+     v2 and 12 under v3. What a move to v3 costs is the guarantee, not the
+     data.
+  2. **v3 is weekly-only, and that is what costs the calendar columns.**
+     `heal.csfmt_rts_data_v3()` derives from `isoyearweek` alone, and the
+     isoyearweek lookup holds no calendar values at all — `calyear`, `calmonth`
+     and `calyearmonth` are NA for all 7829 of its rows, under v2 as much as
+     under v3. Only the `date` lookup carries them, in all 54789 rows. So
+     aggregating by calendar month or calendar year needs a v2 table healed on
+     `date`, and a daily table converted to v3 keeps its `date` values and gets
+     nothing else healed.
+  3. **v3 cannot be stored in the database yet.** `csdb` exports
+     `validator_field_types_csfmt_rts_data_v1()` and
+     `validator_field_types_csfmt_rts_data_v2()` and has no v3 equivalent, so
+     v3 is an analysis and presentation format today, not a storage format.
+
+  So v2 is deprecated as a direction of travel, not because a finished
+  replacement exists. Keep using v2 wherever the data is written to the
+  database, covers a granularity other than isoyearweek, or must derive a
+  calendar or quarterly column that the input does not already carry.
+- **`heal_time_csfmt_rts_data_v2()` is deprecated as a public entry point
+  only.** `heal.csfmt_rts_data_v3()` calls it to derive v3's time columns, so
+  it is still the healing engine behind `set_csfmt_rts_data_v3()`. Its note
+  says that rather than implying it is on the way out.
+
 # Version 2026.8.4
 
 Documentation only. The R files were also reformatted. Comparing the parsed

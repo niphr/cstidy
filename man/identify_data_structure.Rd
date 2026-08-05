@@ -28,6 +28,14 @@ combination of granularity_time, granularity_geo, age, and sex it records
 whether the column is structurally missing, only NA, only data, or a mix of
 data and NA. The result can be passed to \code{plot()} for a visual overview.
 }
+\section{Deprecated}{
+
+The \code{csfmt_rts_data_v2} method of \code{identify_data_structure()} is deprecated
+along with the format it dispatches on. Nothing warns at run time. See
+\code{\link{set_csfmt_rts_data_v2}()}. Neither the generic itself nor its
+\verb{tbl_Microsoft SQL Server} method is deprecated.
+}
+
 \examples{
 cstidy::generate_test_data() \%>\%
   cstidy::set_csfmt_rts_data_v2() \%>\%

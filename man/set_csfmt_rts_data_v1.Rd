@@ -101,6 +101,24 @@ When the \strong{variables in bold} are assigned using \verb{:=}, the listed var
 }
 }
 
+\section{Deprecated}{
+
+\code{csfmt_rts_data_v1} is deprecated. The format still works and nothing warns
+at run time; the mark is a signpost for new work, not a removal notice.
+\code{\link{set_csfmt_rts_data_v2}()} is the replacement. Two properties of
+that move were measured, and both come out clean. All 16 of v1's unified
+columns are among v2's 18, the two extra ones being \code{isoquarter} and
+\code{isoyearquarter}. v2 heals from every \code{granularity_time} v1 heals from
+("date", "isoyearweek", "isoyear") and from "season" as well. \code{csdb} exports
+a field-type validator for both formats, so either can be written to the
+database.
+
+v2 is itself deprecated, in favour of
+\code{\link{set_csfmt_rts_data_v3}()}. That further step is not lossless.
+Read the Deprecated section of \code{\link{set_csfmt_rts_data_v2}()} before
+going past v2.
+}
+
 \examples{
 # granularity_time names the time column that the others are derived from.
 d <- data.table::data.table(
@@ -131,9 +149,6 @@ names(e)
 No vignette runs this function. The benchmarks vignette reports its
 run time, but that vignette is precompiled and carries no runnable code:
 \code{vignette("benchmarks", package = "cstidy")}.
-This format is deprecated. \code{\link{set_csfmt_rts_data_v2}()} accepts
-every \code{granularity_time} this format accepts, plus "season". Use
-\code{\link{set_csfmt_rts_data_v3}()} for weekly-only data.
 
 Other csfmt_rts_data: 
 \code{\link{expand_time_to}()},

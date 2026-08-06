@@ -157,14 +157,17 @@ under v3 -- so no v3 table can populate them. Heal from \code{date} under v2 if
 you aggregate by calendar month or calendar year. A daily table converted to
 v3 keeps its \code{date} values and gets nothing else healed.
 
-Third, v3 cannot be stored in the database yet. \code{csdb} exports
-\code{validator_field_types_csfmt_rts_data_v1()} and
-\code{validator_field_types_csfmt_rts_data_v2()}, and has no v3 equivalent. v3 is
-an analysis and presentation format today, not a storage format.
+Third, \code{csdb} cannot CHECK a v3 table, though it can store one. \code{csdb}
+exports \code{validator_field_types_csfmt_rts_data_v1()} and
+\code{validator_field_types_csfmt_rts_data_v2()} and has no v3 equivalent, so a v3
+column set fails both. The validator is an ordinary argument to
+\code{csdb::DBTable_v9$new()}: pass \code{validator_field_types_blank()}, or a function
+of your own, and the table writes. What you lose is the column check, not the
+ability to store.
 
-So keep using v2 wherever the data is written to the database, covers a
-granularity other than isoyearweek, or must derive a calendar or quarterly
-column that the input does not already carry.
+So keep using v2 wherever the data covers a granularity other than
+isoyearweek, must derive a calendar or quarterly column the input does not
+carry, or needs \code{csdb} to validate its shape on the way in.
 }
 
 \examples{

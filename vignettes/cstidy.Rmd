@@ -19,6 +19,122 @@ library(data.table)
 library(magrittr)
 ```
 
+# What cstidy is for
+
+cstidy puts aggregated surveillance data into one standard shape: a
+`csfmt_rts_data` table. You give it counts that already carry a time column and
+a location column. It fills in the rest of the time and geography columns that
+the shape requires, so everything downstream can assume those columns are there.
+
+cstidy does not turn individual records into counts. Aggregate first, then hand
+the result to cstidy.
+
+# Which format to use
+
+Use **`csfmt_rts_data_v3`**, through `set_csfmt_rts_data_v3()`. It is the
+current format and what new work should target.
+
+**`csfmt_rts_data_v1` and `csfmt_rts_data_v2` are deprecated.** The mark is a
+signpost, not an alarm. Neither format prints a deprecation warning, and the
+mark changed no executable line, so nothing you have running will break or
+start complaining. The rest of this page documents v2 and is still accurate.
+Do not start there.
+
+The three formats are siblings. None of them inherits from another.
+
+```{r}
+d1 <- cstidy::generate_test_data()
+d2 <- cstidy::generate_test_data()
+d3 <- cstidy::generate_test_data()
+
+cstidy::set_csfmt_rts_data_v1(d1)
+cstidy::set_csfmt_rts_data_v2(d2)
+cstidy::set_csfmt_rts_data_v3(d3)
+
+class(d1)
+class(d2)
+class(d3)
+
+inherits(d3, "csfmt_rts_data_v2")
+```
+
+# Three things to know before you move to v3
+
+## v3 derives fewer columns, and removes none
+
+Each format carries the list of columns it derives when the input lacks them.
+v2's list holds 18 columns; v3's holds 11.
+
+Deriving is not removing. `set_csfmt_rts_data_v3()` takes no column away, so a
+table built under v2 keeps every column it had. What a move to v3 costs is the
+guarantee that those columns are present, not the values in them.
+
+```{r}
+length(attr(d2, "format_unified"))
+length(attr(d3, "format_unified"))
+
+d <- cstidy::generate_test_data()
+cstidy::set_csfmt_rts_data_v2(d)
+ncol(d)
+
+# Take the old class off first. set_csfmt_rts_data_v3() on a table that is
+# still csfmt_rts_data_v2 leaves it a csfmt_rts_data_v2.
+cstidy::remove_class_csfmt_rts_data(d)
+cstidy::set_csfmt_rts_data_v3(d)
+ncol(d)
+class(d)
+```
+
+## v3 is weekly only
+
+v3 fills in the time columns from `isoyearweek` and from nothing else. Weekly
+data comes out complete.
+
+A daily table keeps its `date` values and gets NA in every other time column.
+Data that is not weekly stays on v2.
+
+```{r}
+weekly <- data.table::data.table(
+  isoyearweek = c("2020-34", "2020-35"),
+  location_code = "nation_nor",
+  deaths_n = c(1L, 2L)
+)
+cstidy::set_csfmt_rts_data_v3(weekly)
+weekly[, .(isoyearweek, isoyear, isoweek, season, seasonweek, date)]
+
+daily <- data.table::data.table(
+  granularity_time = "date",
+  date = as.Date(c("2020-08-17", "2020-08-18")),
+  location_code = "nation_nor",
+  deaths_n = c(1L, 2L)
+)
+cstidy::set_csfmt_rts_data_v3(daily)
+daily[, .(date, isoyear, isoweek, isoyearweek, season, seasonweek)]
+```
+
+## csdb cannot check a v3 table, though it can store one
+
+`csdb` ships table validators for `csfmt_rts_data_v1` and `csfmt_rts_data_v2`,
+and nothing for v3, so a v3 column set fails both. That does not stop you
+storing it. The validator is an ordinary argument to `csdb::DBTable_v9$new()`:
+pass `validator_field_types_blank()`, or a function of your own, and the table
+writes. What you give up is the column check on the way in, not the storage.
+
+# Where cstidy sits
+
+cstidy imports `csdata` for Norwegian geography and `cstime` for time
+conversions. It feeds `csalert`, whose `ens_collapse(heal = TRUE)` returns a
+`csfmt_rts_data_v3`.
+
+# Where to read next
+
+- `vignette("csfmt_rts_data_v2", package = "cstidy")` — the column-by-column
+  reference for v2.
+- `vignette("benchmarks", package = "cstidy")` — timings.
+- `?set_csfmt_rts_data_v3` — the v3 reference. No vignette covers v3 yet.
+
+Everything below documents `csfmt_rts_data_v2`.
+
 # csfmt_rts_data_v2
 
 `csfmt_rts_data_v2` (`vignette("csfmt_rts_data_v2", package = "cstidy")`) is the Core Surveillance data format for real-time surveillance of infectious diseases.

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cstidy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,26 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2026.8.6" id="version-202686">Version 2026.8.6<a class="anchor" aria-label="anchor" href="#version-202686"></a></h2>
+<p>Documentation only. No executable line changed. <code>vignettes/cstidy.Rmd</code> holds the pkgdown “Get started” slot, and it opened on a <code># csfmt_rts_data_v2</code> heading, so the package’s front door taught the deprecated format first. An overview now sits in front of that heading. Every existing section is unchanged and unmoved.</p>
+<ul><li>
+<strong>The overview names v3 first, and calls v1 and v2 deprecated before the reader reaches them.</strong> 378 words of prose across five sections: what cstidy is for, which format to use, three things to know before moving to v3, where cstidy sits, and where to read next. Three runnable chunks carry every number, so the vignette rebuild re-measures each claim on every check.</li>
+<li>
+<strong>The three classes are siblings, shown rather than asserted.</strong> <code><a href="../reference/set_csfmt_rts_data_v1.html">set_csfmt_rts_data_v1()</a></code>, <code><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2()</a></code> and <code><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code>, each on its own copy of <code><a href="../reference/generate_test_data.html">generate_test_data()</a></code>, give <code>c("csfmt_rts_data_vN", "data.table", "data.frame")</code> for N = 1, 2 and 3, and <code>inherits(d3, "csfmt_rts_data_v2")</code> is FALSE. No format inherits from another.</li>
+<li>
+<strong>Fewer derived columns, and no column removed. Two different bases, both stated.</strong> Counted on the unified set, <code>length(attr(x, "format_unified"))</code>, v2 is 18 and v3 is 11. Counted on an object, a <code><a href="../reference/generate_test_data.html">generate_test_data()</a></code> table set to v2 has 19 columns and still has 19 after <code><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code>, with nothing lost and nothing gained. What a move to v3 costs is the guarantee, not the data.</li>
+<li>
+<strong>That chunk calls <code><a href="../reference/remove_class_csfmt_rts_data.html">remove_class_csfmt_rts_data()</a></code> before the v3 setter, and the comment says why.</strong> <code><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code> applied to a table that still carries the <code>csfmt_rts_data_v2</code> class returns a <code>csfmt_rts_data_v2</code>: healing calls <code>[</code>, no <code>[.csfmt_rts_data_v3</code> exists, so <code>[.csfmt_rts_data_v2</code> runs and re-asserts its own class. Measured, not changed — no file in <code>R/</code> was touched. With <code>create_unified_columns = FALSE, heal = FALSE</code> no <code>[</code> runs and the class stacks as <code>c("csfmt_rts_data_v3", "csfmt_rts_data_v2", "data.table", "data.frame")</code>.</li>
+<li>
+<strong>Weekly-only, shown on two tables.</strong> A two-row <code>isoyearweek</code> table set to v3 comes back with <code>isoyear</code>, <code>isoweek</code>, <code>season</code>, <code>seasonweek</code> and <code>date</code> all filled. A two-row daily table carrying <code>granularity_time = "date"</code> set to v3 keeps both <code>date</code> values and gets NA in <code>isoyear</code>, <code>isoweek</code>, <code>isoyearweek</code>, <code>season</code> and <code>seasonweek</code>. The same daily input set to v2 derives all of them.</li>
+<li>
+<strong>The database limit is prose, not code, because it has to be.</strong> <code>csdb</code> is neither an Import nor a Suggest of cstidy, so no vignette chunk may call it. Checked against <code>csdb</code> at commit 7b4f7cc: its NAMESPACE exports <code>validator_field_types_csfmt_rts_data_v1()</code>, <code>validator_field_types_csfmt_rts_data_v2()</code>, <code>validator_field_contents_csfmt_rts_data_v1()</code> and <code>validator_field_contents_csfmt_rts_data_v2()</code>, and the string <code>csfmt_rts_data_v3</code> appears nowhere in that repository. So v3 is an analysis storable but unvalidated by csdb, and that is the main limit on the direction.</li>
+<li>
+<strong><code>csalert</code> is named as the downstream consumer, verified by running it.</strong> <code>csalert::ens_collapse(ens, probs = 0.5, heal = TRUE)</code> returns class <code>c("csfmt_rts_data_v3", "data.table", "data.frame")</code>; the same call with <code>heal = FALSE</code> returns a plain <code>data.table</code>.</li>
+<li>
+<strong>The overview says “no deprecation warning”, not “no warning”.</strong> The wider claim is false and the vignette proves it a few sections further down: <code>R/</code> contains four <code><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning()</a></code> calls, and the smart-assignment section deliberately triggers one of them by setting two time columns at once. What is true, and what is written, is that no <code><a href="https://rdrr.io/r/base/Deprecated.html" class="external-link">.Deprecated()</a></code>, <code><a href="https://rdrr.io/r/base/Defunct.html" class="external-link">.Defunct()</a></code> or <code><a href="https://lifecycle.r-lib.org/reference/deprecate_soft.html" class="external-link">lifecycle::deprecate_warn()</a></code> appears anywhere in <code>R/</code>, and that <code><a href="../reference/set_csfmt_rts_data_v1.html">set_csfmt_rts_data_v1()</a></code> and <code><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2()</a></code> on a <code><a href="../reference/generate_test_data.html">generate_test_data()</a></code> table emit no warning and no message.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2026.8.5" id="version-202685">Version 2026.8.5<a class="anchor" aria-label="anchor" href="#version-202685"></a></h2>
 <p>Documentation only. No executable line changed. <code>csfmt_rts_data_v3</code> is now the target format, so <code>csfmt_rts_data_v1</code> and <code>csfmt_rts_data_v2</code> are marked deprecated in roxygen.</p>
 <ul><li>
@@ -69,7 +89,7 @@
 <li>
 <strong>v3 is weekly-only, and that is what costs the calendar columns.</strong> <code>heal.csfmt_rts_data_v3()</code> derives from <code>isoyearweek</code> alone, and the isoyearweek lookup holds no calendar values at all — <code>calyear</code>, <code>calmonth</code> and <code>calyearmonth</code> are NA for all 7829 of its rows, under v2 as much as under v3. Only the <code>date</code> lookup carries them, in all 54789 rows. So aggregating by calendar month or calendar year needs a v2 table healed on <code>date</code>, and a daily table converted to v3 keeps its <code>date</code> values and gets nothing else healed.</li>
 <li>
-<strong>v3 cannot be stored in the database yet.</strong> <code>csdb</code> exports <code>validator_field_types_csfmt_rts_data_v1()</code> and <code>validator_field_types_csfmt_rts_data_v2()</code> and has no v3 equivalent, so v3 is an analysis and presentation format today, not a storage format.</li>
+<strong><code>csdb</code> cannot CHECK a v3 table, though it can store one.</strong> <code>csdb</code> exports <code>validator_field_types_csfmt_rts_data_v1()</code> and <code>validator_field_types_csfmt_rts_data_v2()</code> and has no v3 equivalent, so The validator is an ordinary argument to <code>csdb::DBTable_v9$new()</code>, so passing <code>validator_field_types_blank()</code> stores a v3 fine. What is missing is the column check, not the storage.</li>
 </ol>
 So v2 is deprecated as a direction of travel, not because a finished replacement exists. Keep using v2 wherever the data is written to the database, covers a granularity other than isoyearweek, or must derive a calendar or quarterly column that the input does not already carry.</li>
 <li>

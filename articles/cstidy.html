@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cstidy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,13 +86,159 @@
     
     
 <div class="section level2">
+<h2 id="what-cstidy-is-for">What cstidy is for<a class="anchor" aria-label="anchor" href="#what-cstidy-is-for"></a>
+</h2>
+<p>cstidy puts aggregated surveillance data into one standard shape: a
+<code>csfmt_rts_data</code> table. You give it counts that already carry
+a time column and a location column. It fills in the rest of the time
+and geography columns that the shape requires, so everything downstream
+can assume those columns are there.</p>
+<p>cstidy does not turn individual records into counts. Aggregate first,
+then hand the result to cstidy.</p>
+</div>
+<div class="section level2">
+<h2 id="which-format-to-use">Which format to use<a class="anchor" aria-label="anchor" href="#which-format-to-use"></a>
+</h2>
+<p>Use <strong><code>csfmt_rts_data_v3</code></strong>, through
+<code><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code>. It is the current format and what
+new work should target.</p>
+<p><strong><code>csfmt_rts_data_v1</code> and
+<code>csfmt_rts_data_v2</code> are deprecated.</strong> The mark is a
+signpost, not an alarm. Neither format prints a deprecation warning, and
+the mark changed no executable line, so nothing you have running will
+break or start complaining. The rest of this page documents v2 and is
+still accurate. Do not start there.</p>
+<p>The three formats are siblings. None of them inherits from
+another.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">d3</span> <span class="op">&lt;-</span> <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v1.html">set_csfmt_rts_data_v1</a></span><span class="op">(</span><span class="va">d1</span><span class="op">)</span></span>
+<span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="va">d2</span><span class="op">)</span></span>
+<span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3</a></span><span class="op">(</span><span class="va">d3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">d1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "csfmt_rts_data_v1" "data.table"        "data.frame"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">d2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "csfmt_rts_data_v2" "data.table"        "data.frame"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">d3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "csfmt_rts_data_v3" "data.table"        "data.frame"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits</a></span><span class="op">(</span><span class="va">d3</span>, <span class="st">"csfmt_rts_data_v2"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="three-things-to-know-before-you-move-to-v3">Three things to know before you move to v3<a class="anchor" aria-label="anchor" href="#three-things-to-know-before-you-move-to-v3"></a>
+</h2>
+<div class="section level3">
+<h3 id="v3-derives-fewer-columns-and-removes-none">v3 derives fewer columns, and removes none<a class="anchor" aria-label="anchor" href="#v3-derives-fewer-columns-and-removes-none"></a>
+</h3>
+<p>Each format carries the list of columns it derives when the input
+lacks them. v2’s list holds 18 columns; v3’s holds 11.</p>
+<p>Deriving is not removing. <code><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code> takes
+no column away, so a table built under v2 keeps every column it had.
+What a move to v3 costs is the guarantee that those columns are present,
+not the values in them.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">d2</span>, <span class="st">"format_unified"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 18</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">d3</span>, <span class="st">"format_unified"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 11</span></span>
+<span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 19</span></span>
+<span></span>
+<span><span class="co"># Take the old class off first. set_csfmt_rts_data_v3() on a table that is</span></span>
+<span><span class="co"># still csfmt_rts_data_v2 leaves it a csfmt_rts_data_v2.</span></span>
+<span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/remove_class_csfmt_rts_data.html">remove_class_csfmt_rts_data</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
+<span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 19</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "csfmt_rts_data_v3" "data.table"        "data.frame"</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="v3-is-weekly-only">v3 is weekly only<a class="anchor" aria-label="anchor" href="#v3-is-weekly-only"></a>
+</h3>
+<p>v3 fills in the time columns from <code>isoyearweek</code> and from
+nothing else. Weekly data comes out complete.</p>
+<p>A daily table keeps its <code>date</code> values and gets NA in every
+other time column. Data that is not weekly stays on v2.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">weekly</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span>
+<span>  isoyearweek <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020-34"</span>, <span class="st">"2020-35"</span><span class="op">)</span>,</span>
+<span>  location_code <span class="op">=</span> <span class="st">"nation_nor"</span>,</span>
+<span>  deaths_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">2L</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3</a></span><span class="op">(</span><span class="va">weekly</span><span class="op">)</span></span>
+<span><span class="va">weekly</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">isoyearweek</span>, <span class="va">isoyear</span>, <span class="va">isoweek</span>, <span class="va">season</span>, <span class="va">seasonweek</span>, <span class="va">date</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;    isoyearweek isoyear isoweek    season seasonweek       date</span></span>
+<span><span class="co">#&gt;         &lt;char&gt;   &lt;int&gt;   &lt;int&gt;    &lt;char&gt;      &lt;num&gt;     &lt;Date&gt;</span></span>
+<span><span class="co">#&gt; 1:     2020-34    2020      34 2019/2020         52 2020-08-23</span></span>
+<span><span class="co">#&gt; 2:     2020-35    2020      35 2020/2021          1 2020-08-30</span></span>
+<span></span>
+<span><span class="va">daily</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span>
+<span>  granularity_time <span class="op">=</span> <span class="st">"date"</span>,</span>
+<span>  date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020-08-17"</span>, <span class="st">"2020-08-18"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  location_code <span class="op">=</span> <span class="st">"nation_nor"</span>,</span>
+<span>  deaths_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">2L</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3</a></span><span class="op">(</span><span class="va">daily</span><span class="op">)</span></span>
+<span><span class="va">daily</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">date</span>, <span class="va">isoyear</span>, <span class="va">isoweek</span>, <span class="va">isoyearweek</span>, <span class="va">season</span>, <span class="va">seasonweek</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;          date isoyear isoweek isoyearweek season seasonweek</span></span>
+<span><span class="co">#&gt;        &lt;Date&gt;   &lt;int&gt;   &lt;int&gt;      &lt;char&gt; &lt;char&gt;      &lt;num&gt;</span></span>
+<span><span class="co">#&gt; 1: 2020-08-17      NA      NA        &lt;NA&gt;   &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt; 2: 2020-08-18      NA      NA        &lt;NA&gt;   &lt;NA&gt;         NA</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="csdb-cannot-check-a-v3-table-though-it-can-store-one">csdb cannot check a v3 table, though it can store one<a class="anchor" aria-label="anchor" href="#csdb-cannot-check-a-v3-table-though-it-can-store-one"></a>
+</h3>
+<p><code>csdb</code> ships table validators for
+<code>csfmt_rts_data_v1</code> and <code>csfmt_rts_data_v2</code>, and
+nothing for v3, so a v3 column set fails both. That does not stop you
+storing it. The validator is an ordinary argument to
+<code>csdb::DBTable_v9$new()</code>: pass
+<code>validator_field_types_blank()</code>, or a function of your own,
+and the table writes. What you give up is the column check on the way
+in, not the storage.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="where-cstidy-sits">Where cstidy sits<a class="anchor" aria-label="anchor" href="#where-cstidy-sits"></a>
+</h2>
+<p>cstidy imports <code>csdata</code> for Norwegian geography and
+<code>cstime</code> for time conversions. It feeds <code>csalert</code>,
+whose <code>ens_collapse(heal = TRUE)</code> returns a
+<code>csfmt_rts_data_v3</code>.</p>
+</div>
+<div class="section level2">
+<h2 id="where-to-read-next">Where to read next<a class="anchor" aria-label="anchor" href="#where-to-read-next"></a>
+</h2>
+<ul>
+<li>
+<code><a href="../articles/csfmt_rts_data_v2.html">vignette("csfmt_rts_data_v2", package = "cstidy")</a></code> — the
+column-by-column reference for v2.</li>
+<li>
+<code><a href="../articles/benchmarks.html">vignette("benchmarks", package = "cstidy")</a></code> —
+timings.</li>
+<li>
+<code><a href="../reference/set_csfmt_rts_data_v3.html">?set_csfmt_rts_data_v3</a></code> — the v3 reference. No vignette
+covers v3 yet.</li>
+</ul>
+<p>Everything below documents <code>csfmt_rts_data_v2</code>.</p>
+</div>
+<div class="section level2">
 <h2 id="csfmt_rts_data_v2">csfmt_rts_data_v2<a class="anchor" aria-label="anchor" href="#csfmt_rts_data_v2"></a>
 </h2>
 <p><code>csfmt_rts_data_v2</code>
 (<code><a href="../articles/csfmt_rts_data_v2.html">vignette("csfmt_rts_data_v2", package = "cstidy")</a></code>) is the
 Core Surveillance data format for real-time surveillance of infectious
 diseases.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
 <span></span>
@@ -198,50 +344,50 @@ diseases.</p>
 <span><span class="co">#&gt;     &lt;char&gt;   &lt;int&gt;   &lt;int&gt;      &lt;char&gt;      &lt;int&gt;         &lt;char&gt;    &lt;char&gt;</span></span>
 <span><span class="co">#&gt;     seasonweek calyear calmonth calyearmonth       date deaths_n</span></span>
 <span><span class="co">#&gt;          &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1:         21      NA       NA         &lt;NA&gt; 2022-01-23        2</span></span>
-<span><span class="co">#&gt;  2:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span></span>
+<span><span class="co">#&gt;  1:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span></span>
+<span><span class="co">#&gt;  2:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
 <span><span class="co">#&gt;  3:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
-<span><span class="co">#&gt;  4:         21      NA       NA         &lt;NA&gt; 2022-01-23        3</span></span>
-<span><span class="co">#&gt;  5:         21      NA       NA         &lt;NA&gt; 2022-01-23        1</span></span>
-<span><span class="co">#&gt;  6:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
-<span><span class="co">#&gt;  7:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
-<span><span class="co">#&gt;  8:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
-<span><span class="co">#&gt;  9:         21      NA       NA         &lt;NA&gt; 2022-01-23        6</span></span>
-<span><span class="co">#&gt; 10:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span></span>
-<span><span class="co">#&gt; 11:         21      NA       NA         &lt;NA&gt; 2022-01-23        8</span></span>
-<span><span class="co">#&gt; 12:         21      NA       NA         &lt;NA&gt; 2022-01-23        3</span></span>
+<span><span class="co">#&gt;  4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
+<span><span class="co">#&gt;  5:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt;  6:         21      NA       NA         &lt;NA&gt; 2022-01-23        3</span></span>
+<span><span class="co">#&gt;  7:         21      NA       NA         &lt;NA&gt; 2022-01-23        9</span></span>
+<span><span class="co">#&gt;  8:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt;  9:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 10:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
+<span><span class="co">#&gt; 11:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 12:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
 <span><span class="co">#&gt; 13:         21      NA       NA         &lt;NA&gt; 2022-01-23        1</span></span>
-<span><span class="co">#&gt; 14:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
+<span><span class="co">#&gt; 14:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
 <span><span class="co">#&gt; 15:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
-<span><span class="co">#&gt; 16:         21      NA       NA         &lt;NA&gt; 2022-01-23        2</span></span>
-<span><span class="co">#&gt; 17:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span></span>
+<span><span class="co">#&gt; 16:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span></span>
+<span><span class="co">#&gt; 17:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
 <span><span class="co">#&gt; 18:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
-<span><span class="co">#&gt; 19:         21      NA       NA         &lt;NA&gt; 2022-01-23        3</span></span>
-<span><span class="co">#&gt; 20:         21      NA       NA         &lt;NA&gt; 2022-01-23        1</span></span>
-<span><span class="co">#&gt; 21:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
-<span><span class="co">#&gt; 22:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
-<span><span class="co">#&gt; 23:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
-<span><span class="co">#&gt; 24:         21      NA       NA         &lt;NA&gt; 2022-01-23        6</span></span>
-<span><span class="co">#&gt; 25:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span></span>
-<span><span class="co">#&gt; 26:         21      NA       NA         &lt;NA&gt; 2022-01-23        8</span></span>
-<span><span class="co">#&gt; 27:         21      NA       NA         &lt;NA&gt; 2022-01-23        3</span></span>
+<span><span class="co">#&gt; 19:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
+<span><span class="co">#&gt; 20:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 21:         21      NA       NA         &lt;NA&gt; 2022-01-23        3</span></span>
+<span><span class="co">#&gt; 22:         21      NA       NA         &lt;NA&gt; 2022-01-23        9</span></span>
+<span><span class="co">#&gt; 23:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 24:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 25:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
+<span><span class="co">#&gt; 26:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 27:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
 <span><span class="co">#&gt; 28:         21      NA       NA         &lt;NA&gt; 2022-01-23        1</span></span>
-<span><span class="co">#&gt; 29:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
+<span><span class="co">#&gt; 29:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
 <span><span class="co">#&gt; 30:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
-<span><span class="co">#&gt; 31:         21      NA       NA         &lt;NA&gt; 2022-01-23        2</span></span>
-<span><span class="co">#&gt; 32:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span></span>
+<span><span class="co">#&gt; 31:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span></span>
+<span><span class="co">#&gt; 32:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
 <span><span class="co">#&gt; 33:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
-<span><span class="co">#&gt; 34:         21      NA       NA         &lt;NA&gt; 2022-01-23        3</span></span>
-<span><span class="co">#&gt; 35:         21      NA       NA         &lt;NA&gt; 2022-01-23        1</span></span>
-<span><span class="co">#&gt; 36:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
-<span><span class="co">#&gt; 37:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
-<span><span class="co">#&gt; 38:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
-<span><span class="co">#&gt; 39:         21      NA       NA         &lt;NA&gt; 2022-01-23        6</span></span>
-<span><span class="co">#&gt; 40:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span></span>
-<span><span class="co">#&gt; 41:         21      NA       NA         &lt;NA&gt; 2022-01-23        8</span></span>
-<span><span class="co">#&gt; 42:         21      NA       NA         &lt;NA&gt; 2022-01-23        3</span></span>
+<span><span class="co">#&gt; 34:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
+<span><span class="co">#&gt; 35:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 36:         21      NA       NA         &lt;NA&gt; 2022-01-23        3</span></span>
+<span><span class="co">#&gt; 37:         21      NA       NA         &lt;NA&gt; 2022-01-23        9</span></span>
+<span><span class="co">#&gt; 38:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 39:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 40:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
+<span><span class="co">#&gt; 41:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 42:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
 <span><span class="co">#&gt; 43:         21      NA       NA         &lt;NA&gt; 2022-01-23        1</span></span>
-<span><span class="co">#&gt; 44:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
+<span><span class="co">#&gt; 44:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
 <span><span class="co">#&gt; 45:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
 <span><span class="co">#&gt;     seasonweek calyear calmonth calyearmonth       date deaths_n</span></span>
 <span><span class="co">#&gt;          &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span></span></code></pre></div>
@@ -292,7 +438,7 @@ geography. When the <strong>bold</strong> variables below are set with
 <li>calmonth</li>
 <li>calyearmonth</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
 <span></span>
@@ -314,11 +460,11 @@ geography. When the <strong>bold</strong> variables below are set with
 <span><span class="co">#&gt; 5:   &lt;NA&gt;    2022       3     2022-03          1        2022-Q1 2021/2022</span></span>
 <span><span class="co">#&gt;    seasonweek calyear calmonth calyearmonth       date deaths_n</span></span>
 <span><span class="co">#&gt;         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1:         21      NA       NA         &lt;NA&gt; 2022-01-23        3</span></span>
+<span><span class="co">#&gt; 1:         21      NA       NA         &lt;NA&gt; 2022-01-23        1</span></span>
 <span><span class="co">#&gt; 2:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
-<span><span class="co">#&gt; 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        2</span></span>
-<span><span class="co">#&gt; 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
-<span><span class="co">#&gt; 5:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span></span>
+<span><span class="co">#&gt; 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span></span>
+<span><span class="co">#&gt; 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
 <span></span>
 <span><span class="co"># Smart assignment of time columns (note how granularity_time, isoyear, isoyearweek, date all change)</span></span>
 <span><span class="va">d</span><span class="op">[</span><span class="fl">1</span>,<span class="va">isoyearweek</span> <span class="op">:=</span> <span class="st">"2021-01"</span><span class="op">]</span></span>
@@ -339,11 +485,11 @@ geography. When the <strong>bold</strong> variables below are set with
 <span><span class="co">#&gt; 5:   &lt;NA&gt;    2022       3     2022-03          1        2022-Q1 2021/2022</span></span>
 <span><span class="co">#&gt;    seasonweek calyear calmonth calyearmonth       date deaths_n</span></span>
 <span><span class="co">#&gt;         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        3</span></span>
+<span><span class="co">#&gt; 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        1</span></span>
 <span><span class="co">#&gt; 2:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
-<span><span class="co">#&gt; 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        2</span></span>
-<span><span class="co">#&gt; 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
-<span><span class="co">#&gt; 5:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span></span>
+<span><span class="co">#&gt; 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span></span>
+<span><span class="co">#&gt; 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
 <span></span>
 <span><span class="co"># Smart assignment of time columns (note how granularity_time, isoyear, isoyearweek, date all change)</span></span>
 <span><span class="va">d</span><span class="op">[</span><span class="fl">2</span>,<span class="va">isoyear</span> <span class="op">:=</span> <span class="fl">2019</span><span class="op">]</span></span>
@@ -364,11 +510,11 @@ geography. When the <strong>bold</strong> variables below are set with
 <span><span class="co">#&gt; 5:   &lt;NA&gt;    2022       3     2022-03          1        2022-Q1 2021/2022</span></span>
 <span><span class="co">#&gt;    seasonweek calyear calmonth calyearmonth       date deaths_n</span></span>
 <span><span class="co">#&gt;         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        3</span></span>
+<span><span class="co">#&gt; 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        1</span></span>
 <span><span class="co">#&gt; 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        4</span></span>
-<span><span class="co">#&gt; 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        2</span></span>
-<span><span class="co">#&gt; 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
-<span><span class="co">#&gt; 5:         21      NA       NA         &lt;NA&gt; 2022-01-23       10</span></span>
+<span><span class="co">#&gt; 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 4:         21      NA       NA         &lt;NA&gt; 2022-01-23        7</span></span>
+<span><span class="co">#&gt; 5:         21      NA       NA         &lt;NA&gt; 2022-01-23        4</span></span>
 <span></span>
 <span><span class="co"># Smart assignment of time columns (note how granularity_time, isoyear, isoyearweek, date all change)</span></span>
 <span><span class="va">d</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">5</span>,<span class="va">date</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span><span class="op">]</span></span>
@@ -389,11 +535,11 @@ geography. When the <strong>bold</strong> variables below are set with
 <span><span class="co">#&gt; 5:   &lt;NA&gt;    2020       1     2020-01          1        2020-Q1 2019/2020</span></span>
 <span><span class="co">#&gt;    seasonweek calyear calmonth calyearmonth       date deaths_n</span></span>
 <span><span class="co">#&gt;         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        3</span></span>
+<span><span class="co">#&gt; 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        1</span></span>
 <span><span class="co">#&gt; 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        4</span></span>
-<span><span class="co">#&gt; 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        2</span></span>
-<span><span class="co">#&gt; 4:         19    2020        1     2020-M01 2020-01-01        4</span></span>
-<span><span class="co">#&gt; 5:         19    2020        1     2020-M01 2020-01-01       10</span></span>
+<span><span class="co">#&gt; 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 4:         19    2020        1     2020-M01 2020-01-01        7</span></span>
+<span><span class="co">#&gt; 5:         19    2020        1     2020-M01 2020-01-01        4</span></span>
 <span></span>
 <span><span class="co"># Smart assignment fails when multiple time columns are set</span></span>
 <span><span class="va">d</span><span class="op">[</span><span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"isoyear"</span>,<span class="st">"isoyearweek"</span><span class="op">)</span> <span class="op">:=</span> <span class="fu">.</span><span class="op">(</span><span class="fl">2021</span>,<span class="st">"2021-01"</span><span class="op">)</span><span class="op">]</span></span>
@@ -416,11 +562,11 @@ geography. When the <strong>bold</strong> variables below are set with
 <span><span class="co">#&gt; 5:   &lt;NA&gt;    2020       1     2020-01          1        2020-Q1 2019/2020</span></span>
 <span><span class="co">#&gt;    seasonweek calyear calmonth calyearmonth       date deaths_n</span></span>
 <span><span class="co">#&gt;         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        3</span></span>
+<span><span class="co">#&gt; 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        1</span></span>
 <span><span class="co">#&gt; 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        4</span></span>
-<span><span class="co">#&gt; 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        2</span></span>
-<span><span class="co">#&gt; 4:         19    2020        1     2020-M01 2020-01-01        4</span></span>
-<span><span class="co">#&gt; 5:         19    2020        1     2020-M01 2020-01-01       10</span></span>
+<span><span class="co">#&gt; 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 4:         19    2020        1     2020-M01 2020-01-01        7</span></span>
+<span><span class="co">#&gt; 5:         19    2020        1     2020-M01 2020-01-01        4</span></span>
 <span></span>
 <span><span class="co"># Smart assignment of geo columns</span></span>
 <span><span class="va">d</span><span class="op">[</span><span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"location_code"</span><span class="op">)</span> <span class="op">:=</span> <span class="fu">.</span><span class="op">(</span><span class="st">"norge"</span><span class="op">)</span><span class="op">]</span></span>
@@ -441,11 +587,11 @@ geography. When the <strong>bold</strong> variables below are set with
 <span><span class="co">#&gt; 5:   &lt;NA&gt;    2020       1     2020-01          1        2020-Q1 2019/2020</span></span>
 <span><span class="co">#&gt;    seasonweek calyear calmonth calyearmonth       date deaths_n</span></span>
 <span><span class="co">#&gt;         &lt;num&gt;   &lt;int&gt;    &lt;int&gt;       &lt;char&gt;     &lt;Date&gt;    &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        3</span></span>
+<span><span class="co">#&gt; 1:         19      NA       NA         &lt;NA&gt; 2021-01-10        1</span></span>
 <span><span class="co">#&gt; 2:         NA      NA       NA         &lt;NA&gt; 2019-12-29        4</span></span>
-<span><span class="co">#&gt; 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        2</span></span>
-<span><span class="co">#&gt; 4:         19    2020        1     2020-M01 2020-01-01        4</span></span>
-<span><span class="co">#&gt; 5:         19    2020        1     2020-M01 2020-01-01       10</span></span>
+<span><span class="co">#&gt; 3:         21      NA       NA         &lt;NA&gt; 2022-01-23        5</span></span>
+<span><span class="co">#&gt; 4:         19    2020        1     2020-M01 2020-01-01        7</span></span>
+<span><span class="co">#&gt; 5:         19    2020        1     2020-M01 2020-01-01        4</span></span>
 <span></span>
 <span><span class="co"># Collapsing down to different levels, and healing the dataset </span></span>
 <span><span class="co"># (so that it can be worked on further with regards to real time surveillance)</span></span>
@@ -454,9 +600,9 @@ geography. When the <strong>bold</strong> variables below are set with
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    granularity_time deaths_n location_code   date</span></span>
 <span><span class="co">#&gt;              &lt;char&gt;    &lt;int&gt;        &lt;char&gt; &lt;Date&gt;</span></span>
-<span><span class="co">#&gt; 1:             date       14         norge   &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 1:             date       11         norge   &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 2:          isoyear        4         norge   &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3:      isoyearweek        5         norge   &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 3:      isoyearweek        6         norge   &lt;NA&gt;</span></span>
 <span></span>
 <span><span class="co"># Collapsing to different levels, and removing the class csfmt_rts_data_v2 because</span></span>
 <span><span class="co"># it is going to be used in new output/analyses</span></span>
@@ -466,16 +612,16 @@ geography. When the <strong>bold</strong> variables below are set with
 <span><span class="co">#&gt; Key: &lt;granularity_time&gt;</span></span>
 <span><span class="co">#&gt;    granularity_time deaths_n location_code</span></span>
 <span><span class="co">#&gt;              &lt;char&gt;    &lt;int&gt;        &lt;char&gt;</span></span>
-<span><span class="co">#&gt; 1:             date       14         norge</span></span>
+<span><span class="co">#&gt; 1:             date       11         norge</span></span>
 <span><span class="co">#&gt; 2:          isoyear        4         norge</span></span>
-<span><span class="co">#&gt; 3:      isoyearweek        5         norge</span></span></code></pre></div>
+<span><span class="co">#&gt; 3:      isoyearweek        6         norge</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h3>
 <p><code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> gives a concise overview of the data
 structure.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -570,12 +716,12 @@ structure.</p>
 </h3>
 <p><code><a href="../reference/identify_data_structure.html">cstidy::identify_data_structure()</a></code> inspects a single
 column and returns a plottable object.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/identify_data_structure.html">identify_data_structure</a></span><span class="op">(</span><span class="st">"deaths_n"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="cstidy_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="cstidy_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

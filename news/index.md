@@ -1,5 +1,86 @@
 # Changelog
 
+## Version 2026.8.6
+
+Documentation only. No executable line changed. `vignettes/cstidy.Rmd`
+holds the pkgdown “Get started” slot, and it opened on a
+`# csfmt_rts_data_v2` heading, so the package’s front door taught the
+deprecated format first. An overview now sits in front of that heading.
+Every existing section is unchanged and unmoved.
+
+- **The overview names v3 first, and calls v1 and v2 deprecated before
+  the reader reaches them.** 378 words of prose across five sections:
+  what cstidy is for, which format to use, three things to know before
+  moving to v3, where cstidy sits, and where to read next. Three
+  runnable chunks carry every number, so the vignette rebuild
+  re-measures each claim on every check.
+- **The three classes are siblings, shown rather than asserted.**
+  [`set_csfmt_rts_data_v1()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v1.md),
+  [`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
+  and
+  [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md),
+  each on its own copy of
+  [`generate_test_data()`](https://niphr.github.io/cstidy/reference/generate_test_data.md),
+  give `c("csfmt_rts_data_vN", "data.table", "data.frame")` for N = 1, 2
+  and 3, and `inherits(d3, "csfmt_rts_data_v2")` is FALSE. No format
+  inherits from another.
+- **Fewer derived columns, and no column removed. Two different bases,
+  both stated.** Counted on the unified set,
+  `length(attr(x, "format_unified"))`, v2 is 18 and v3 is 11. Counted on
+  an object, a
+  [`generate_test_data()`](https://niphr.github.io/cstidy/reference/generate_test_data.md)
+  table set to v2 has 19 columns and still has 19 after
+  [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md),
+  with nothing lost and nothing gained. What a move to v3 costs is the
+  guarantee, not the data.
+- **That chunk calls
+  [`remove_class_csfmt_rts_data()`](https://niphr.github.io/cstidy/reference/remove_class_csfmt_rts_data.md)
+  before the v3 setter, and the comment says why.**
+  [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
+  applied to a table that still carries the `csfmt_rts_data_v2` class
+  returns a `csfmt_rts_data_v2`: healing calls `[`, no
+  `[.csfmt_rts_data_v3` exists, so `[.csfmt_rts_data_v2` runs and
+  re-asserts its own class. Measured, not changed — no file in `R/` was
+  touched. With `create_unified_columns = FALSE, heal = FALSE` no `[`
+  runs and the class stacks as
+  `c("csfmt_rts_data_v3", "csfmt_rts_data_v2", "data.table", "data.frame")`.
+- **Weekly-only, shown on two tables.** A two-row `isoyearweek` table
+  set to v3 comes back with `isoyear`, `isoweek`, `season`, `seasonweek`
+  and `date` all filled. A two-row daily table carrying
+  `granularity_time = "date"` set to v3 keeps both `date` values and
+  gets NA in `isoyear`, `isoweek`, `isoyearweek`, `season` and
+  `seasonweek`. The same daily input set to v2 derives all of them.
+- **The database limit is prose, not code, because it has to be.**
+  `csdb` is neither an Import nor a Suggest of cstidy, so no vignette
+  chunk may call it. Checked against `csdb` at commit 7b4f7cc: its
+  NAMESPACE exports `validator_field_types_csfmt_rts_data_v1()`,
+  `validator_field_types_csfmt_rts_data_v2()`,
+  `validator_field_contents_csfmt_rts_data_v1()` and
+  `validator_field_contents_csfmt_rts_data_v2()`, and the string
+  `csfmt_rts_data_v3` appears nowhere in that repository. So v3 is an
+  analysis storable but unvalidated by csdb, and that is the main limit
+  on the direction.
+- **`csalert` is named as the downstream consumer, verified by running
+  it.** `csalert::ens_collapse(ens, probs = 0.5, heal = TRUE)` returns
+  class `c("csfmt_rts_data_v3", "data.table", "data.frame")`; the same
+  call with `heal = FALSE` returns a plain `data.table`.
+- **The overview says “no deprecation warning”, not “no warning”.** The
+  wider claim is false and the vignette proves it a few sections further
+  down: `R/` contains four
+  [`warning()`](https://rdrr.io/r/base/warning.html) calls, and the
+  smart-assignment section deliberately triggers one of them by setting
+  two time columns at once. What is true, and what is written, is that
+  no [`.Deprecated()`](https://rdrr.io/r/base/Deprecated.html),
+  [`.Defunct()`](https://rdrr.io/r/base/Defunct.html) or
+  [`lifecycle::deprecate_warn()`](https://lifecycle.r-lib.org/reference/deprecate_soft.html)
+  appears anywhere in `R/`, and that
+  [`set_csfmt_rts_data_v1()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v1.md)
+  and
+  [`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
+  on a
+  [`generate_test_data()`](https://niphr.github.io/cstidy/reference/generate_test_data.md)
+  table emit no warning and no message.
+
 ## Version 2026.8.5
 
 Documentation only. No executable line changed. `csfmt_rts_data_v3` is
@@ -79,11 +160,13 @@ are marked deprecated in roxygen.
       or calendar year needs a v2 table healed on `date`, and a daily
       table converted to v3 keeps its `date` values and gets nothing
       else healed.
-  3.  **v3 cannot be stored in the database yet.** `csdb` exports
-      `validator_field_types_csfmt_rts_data_v1()` and
+  3.  **`csdb` cannot CHECK a v3 table, though it can store one.**
+      `csdb` exports `validator_field_types_csfmt_rts_data_v1()` and
       `validator_field_types_csfmt_rts_data_v2()` and has no v3
-      equivalent, so v3 is an analysis and presentation format today,
-      not a storage format.
+      equivalent, so The validator is an ordinary argument to
+      `csdb::DBTable_v9$new()`, so passing
+      `validator_field_types_blank()` stores a v3 fine. What is missing
+      is the column check, not the storage.
 
   So v2 is deprecated as a direction of travel, not because a finished
   replacement exists. Keep using v2 wherever the data is written to the

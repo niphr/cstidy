@@ -11,7 +11,7 @@ Both stop with an error when x is not a data.table; call data.table::setDT() fir
 
     <a class="navbar-brand me-2" href="../index.html">cstidy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -199,13 +199,16 @@ and <code>calyearmonth</code> are NA for all 7829 of its rows, under v2 as much 
 under v3 – so no v3 table can populate them. Heal from <code>date</code> under v2 if
 you aggregate by calendar month or calendar year. A daily table converted to
 v3 keeps its <code>date</code> values and gets nothing else healed.</p>
-<p>Third, v3 cannot be stored in the database yet. <code>csdb</code> exports
-<code>validator_field_types_csfmt_rts_data_v1()</code> and
-<code>validator_field_types_csfmt_rts_data_v2()</code>, and has no v3 equivalent. v3 is
-an analysis and presentation format today, not a storage format.</p>
-<p>So keep using v2 wherever the data is written to the database, covers a
-granularity other than isoyearweek, or must derive a calendar or quarterly
-column that the input does not already carry.</p>
+<p>Third, <code>csdb</code> cannot CHECK a v3 table, though it can store one. <code>csdb</code>
+exports <code>validator_field_types_csfmt_rts_data_v1()</code> and
+<code>validator_field_types_csfmt_rts_data_v2()</code> and has no v3 equivalent, so a v3
+column set fails both. The validator is an ordinary argument to
+<code>csdb::DBTable_v9$new()</code>: pass <code>validator_field_types_blank()</code>, or a function
+of your own, and the table writes. What you lose is the column check, not the
+ability to store.</p>
+<p>So keep using v2 wherever the data covers a granularity other than
+isoyearweek, must derive a calendar or quarterly column the input does not
+carry, or needs <code>csdb</code> to validate its shape on the way in.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

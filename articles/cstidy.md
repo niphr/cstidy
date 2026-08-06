@@ -1,5 +1,145 @@
 # Introduction
 
+## What cstidy is for
+
+cstidy puts aggregated surveillance data into one standard shape: a
+`csfmt_rts_data` table. You give it counts that already carry a time
+column and a location column. It fills in the rest of the time and
+geography columns that the shape requires, so everything downstream can
+assume those columns are there.
+
+cstidy does not turn individual records into counts. Aggregate first,
+then hand the result to cstidy.
+
+## Which format to use
+
+Use **`csfmt_rts_data_v3`**, through
+[`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md).
+It is the current format and what new work should target.
+
+**`csfmt_rts_data_v1` and `csfmt_rts_data_v2` are deprecated.** The mark
+is a signpost, not an alarm. Neither format prints a deprecation
+warning, and the mark changed no executable line, so nothing you have
+running will break or start complaining. The rest of this page documents
+v2 and is still accurate. Do not start there.
+
+The three formats are siblings. None of them inherits from another.
+
+``` r
+d1 <- cstidy::generate_test_data()
+d2 <- cstidy::generate_test_data()
+d3 <- cstidy::generate_test_data()
+
+cstidy::set_csfmt_rts_data_v1(d1)
+cstidy::set_csfmt_rts_data_v2(d2)
+cstidy::set_csfmt_rts_data_v3(d3)
+
+class(d1)
+#> [1] "csfmt_rts_data_v1" "data.table"        "data.frame"
+class(d2)
+#> [1] "csfmt_rts_data_v2" "data.table"        "data.frame"
+class(d3)
+#> [1] "csfmt_rts_data_v3" "data.table"        "data.frame"
+
+inherits(d3, "csfmt_rts_data_v2")
+#> [1] FALSE
+```
+
+## Three things to know before you move to v3
+
+### v3 derives fewer columns, and removes none
+
+Each format carries the list of columns it derives when the input lacks
+them. v2’s list holds 18 columns; v3’s holds 11.
+
+Deriving is not removing.
+[`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
+takes no column away, so a table built under v2 keeps every column it
+had. What a move to v3 costs is the guarantee that those columns are
+present, not the values in them.
+
+``` r
+length(attr(d2, "format_unified"))
+#> [1] 18
+length(attr(d3, "format_unified"))
+#> [1] 11
+
+d <- cstidy::generate_test_data()
+cstidy::set_csfmt_rts_data_v2(d)
+ncol(d)
+#> [1] 19
+
+# Take the old class off first. set_csfmt_rts_data_v3() on a table that is
+# still csfmt_rts_data_v2 leaves it a csfmt_rts_data_v2.
+cstidy::remove_class_csfmt_rts_data(d)
+cstidy::set_csfmt_rts_data_v3(d)
+ncol(d)
+#> [1] 19
+class(d)
+#> [1] "csfmt_rts_data_v3" "data.table"        "data.frame"
+```
+
+### v3 is weekly only
+
+v3 fills in the time columns from `isoyearweek` and from nothing else.
+Weekly data comes out complete.
+
+A daily table keeps its `date` values and gets NA in every other time
+column. Data that is not weekly stays on v2.
+
+``` r
+weekly <- data.table::data.table(
+  isoyearweek = c("2020-34", "2020-35"),
+  location_code = "nation_nor",
+  deaths_n = c(1L, 2L)
+)
+cstidy::set_csfmt_rts_data_v3(weekly)
+weekly[, .(isoyearweek, isoyear, isoweek, season, seasonweek, date)]
+#>    isoyearweek isoyear isoweek    season seasonweek       date
+#>         <char>   <int>   <int>    <char>      <num>     <Date>
+#> 1:     2020-34    2020      34 2019/2020         52 2020-08-23
+#> 2:     2020-35    2020      35 2020/2021          1 2020-08-30
+
+daily <- data.table::data.table(
+  granularity_time = "date",
+  date = as.Date(c("2020-08-17", "2020-08-18")),
+  location_code = "nation_nor",
+  deaths_n = c(1L, 2L)
+)
+cstidy::set_csfmt_rts_data_v3(daily)
+daily[, .(date, isoyear, isoweek, isoyearweek, season, seasonweek)]
+#>          date isoyear isoweek isoyearweek season seasonweek
+#>        <Date>   <int>   <int>      <char> <char>      <num>
+#> 1: 2020-08-17      NA      NA        <NA>   <NA>         NA
+#> 2: 2020-08-18      NA      NA        <NA>   <NA>         NA
+```
+
+### csdb cannot check a v3 table, though it can store one
+
+`csdb` ships table validators for `csfmt_rts_data_v1` and
+`csfmt_rts_data_v2`, and nothing for v3, so a v3 column set fails both.
+That does not stop you storing it. The validator is an ordinary argument
+to `csdb::DBTable_v9$new()`: pass `validator_field_types_blank()`, or a
+function of your own, and the table writes. What you give up is the
+column check on the way in, not the storage.
+
+## Where cstidy sits
+
+cstidy imports `csdata` for Norwegian geography and `cstime` for time
+conversions. It feeds `csalert`, whose `ens_collapse(heal = TRUE)`
+returns a `csfmt_rts_data_v3`.
+
+## Where to read next
+
+- [`vignette("csfmt_rts_data_v2", package = "cstidy")`](https://niphr.github.io/cstidy/articles/csfmt_rts_data_v2.md)
+  — the column-by-column reference for v2.
+- [`vignette("benchmarks", package = "cstidy")`](https://niphr.github.io/cstidy/articles/benchmarks.md)
+  — timings.
+- [`?set_csfmt_rts_data_v3`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
+  — the v3 reference. No vignette covers v3 yet.
+
+Everything below documents `csfmt_rts_data_v2`.
+
 ## csfmt_rts_data_v2
 
 `csfmt_rts_data_v2`
@@ -113,50 +253,50 @@ d[]
 #>     <char>   <int>   <int>      <char>      <int>         <char>    <char>
 #>     seasonweek calyear calmonth calyearmonth       date deaths_n
 #>          <num>   <int>    <int>       <char>     <Date>    <int>
-#>  1:         21      NA       NA         <NA> 2022-01-23        2
-#>  2:         21      NA       NA         <NA> 2022-01-23        7
+#>  1:         21      NA       NA         <NA> 2022-01-23        7
+#>  2:         21      NA       NA         <NA> 2022-01-23        4
 #>  3:         21      NA       NA         <NA> 2022-01-23        5
-#>  4:         21      NA       NA         <NA> 2022-01-23        3
-#>  5:         21      NA       NA         <NA> 2022-01-23        1
-#>  6:         21      NA       NA         <NA> 2022-01-23        5
-#>  7:         21      NA       NA         <NA> 2022-01-23        5
-#>  8:         21      NA       NA         <NA> 2022-01-23        4
-#>  9:         21      NA       NA         <NA> 2022-01-23        6
-#> 10:         21      NA       NA         <NA> 2022-01-23        7
-#> 11:         21      NA       NA         <NA> 2022-01-23        8
-#> 12:         21      NA       NA         <NA> 2022-01-23        3
+#>  4:         21      NA       NA         <NA> 2022-01-23        4
+#>  5:         21      NA       NA         <NA> 2022-01-23        5
+#>  6:         21      NA       NA         <NA> 2022-01-23        3
+#>  7:         21      NA       NA         <NA> 2022-01-23        9
+#>  8:         21      NA       NA         <NA> 2022-01-23        5
+#>  9:         21      NA       NA         <NA> 2022-01-23        5
+#> 10:         21      NA       NA         <NA> 2022-01-23        4
+#> 11:         21      NA       NA         <NA> 2022-01-23        5
+#> 12:         21      NA       NA         <NA> 2022-01-23        4
 #> 13:         21      NA       NA         <NA> 2022-01-23        1
-#> 14:         21      NA       NA         <NA> 2022-01-23        4
+#> 14:         21      NA       NA         <NA> 2022-01-23        5
 #> 15:         21      NA       NA         <NA> 2022-01-23        4
-#> 16:         21      NA       NA         <NA> 2022-01-23        2
-#> 17:         21      NA       NA         <NA> 2022-01-23        7
+#> 16:         21      NA       NA         <NA> 2022-01-23        7
+#> 17:         21      NA       NA         <NA> 2022-01-23        4
 #> 18:         21      NA       NA         <NA> 2022-01-23        5
-#> 19:         21      NA       NA         <NA> 2022-01-23        3
-#> 20:         21      NA       NA         <NA> 2022-01-23        1
-#> 21:         21      NA       NA         <NA> 2022-01-23        5
-#> 22:         21      NA       NA         <NA> 2022-01-23        5
-#> 23:         21      NA       NA         <NA> 2022-01-23        4
-#> 24:         21      NA       NA         <NA> 2022-01-23        6
-#> 25:         21      NA       NA         <NA> 2022-01-23        7
-#> 26:         21      NA       NA         <NA> 2022-01-23        8
-#> 27:         21      NA       NA         <NA> 2022-01-23        3
+#> 19:         21      NA       NA         <NA> 2022-01-23        4
+#> 20:         21      NA       NA         <NA> 2022-01-23        5
+#> 21:         21      NA       NA         <NA> 2022-01-23        3
+#> 22:         21      NA       NA         <NA> 2022-01-23        9
+#> 23:         21      NA       NA         <NA> 2022-01-23        5
+#> 24:         21      NA       NA         <NA> 2022-01-23        5
+#> 25:         21      NA       NA         <NA> 2022-01-23        4
+#> 26:         21      NA       NA         <NA> 2022-01-23        5
+#> 27:         21      NA       NA         <NA> 2022-01-23        4
 #> 28:         21      NA       NA         <NA> 2022-01-23        1
-#> 29:         21      NA       NA         <NA> 2022-01-23        4
+#> 29:         21      NA       NA         <NA> 2022-01-23        5
 #> 30:         21      NA       NA         <NA> 2022-01-23        4
-#> 31:         21      NA       NA         <NA> 2022-01-23        2
-#> 32:         21      NA       NA         <NA> 2022-01-23        7
+#> 31:         21      NA       NA         <NA> 2022-01-23        7
+#> 32:         21      NA       NA         <NA> 2022-01-23        4
 #> 33:         21      NA       NA         <NA> 2022-01-23        5
-#> 34:         21      NA       NA         <NA> 2022-01-23        3
-#> 35:         21      NA       NA         <NA> 2022-01-23        1
-#> 36:         21      NA       NA         <NA> 2022-01-23        5
-#> 37:         21      NA       NA         <NA> 2022-01-23        5
-#> 38:         21      NA       NA         <NA> 2022-01-23        4
-#> 39:         21      NA       NA         <NA> 2022-01-23        6
-#> 40:         21      NA       NA         <NA> 2022-01-23        7
-#> 41:         21      NA       NA         <NA> 2022-01-23        8
-#> 42:         21      NA       NA         <NA> 2022-01-23        3
+#> 34:         21      NA       NA         <NA> 2022-01-23        4
+#> 35:         21      NA       NA         <NA> 2022-01-23        5
+#> 36:         21      NA       NA         <NA> 2022-01-23        3
+#> 37:         21      NA       NA         <NA> 2022-01-23        9
+#> 38:         21      NA       NA         <NA> 2022-01-23        5
+#> 39:         21      NA       NA         <NA> 2022-01-23        5
+#> 40:         21      NA       NA         <NA> 2022-01-23        4
+#> 41:         21      NA       NA         <NA> 2022-01-23        5
+#> 42:         21      NA       NA         <NA> 2022-01-23        4
 #> 43:         21      NA       NA         <NA> 2022-01-23        1
-#> 44:         21      NA       NA         <NA> 2022-01-23        4
+#> 44:         21      NA       NA         <NA> 2022-01-23        5
 #> 45:         21      NA       NA         <NA> 2022-01-23        4
 #>     seasonweek calyear calmonth calyearmonth       date deaths_n
 #>          <num>   <int>    <int>       <char>     <Date>    <int>
@@ -231,11 +371,11 @@ d[]
 #> 5:   <NA>    2022       3     2022-03          1        2022-Q1 2021/2022
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
-#> 1:         21      NA       NA         <NA> 2022-01-23        3
+#> 1:         21      NA       NA         <NA> 2022-01-23        1
 #> 2:         21      NA       NA         <NA> 2022-01-23        4
-#> 3:         21      NA       NA         <NA> 2022-01-23        2
-#> 4:         21      NA       NA         <NA> 2022-01-23        4
-#> 5:         21      NA       NA         <NA> 2022-01-23       10
+#> 3:         21      NA       NA         <NA> 2022-01-23        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        7
+#> 5:         21      NA       NA         <NA> 2022-01-23        4
 
 # Smart assignment of time columns (note how granularity_time, isoyear, isoyearweek, date all change)
 d[1,isoyearweek := "2021-01"]
@@ -256,11 +396,11 @@ d
 #> 5:   <NA>    2022       3     2022-03          1        2022-Q1 2021/2022
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
-#> 1:         19      NA       NA         <NA> 2021-01-10        3
+#> 1:         19      NA       NA         <NA> 2021-01-10        1
 #> 2:         21      NA       NA         <NA> 2022-01-23        4
-#> 3:         21      NA       NA         <NA> 2022-01-23        2
-#> 4:         21      NA       NA         <NA> 2022-01-23        4
-#> 5:         21      NA       NA         <NA> 2022-01-23       10
+#> 3:         21      NA       NA         <NA> 2022-01-23        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        7
+#> 5:         21      NA       NA         <NA> 2022-01-23        4
 
 # Smart assignment of time columns (note how granularity_time, isoyear, isoyearweek, date all change)
 d[2,isoyear := 2019]
@@ -281,11 +421,11 @@ d
 #> 5:   <NA>    2022       3     2022-03          1        2022-Q1 2021/2022
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
-#> 1:         19      NA       NA         <NA> 2021-01-10        3
+#> 1:         19      NA       NA         <NA> 2021-01-10        1
 #> 2:         NA      NA       NA         <NA> 2019-12-29        4
-#> 3:         21      NA       NA         <NA> 2022-01-23        2
-#> 4:         21      NA       NA         <NA> 2022-01-23        4
-#> 5:         21      NA       NA         <NA> 2022-01-23       10
+#> 3:         21      NA       NA         <NA> 2022-01-23        5
+#> 4:         21      NA       NA         <NA> 2022-01-23        7
+#> 5:         21      NA       NA         <NA> 2022-01-23        4
 
 # Smart assignment of time columns (note how granularity_time, isoyear, isoyearweek, date all change)
 d[4:5,date := as.Date("2020-01-01")]
@@ -306,11 +446,11 @@ d
 #> 5:   <NA>    2020       1     2020-01          1        2020-Q1 2019/2020
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
-#> 1:         19      NA       NA         <NA> 2021-01-10        3
+#> 1:         19      NA       NA         <NA> 2021-01-10        1
 #> 2:         NA      NA       NA         <NA> 2019-12-29        4
-#> 3:         21      NA       NA         <NA> 2022-01-23        2
-#> 4:         19    2020        1     2020-M01 2020-01-01        4
-#> 5:         19    2020        1     2020-M01 2020-01-01       10
+#> 3:         21      NA       NA         <NA> 2022-01-23        5
+#> 4:         19    2020        1     2020-M01 2020-01-01        7
+#> 5:         19    2020        1     2020-M01 2020-01-01        4
 
 # Smart assignment fails when multiple time columns are set
 d[1,c("isoyear","isoyearweek") := .(2021,"2021-01")]
@@ -333,11 +473,11 @@ d
 #> 5:   <NA>    2020       1     2020-01          1        2020-Q1 2019/2020
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
-#> 1:         19      NA       NA         <NA> 2021-01-10        3
+#> 1:         19      NA       NA         <NA> 2021-01-10        1
 #> 2:         NA      NA       NA         <NA> 2019-12-29        4
-#> 3:         21      NA       NA         <NA> 2022-01-23        2
-#> 4:         19    2020        1     2020-M01 2020-01-01        4
-#> 5:         19    2020        1     2020-M01 2020-01-01       10
+#> 3:         21      NA       NA         <NA> 2022-01-23        5
+#> 4:         19    2020        1     2020-M01 2020-01-01        7
+#> 5:         19    2020        1     2020-M01 2020-01-01        4
 
 # Smart assignment of geo columns
 d[1,c("location_code") := .("norge")]
@@ -358,11 +498,11 @@ d
 #> 5:   <NA>    2020       1     2020-01          1        2020-Q1 2019/2020
 #>    seasonweek calyear calmonth calyearmonth       date deaths_n
 #>         <num>   <int>    <int>       <char>     <Date>    <int>
-#> 1:         19      NA       NA         <NA> 2021-01-10        3
+#> 1:         19      NA       NA         <NA> 2021-01-10        1
 #> 2:         NA      NA       NA         <NA> 2019-12-29        4
-#> 3:         21      NA       NA         <NA> 2022-01-23        2
-#> 4:         19    2020        1     2020-M01 2020-01-01        4
-#> 5:         19    2020        1     2020-M01 2020-01-01       10
+#> 3:         21      NA       NA         <NA> 2022-01-23        5
+#> 4:         19    2020        1     2020-M01 2020-01-01        7
+#> 5:         19    2020        1     2020-M01 2020-01-01        4
 
 # Collapsing down to different levels, and healing the dataset 
 # (so that it can be worked on further with regards to real time surveillance)
@@ -371,9 +511,9 @@ d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby=.(granularity_ti
   print()
 #>    granularity_time deaths_n location_code   date
 #>              <char>    <int>        <char> <Date>
-#> 1:             date       14         norge   <NA>
+#> 1:             date       11         norge   <NA>
 #> 2:          isoyear        4         norge   <NA>
-#> 3:      isoyearweek        5         norge   <NA>
+#> 3:      isoyearweek        6         norge   <NA>
 
 # Collapsing to different levels, and removing the class csfmt_rts_data_v2 because
 # it is going to be used in new output/analyses
@@ -383,9 +523,9 @@ d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby=.(granularity_ti
 #> Key: <granularity_time>
 #>    granularity_time deaths_n location_code
 #>              <char>    <int>        <char>
-#> 1:             date       14         norge
+#> 1:             date       11         norge
 #> 2:          isoyear        4         norge
-#> 3:      isoyearweek        5         norge
+#> 3:      isoyearweek        6         norge
 ```
 
 ### Summary
@@ -496,4 +636,4 @@ cstidy::generate_test_data() %>%
   plot()
 ```
 
-![](cstidy_files/figure-html/unnamed-chunk-5-1.png)
+![](cstidy_files/figure-html/unnamed-chunk-8-1.png)

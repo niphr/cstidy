@@ -29,7 +29,7 @@ csfmt_rts_data_v2(x, create_unified_columns = TRUE, heal = TRUE)
 
   Derive the missing time and geography columns on creation? These are
   deterministically looked up from the time and location columns you
-  supply (see `cstime` and `csdata`); nothing is statistically imputed
+  supply (see `cstime` and `csdata`). Nothing is statistically imputed
   and no count is invented. Time healing reads `granularity_time` to
   decide which time column the others are derived from, so supply it.
 
@@ -207,27 +207,28 @@ is what new work should target, subject to three limits that were
 measured rather than estimated.
 
 First, v3 derives fewer columns than v2, but drops none. Counted on the
-unified set – `names(attr(x, "format_unified"))`, the columns each
-format creates when the input lacks them – v2 derives 18 and v3 derives
-11. The seven in v2's set and not in v3's are `granularity_time`,
-`border`, `isoquarter`, `isoyearquarter`, `calyear`, `calmonth` and
-`calyearmonth`. Deriving and keeping are different things.
+unified set, v2 derives 18 columns and v3 derives 11. The unified set is
+`names(attr(x, "format_unified"))`, the columns each format creates when
+the input lacks them. The seven columns in v2's unified set and not in
+v3's are `granularity_time`, `border`, `isoquarter`, `isoyearquarter`,
+`calyear`, `calmonth` and `calyearmonth`. Deriving and keeping are
+different things.
 [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
-removes no column, so an existing v2 object converted to v3 keeps every
-column it had, `granularity_time` and `border` included, and v3 healing
+removes no column. An existing v2 object converted to v3 keeps every
+column it had, `granularity_time` and `border` included. v3 healing
 still refreshes `isoquarter` and `isoyearquarter` when the columns are
-present. What a move to v3 costs is the guarantee: a v3 table built from
+present. What a move to v3 costs is the guarantee. A v3 table built from
 an input that lacks those columns will not have them, where the same
 input under v2 would.
 
 Second, v3 is weekly-only, and that is what costs you the calendar
 columns. `heal.csfmt_rts_data_v3()` derives from `isoyearweek` alone.
-The isoyearweek lookup holds no calendar values at all – `calyear`,
-`calmonth` and `calyearmonth` are NA for all 7829 of its rows, under v2
-as much as under v3 – so no v3 table can populate them. Heal from `date`
-under v2 if you aggregate by calendar month or calendar year. A daily
-table converted to v3 keeps its `date` values and gets nothing else
-healed.
+The isoyearweek lookup holds no calendar values at all. `calyear`,
+`calmonth` and `calyearmonth` are NA for all 7829 rows of the
+isoyearweek lookup, under v2 as much as under v3. So no v3 table can
+populate them. Heal from `date` under v2 if you aggregate by calendar
+month or calendar year. A daily table converted to v3 keeps its `date`
+values and gets nothing else healed.
 
 Third, `csdb` cannot CHECK a v3 table, though it can store one. `csdb`
 exports `validator_field_types_csfmt_rts_data_v1()` and
@@ -237,9 +238,14 @@ a v3 column set fails both. The validator is an ordinary argument to
 function of your own, and the table writes. What you lose is the column
 check, not the ability to store.
 
-So keep using v2 wherever the data covers a granularity other than
-isoyearweek, must derive a calendar or quarterly column the input does
-not carry, or needs `csdb` to validate its shape on the way in.
+So continue with v2 in any of these three cases:
+
+- The data covers a granularity other than isoyearweek.
+
+- The data must derive a calendar or quarterly column that the input
+  does not carry.
+
+- `csdb` must validate the shape of the data on the way in.
 
 ## See also
 

@@ -1,8 +1,8 @@
 # Provides corresponding healed times (deprecated)
 
-Looks up the time columns (such as isoyear, isoweek, isoquarter, season,
-and date) that correspond to a vector of dates, isoyearweeks, seasons,
-or isoyears, returning them as a data.table restricted to the requested
+Looks up the time columns (such as isoyear, isoweek, isoquarter, season
+and date) that correspond to a vector of dates, isoyearweeks, seasons or
+isoyears. Returns them as a data.table restricted to the requested
 columns.
 
 ## Usage
@@ -35,8 +35,8 @@ given in x.
 
 This lookup is deprecated as a public entry point, along with the
 `csfmt_rts_data_v2` format it was written for. Nothing warns at run
-time, and it is not going away: `heal.csfmt_rts_data_v3()` calls it to
-derive v3's time columns, so it is still the healing engine behind
+time, and it is not going away. `heal.csfmt_rts_data_v3()` calls it to
+derive v3's time columns. It is still the healing engine behind
 [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md).
 See
 [`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)

@@ -2,12 +2,36 @@
 
 ## Version 2026.8.6
 
+### Licensing
+
+- The copyright holder is now **Folkehelseinstituttet**. It read “Core
+  Surveillance”, which names the package family rather than a legal
+  entity.
+- `DESCRIPTION` `Authors@R` now declares that holder with
+  `role = "cph"`. It declared no copyright holder at all, and neither
+  did any other package in the fleet. Nothing in `R CMD check` reports
+  that.
+- The copyright year is now 2026. It read 2023.
+- `CLAUDE.md` now carries a Licensing section, so the year gets checked
+  rather than silently ageing.
+
 Documentation only. No executable line changed. `vignettes/cstidy.Rmd`
 holds the pkgdown “Get started” slot, and it opened on a
 `# csfmt_rts_data_v2` heading, so the package’s front door taught the
 deprecated format first. An overview now sits in front of that heading.
 Every existing section is unchanged and unmoved.
 
+- **All repository prose now follows the house technical-prose
+  standard** (ASD-STE100, Simplified Technical English). Sentences over
+  25 words are now zero in `R/`, zero in `README.md`, zero in
+  `index.md`, zero in `NEWS.md` and zero in the three vignettes. No
+  claim changed. Two garbled sentences in this file were repaired
+  without changing what they claim. The first read “So v3 is an analysis
+  storable but unvalidated by csdb”. The second read “has no v3
+  equivalent, so The validator is an ordinary argument”. The three
+  measured v2 and v3 claims keep their bases. Counted on the unified
+  set, v2 derives 18 columns and v3 derives 11. v3 is weekly-only.
+  `csdb` can store a v3 table and cannot check one.
 - **The overview names v3 first, and calls v1 and v2 deprecated before
   the reader reaches them.** 378 words of prose across five sections:
   what cstidy is for, which format to use, three things to know before
@@ -22,7 +46,7 @@ Every existing section is unchanged and unmoved.
   each on its own copy of
   [`generate_test_data()`](https://niphr.github.io/cstidy/reference/generate_test_data.md),
   give `c("csfmt_rts_data_vN", "data.table", "data.frame")` for N = 1, 2
-  and 3, and `inherits(d3, "csfmt_rts_data_v2")` is FALSE. No format
+  and 3. `inherits(d3, "csfmt_rts_data_v2")` is FALSE. No format
   inherits from another.
 - **Fewer derived columns, and no column removed. Two different bases,
   both stated.** Counted on the unified set,
@@ -57,9 +81,9 @@ Every existing section is unchanged and unmoved.
   `validator_field_types_csfmt_rts_data_v2()`,
   `validator_field_contents_csfmt_rts_data_v1()` and
   `validator_field_contents_csfmt_rts_data_v2()`, and the string
-  `csfmt_rts_data_v3` appears nowhere in that repository. So v3 is an
-  analysis storable but unvalidated by csdb, and that is the main limit
-  on the direction.
+  `csfmt_rts_data_v3` appears nowhere in that repository. So a v3 table
+  is storable by csdb but unvalidated by it. That is the main limit on
+  the direction.
 - **`csalert` is named as the downstream consumer, verified by running
   it.** `csalert::ens_collapse(ens, probs = 0.5, heal = TRUE)` returns
   class `c("csfmt_rts_data_v3", "data.table", "data.frame")`; the same
@@ -69,11 +93,11 @@ Every existing section is unchanged and unmoved.
   down: `R/` contains four
   [`warning()`](https://rdrr.io/r/base/warning.html) calls, and the
   smart-assignment section deliberately triggers one of them by setting
-  two time columns at once. What is true, and what is written, is that
-  no [`.Deprecated()`](https://rdrr.io/r/base/Deprecated.html),
+  two time columns at once. Two things are true, and both are written.
+  No [`.Deprecated()`](https://rdrr.io/r/base/Deprecated.html),
   [`.Defunct()`](https://rdrr.io/r/base/Defunct.html) or
   [`lifecycle::deprecate_warn()`](https://lifecycle.r-lib.org/reference/deprecate_soft.html)
-  appears anywhere in `R/`, and that
+  appears anywhere in `R/`.
   [`set_csfmt_rts_data_v1()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v1.md)
   and
   [`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
@@ -96,6 +120,7 @@ are marked deprecated in roxygen.
   2026.8.4 and prints nothing extra. `norsyss.cs9` runs on
   `csfmt_rts_data_v2` nightly; a run-time warning would flood its logs
   for something nobody can act on yet.
+
 - **What carries the mark.** One `@section Deprecated:` block, worded
   the same way throughout, on:
   [`csfmt_rts_data_v1()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v1.md),
@@ -110,10 +135,11 @@ are marked deprecated in roxygen.
   [`expand_time_to()`](https://niphr.github.io/cstidy/reference/expand_time_to.md),
   [`identify_data_structure()`](https://niphr.github.io/cstidy/reference/identify_data_structure.md)
   and [`plot()`](https://rdrr.io/r/graphics/plot.default.html). Two
-  titles gained a “(deprecated)” suffix — `set_csfmt_rts_data_v2` and
-  `heal_time_csfmt_rts_data_v2` — matching the two v1 titles that
+  titles gained a “(deprecated)” suffix: `set_csfmt_rts_data_v2` and
+  `heal_time_csfmt_rts_data_v2`. They match the two v1 titles that
   already had one, so the reference index reads the same way down the
   list.
+
 - **Nothing on v3 is deprecated**:
   [`csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md),
   [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md),
@@ -124,6 +150,7 @@ are marked deprecated in roxygen.
   generic and its `tbl_Microsoft SQL Server` method are unmarked too;
   only the `csfmt_rts_data_v2` method carries the note, and the note
   says so.
+
 - **v1 to v2 is lossless on the two properties measured.** All 16 of
   v1’s unified columns are among v2’s 18, the extra two being
   `isoquarter` and `isoyearquarter`.
@@ -132,46 +159,52 @@ are marked deprecated in roxygen.
   [`heal_time_csfmt_rts_data_v1()`](https://niphr.github.io/cstidy/reference/heal_time_csfmt_rts_data_v1.md)
   accepts (“date”, “isoyearweek”, “isoyear”) and “season” as well.
   `csdb` exports a field-type validator for both formats.
+
 - **v2 to v3 has limits, and the v2 note states each one with the base
   it was measured on.** Three caveats, all measured:
+
   1.  **v3 derives fewer columns than v2, but drops none.** Counted on
-      the unified set — `names(attr(x, "format_unified"))`, the columns
-      each format creates when the input lacks them — v2 derives 18 and
-      v3 derives 11. The seven in v2’s set and not in v3’s are
-      `granularity_time`, `border`, `isoquarter`, `isoyearquarter`,
-      `calyear`, `calmonth` and `calyearmonth`. Deriving is not
-      dropping:
+      the unified set, v2 derives 18 columns and v3 derives 11. The
+      unified set is `names(attr(x, "format_unified"))`, the columns
+      each format creates when the input lacks them. The seven columns
+      in v2’s unified set and not in v3’s are `granularity_time`,
+      `border`, `isoquarter`, `isoyearquarter`, `calyear`, `calmonth`
+      and `calyearmonth`. Deriving is not dropping.
       [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
-      removes no column, so an existing v2 object converted to v3 keeps
-      every column it had, `granularity_time` and `border` included, and
-      v3 healing still refreshes `isoquarter` and `isoyearquarter` when
-      the columns are present. Counted on an object instead of the
-      unified set, a v2 table with one value column whose input carried
-      `granularity_time` and `border` has 19 columns and its v3
-      conversion has 19 too; the same input without those two gives 19
+      removes no column. An existing v2 object converted to v3 keeps
+      every column it had, `granularity_time` and `border` included. v3
+      healing still refreshes `isoquarter` and `isoyearquarter` when the
+      columns are present. The next base is an object, not the unified
+      set. A v2 table with one value column, whose input carried
+      `granularity_time` and `border`, has 19 columns. Its v3 conversion
+      has 19 too. The same input without those two columns gives 19
       under v2 and 12 under v3. What a move to v3 costs is the
       guarantee, not the data.
   2.  **v3 is weekly-only, and that is what costs the calendar
       columns.** `heal.csfmt_rts_data_v3()` derives from `isoyearweek`
-      alone, and the isoyearweek lookup holds no calendar values at all
-      — `calyear`, `calmonth` and `calyearmonth` are NA for all 7829 of
-      its rows, under v2 as much as under v3. Only the `date` lookup
-      carries them, in all 54789 rows. So aggregating by calendar month
-      or calendar year needs a v2 table healed on `date`, and a daily
-      table converted to v3 keeps its `date` values and gets nothing
-      else healed.
+      alone, and the isoyearweek lookup holds no calendar values at all.
+      `calyear`, `calmonth` and `calyearmonth` are NA for all 7829 rows
+      of the isoyearweek lookup, under v2 as much as under v3. Only the
+      `date` lookup carries them, in all 54789 of its rows. So
+      aggregation by calendar month or calendar year needs a v2 table
+      healed on `date`. A daily table converted to v3 keeps its `date`
+      values and gets nothing else healed.
   3.  **`csdb` cannot CHECK a v3 table, though it can store one.**
       `csdb` exports `validator_field_types_csfmt_rts_data_v1()` and
-      `validator_field_types_csfmt_rts_data_v2()` and has no v3
-      equivalent, so The validator is an ordinary argument to
+      `validator_field_types_csfmt_rts_data_v2()`, and has no v3
+      equivalent. The validator is an ordinary argument to
       `csdb::DBTable_v9$new()`, so passing
       `validator_field_types_blank()` stores a v3 fine. What is missing
       is the column check, not the storage.
 
   So v2 is deprecated as a direction of travel, not because a finished
-  replacement exists. Keep using v2 wherever the data is written to the
-  database, covers a granularity other than isoyearweek, or must derive
-  a calendar or quarterly column that the input does not already carry.
+  replacement exists. Continue with v2 in any of these three cases:
+
+  - The data is written to the database.
+  - The data covers a granularity other than isoyearweek.
+  - The data must derive a calendar or quarterly column that the input
+    does not already carry.
+
 - **[`heal_time_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/heal_time_csfmt_rts_data_v2.md)
   is deprecated as a public entry point only.**
   `heal.csfmt_rts_data_v3()` calls it to derive v3’s time columns, so it
@@ -194,9 +227,9 @@ behaviour.
   and
   [`csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md).
   Each of the two examples runs the by-reference setter and the copying
-  constructor side by side, so the difference between them is shown
-  rather than described. The pipe operator’s page still has no example;
-  it is a re-export marked `@keywords internal`.
+  constructor side by side. The example shows the difference between
+  them. It does not just describe it. The pipe operator’s page still has
+  no example; it is a re-export marked `@keywords internal`.
 - **Every export now resolves to a help page carrying `\seealso`.**
   Where a vignette runs the function in a code chunk, the `\seealso`
   names that vignette. Where no vignette runs it, the `\seealso` says so
@@ -267,7 +300,7 @@ behaviour.
   and
   [`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md).
   Time healing reads `granularity_time` to decide which time column the
-  others derive from, so a table carrying `isoyearweek` but no
+  others derive from. A table carrying `isoyearweek` but no
   `granularity_time` comes back with its time columns still `NA`.
   [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
   is weekly-only and does not need it.
@@ -293,8 +326,8 @@ behaviour.
 - **The version string 2025.10.27 is ambiguous about this.** The
   regeneration landed two days after that version was submitted to CRAN,
   and the version was not bumped at the time. So a 2025.10.27 installed
-  from CRAN uses the isoweek-30 boundary, while a 2025.10.27 installed
-  from GitHub main after 2025-10-29 uses isoweek 35, and
+  from CRAN uses the isoweek-30 boundary. A 2025.10.27 installed from
+  GitHub main after 2025-10-29 uses isoweek 35.
   [`packageVersion()`](https://rdrr.io/r/utils/packageDescription.html)
   cannot tell them apart. If you need to know which one you have, test
   it rather than trust the version:
@@ -383,10 +416,10 @@ CRAN release: 2025-10-27
 
 ## Version 2022.5.5
 
-- Dataset norway_covid19_icu_and_hospitalization included, containing
-  admissions to the ICU with a positive PCR test and number of new
-  hospitalizations with Covid-19 as the primary cause between 2020-02-21
-  and 2022-05-03 (data extracted 2022-05-04).
+- Dataset norway_covid19_icu_and_hospitalization included. It holds
+  admissions to the ICU with a positive PCR test, and the number of new
+  hospitalizations with Covid-19 as the primary cause. The range is
+  2020-02-21 to 2022-05-03, extracted 2022-05-04.
 
 ## Version 2022.4.26
 

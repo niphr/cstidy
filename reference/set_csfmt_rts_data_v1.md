@@ -29,7 +29,7 @@ csfmt_rts_data_v1(x, create_unified_columns = TRUE, heal = TRUE)
 
   Derive the missing time and geography columns on creation? These are
   deterministically looked up from the time and location columns you
-  supply (see `cstime` and `csdata`); nothing is statistically imputed
+  supply (see `cstime` and `csdata`). Nothing is statistically imputed
   and no count is invented. Time healing reads `granularity_time` to
   decide which time column the others are derived from, so supply it.
 

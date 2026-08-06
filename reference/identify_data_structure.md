@@ -1,10 +1,10 @@
 # Hash the data structure of a dataset for a given column
 
 Summarises the data structure of a single column inside a dataset. For
-each combination of granularity_time, granularity_geo, age, and sex it
-records whether the column is structurally missing, only NA, only data,
-or a mix of data and NA. The result can be passed to
-[`plot()`](https://rdrr.io/r/graphics/plot.default.html) for a visual
+each combination of granularity_time, granularity_geo, age and sex it
+records the state of the column. The four states are structurally
+missing, only NA, only data, and a mix of data and NA. Pass the result
+to [`plot()`](https://rdrr.io/r/graphics/plot.default.html) for a visual
 overview.
 
 ## Usage

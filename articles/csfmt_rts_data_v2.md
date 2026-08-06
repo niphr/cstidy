@@ -283,14 +283,14 @@ Covid-19 case counts:
 - **covid19_cases_testdate/\_sum0_13/\_n**: The sum of 14 days of cases.
   When granularity_time==‘date’, date==‘2022-01-20’, and the current
   date is ‘2022-02-07’, the value is the sum of covid19_cases_testdate_n
-  between ‘2022-01-07’ and ‘2022-01-20’. When
-  granularity_time==‘isoyearweek’, isoyearweek==‘2022-03’, and the
-  current date is ‘2022-02-07’ (Monday in isoyearweek ‘2022-06’) the
-  value is the sum of covid19_cases_testdate_n between ‘2022-01-10’
-  (Monday in isoyearweek ‘2022-02’) and ‘2022-01-23’ (Sunday in
-  isoyearweek ‘2022-03’). When granularity_time==‘isoyearweek’,
-  isoyearweek==‘2022-06’, and the current date is ‘2022-02-07’ (Monday
-  in isoyearweek ‘2022-06’), the value is the sum of
+  between ‘2022-01-07’ and ‘2022-01-20’. Take
+  granularity_time==‘isoyearweek’, isoyearweek==‘2022-03’, and a current
+  date of ‘2022-02-07’ (the Monday in isoyearweek ‘2022-06’). The value
+  is the sum of covid19_cases_testdate_n between ‘2022-01-10’ (the
+  Monday in isoyearweek ‘2022-02’) and ‘2022-01-23’ (the Sunday in
+  isoyearweek ‘2022-03’). Take granularity_time==‘isoyearweek’,
+  isoyearweek==‘2022-06’, and a current date of ‘2022-02-07’ (the Monday
+  in isoyearweek ‘2022-06’). The value is the sum of
   covid19_cases_testdate_n between the last day with available data and
   13 days prior. When
   granularity_time==‘event_covid19_norway_2020_02_21_to_9999_09_09’, the
@@ -324,11 +324,11 @@ Covid-19 test events:
   covid-19 test events that were positive over the last 14 days.
 - **covid19_testevents_pos/\_daymean0_13/\_pr100**: For each of the last
   14 days, calculate the percentage (0-100) of covid-19 test events that
-  were positive, and then take the mean of these 14 values.
+  were positive. Then take the mean of these 14 values.
 - **covid19_testevents_pos/\_isoweekmean0_13/\_pr100**: For each of the
-  last 7 day periods (0-6 days, 7-13 days), calculate the percentage
-  (0-100) of covid-19 test events that were positive, and then take the
-  mean of these 2 values.
+  last two 7-day periods (0-6 days, 7-13 days), calculate the percentage
+  (0-100) of covid-19 test events that were positive. Then take the mean
+  of these 2 values.
 
 Vaccination:
 

@@ -1,8 +1,8 @@
 # Provides corresponding healed times (deprecated)
 
-Looks up the time columns (such as isoyear, isoweek, season, and date)
-that correspond to a vector of dates, isoyearweeks, or isoyears,
-returning them as a data.table restricted to the requested columns.
+Looks up the time columns (such as isoyear, isoweek, season and date)
+that correspond to a vector of dates, isoyearweeks or isoyears. Returns
+them as a data.table restricted to the requested columns.
 
 ## Usage
 
@@ -35,9 +35,9 @@ This lookup is deprecated along with the `csfmt_rts_data_v1` format it
 serves. Nothing warns at run time and nothing has been removed; the mark
 is a signpost for new work.
 [`heal_time_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/heal_time_csfmt_rts_data_v2.md)
-replaces it. The two take the same three arguments, v2 accepts every
+replaces it. The two take the same three arguments. v2 accepts every
 `granularity_time` this function accepts ("date", "isoyearweek",
-"isoyear") plus "season", and v2 can also return `isoquarter` and
+"isoyear"), plus "season". v2 can also return `isoquarter` and
 `isoyearquarter`. See
 [`set_csfmt_rts_data_v1()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v1.md)
 for the format itself.

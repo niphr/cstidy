@@ -82,7 +82,7 @@ Both stop with an error when <code>x</code> is not a <code>data.table</code>; ca
 
 
 <dt id="arg-heal">heal<a class="anchor" aria-label="anchor" href="#arg-heal"></a></dt>
-<dd><p>Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see <code>cstime</code> and <code>csdata</code>); nothing is statistically imputed and no count is invented. Time healing reads <code>granularity_time</code> to decide which time column the others are derived from, so supply it.</p></dd>
+<dd><p>Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see <code>cstime</code> and <code>csdata</code>). Nothing is statistically imputed and no count is invented. Time healing reads <code>granularity_time</code> to decide which time column the others are derived from, so supply it.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -181,24 +181,24 @@ time, and nothing has been removed. <code><a href="set_csfmt_rts_data_v3.html">s
 what new work should target, subject to three limits that were measured
 rather than estimated.</p>
 <p>First, v3 derives fewer columns than v2, but drops none. Counted on the
-unified set – <code>names(attr(x, "format_unified"))</code>, the columns each
-format creates when the input lacks them – v2 derives 18 and v3 derives 11.
-The seven in v2's set and not in v3's are <code>granularity_time</code>, <code>border</code>,
-<code>isoquarter</code>, <code>isoyearquarter</code>, <code>calyear</code>, <code>calmonth</code> and <code>calyearmonth</code>.
-Deriving and keeping are different things.
-<code><a href="set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code> removes no column, so an existing v2
+unified set, v2 derives 18 columns and v3 derives 11. The unified set is
+<code>names(attr(x, "format_unified"))</code>, the columns each format creates when
+the input lacks them. The seven columns in v2's unified set and not in v3's
+are <code>granularity_time</code>, <code>border</code>, <code>isoquarter</code>, <code>isoyearquarter</code>, <code>calyear</code>,
+<code>calmonth</code> and <code>calyearmonth</code>. Deriving and keeping are different things.
+<code><a href="set_csfmt_rts_data_v3.html">set_csfmt_rts_data_v3()</a></code> removes no column. An existing v2
 object converted to v3 keeps every column it had, <code>granularity_time</code> and
-<code>border</code> included, and v3 healing still refreshes <code>isoquarter</code> and
+<code>border</code> included. v3 healing still refreshes <code>isoquarter</code> and
 <code>isoyearquarter</code> when the columns are present. What a move to v3 costs is
-the guarantee: a v3 table built from an input that lacks those columns will
+the guarantee. A v3 table built from an input that lacks those columns will
 not have them, where the same input under v2 would.</p>
 <p>Second, v3 is weekly-only, and that is what costs you the calendar columns.
 <code>heal.csfmt_rts_data_v3()</code> derives from <code>isoyearweek</code> alone. The
-isoyearweek lookup holds no calendar values at all – <code>calyear</code>, <code>calmonth</code>
-and <code>calyearmonth</code> are NA for all 7829 of its rows, under v2 as much as
-under v3 – so no v3 table can populate them. Heal from <code>date</code> under v2 if
-you aggregate by calendar month or calendar year. A daily table converted to
-v3 keeps its <code>date</code> values and gets nothing else healed.</p>
+isoyearweek lookup holds no calendar values at all. <code>calyear</code>, <code>calmonth</code>
+and <code>calyearmonth</code> are NA for all 7829 rows of the isoyearweek lookup, under
+v2 as much as under v3. So no v3 table can populate them. Heal from <code>date</code>
+under v2 if you aggregate by calendar month or calendar year. A daily table
+converted to v3 keeps its <code>date</code> values and gets nothing else healed.</p>
 <p>Third, <code>csdb</code> cannot CHECK a v3 table, though it can store one. <code>csdb</code>
 exports <code>validator_field_types_csfmt_rts_data_v1()</code> and
 <code>validator_field_types_csfmt_rts_data_v2()</code> and has no v3 equivalent, so a v3
@@ -206,10 +206,11 @@ column set fails both. The validator is an ordinary argument to
 <code>csdb::DBTable_v9$new()</code>: pass <code>validator_field_types_blank()</code>, or a function
 of your own, and the table writes. What you lose is the column check, not the
 ability to store.</p>
-<p>So keep using v2 wherever the data covers a granularity other than
-isoyearweek, must derive a calendar or quarterly column the input does not
-carry, or needs <code>csdb</code> to validate its shape on the way in.</p>
-    </div>
+<p>So continue with v2 in any of these three cases:</p><ul><li><p>The data covers a granularity other than isoyearweek.</p></li>
+<li><p>The data must derive a calendar or quarterly column that the input does
+not carry.</p></li>
+<li><p><code>csdb</code> must validate the shape of the data on the way in.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Two vignettes run <code>set_csfmt_rts_data_v2()</code> in a code chunk:

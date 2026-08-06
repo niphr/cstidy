@@ -1,6 +1,6 @@
 cstidy puts aggregated disease-surveillance counts into one standard
 panel format, and derives the time and geography columns that format
-needs. Give it a table with a time column and a `location_code`; get
+needs. Give it a table with a time column and a `location_code`. You get
 back the same table with `isoyear`, `isoweek`, `season`, `seasonweek`,
 `date` and the granularity columns filled in. It does not aggregate
 individual-level records — aggregate first, then use cstidy.
@@ -21,9 +21,10 @@ Features
 
 Apply
 [`set_csfmt_rts_data_v3()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v3.md)
-for the slim weekly format, or
+for the slim weekly format. Apply
 [`set_csfmt_rts_data_v2()`](https://niphr.github.io/cstidy/reference/set_csfmt_rts_data_v2.md)
-for the older 18-column format that also covers daily and yearly data.
+for the older format, which derives 18 unified columns and also covers
+daily and yearly data.
 
 02
 

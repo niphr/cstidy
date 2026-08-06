@@ -18,3 +18,4 @@ vignettes/_PRECOMPILER.R
 ^.*\.DS_Store$
 ^pkgdown$
 ^Rplots\.pdf$
+^CLAUDE\.md$

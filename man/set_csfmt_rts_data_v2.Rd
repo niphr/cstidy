@@ -14,7 +14,7 @@ csfmt_rts_data_v2(x, create_unified_columns = TRUE, heal = TRUE)
 
 \item{create_unified_columns}{Do you want it to create unified columns?}
 
-\item{heal}{Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see \code{cstime} and \code{csdata}); nothing is statistically imputed and no count is invented. Time healing reads \code{granularity_time} to decide which time column the others are derived from, so supply it.}
+\item{heal}{Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see \code{cstime} and \code{csdata}). Nothing is statistically imputed and no count is invented. Time healing reads \code{granularity_time} to decide which time column the others are derived from, so supply it.}
 }
 \value{
 An extended \code{data.table}, which has been modified by reference and returned (invisibly).
@@ -137,25 +137,25 @@ what new work should target, subject to three limits that were measured
 rather than estimated.
 
 First, v3 derives fewer columns than v2, but drops none. Counted on the
-unified set -- \code{names(attr(x, "format_unified"))}, the columns each
-format creates when the input lacks them -- v2 derives 18 and v3 derives 11.
-The seven in v2's set and not in v3's are \code{granularity_time}, \code{border},
-\code{isoquarter}, \code{isoyearquarter}, \code{calyear}, \code{calmonth} and \code{calyearmonth}.
-Deriving and keeping are different things.
-\code{\link{set_csfmt_rts_data_v3}()} removes no column, so an existing v2
+unified set, v2 derives 18 columns and v3 derives 11. The unified set is
+\code{names(attr(x, "format_unified"))}, the columns each format creates when
+the input lacks them. The seven columns in v2's unified set and not in v3's
+are \code{granularity_time}, \code{border}, \code{isoquarter}, \code{isoyearquarter}, \code{calyear},
+\code{calmonth} and \code{calyearmonth}. Deriving and keeping are different things.
+\code{\link{set_csfmt_rts_data_v3}()} removes no column. An existing v2
 object converted to v3 keeps every column it had, \code{granularity_time} and
-\code{border} included, and v3 healing still refreshes \code{isoquarter} and
+\code{border} included. v3 healing still refreshes \code{isoquarter} and
 \code{isoyearquarter} when the columns are present. What a move to v3 costs is
-the guarantee: a v3 table built from an input that lacks those columns will
+the guarantee. A v3 table built from an input that lacks those columns will
 not have them, where the same input under v2 would.
 
 Second, v3 is weekly-only, and that is what costs you the calendar columns.
 \code{heal.csfmt_rts_data_v3()} derives from \code{isoyearweek} alone. The
-isoyearweek lookup holds no calendar values at all -- \code{calyear}, \code{calmonth}
-and \code{calyearmonth} are NA for all 7829 of its rows, under v2 as much as
-under v3 -- so no v3 table can populate them. Heal from \code{date} under v2 if
-you aggregate by calendar month or calendar year. A daily table converted to
-v3 keeps its \code{date} values and gets nothing else healed.
+isoyearweek lookup holds no calendar values at all. \code{calyear}, \code{calmonth}
+and \code{calyearmonth} are NA for all 7829 rows of the isoyearweek lookup, under
+v2 as much as under v3. So no v3 table can populate them. Heal from \code{date}
+under v2 if you aggregate by calendar month or calendar year. A daily table
+converted to v3 keeps its \code{date} values and gets nothing else healed.
 
 Third, \code{csdb} cannot CHECK a v3 table, though it can store one. \code{csdb}
 exports \code{validator_field_types_csfmt_rts_data_v1()} and
@@ -165,9 +165,13 @@ column set fails both. The validator is an ordinary argument to
 of your own, and the table writes. What you lose is the column check, not the
 ability to store.
 
-So keep using v2 wherever the data covers a granularity other than
-isoyearweek, must derive a calendar or quarterly column the input does not
-carry, or needs \code{csdb} to validate its shape on the way in.
+So continue with v2 in any of these three cases:
+\itemize{
+\item The data covers a granularity other than isoyearweek.
+\item The data must derive a calendar or quarterly column that the input does
+not carry.
+\item \code{csdb} must validate the shape of the data on the way in.
+}
 }
 
 \examples{

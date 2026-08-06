@@ -11,9 +11,9 @@ that format needs.
 
 You give it a table of counts that already has a time column (for example
 `isoyearweek`) and a location column (`location_code`). It returns the same
-table with a standard set of columns filled in — `isoyear`, `isoweek`, `season`,
-`seasonweek`, `date`, `granularity_time`, `granularity_geo` — and a class that
-keeps those columns consistent when you edit the data afterwards.
+table with a standard set of columns filled in: `isoyear`, `isoweek`, `season`,
+`seasonweek`, `date`, `granularity_time` and `granularity_geo`. It also returns
+a class that keeps those columns consistent when you edit the data afterwards.
 
 cstidy does **not** aggregate individual-level records into counts. Aggregate
 first, then hand the result to cstidy.

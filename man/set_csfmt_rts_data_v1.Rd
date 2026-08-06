@@ -14,7 +14,7 @@ csfmt_rts_data_v1(x, create_unified_columns = TRUE, heal = TRUE)
 
 \item{create_unified_columns}{Do you want it to create unified columns?}
 
-\item{heal}{Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see \code{cstime} and \code{csdata}); nothing is statistically imputed and no count is invented. Time healing reads \code{granularity_time} to decide which time column the others are derived from, so supply it.}
+\item{heal}{Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see \code{cstime} and \code{csdata}). Nothing is statistically imputed and no count is invented. Time healing reads \code{granularity_time} to decide which time column the others are derived from, so supply it.}
 }
 \value{
 An extended \code{data.table}, which has been modified by reference and returned (invisibly).

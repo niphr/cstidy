@@ -17,16 +17,16 @@ heal_time_csfmt_rts_data_v2(x, cols, granularity_time = "date")
 data.table, a dataset with time columns corresponding to the values given in x.
 }
 \description{
-Looks up the time columns (such as isoyear, isoweek, isoquarter, season, and
-date) that correspond to a vector of dates, isoyearweeks, seasons, or
-isoyears, returning them as a data.table restricted to the requested columns.
+Looks up the time columns (such as isoyear, isoweek, isoquarter, season and
+date) that correspond to a vector of dates, isoyearweeks, seasons or
+isoyears. Returns them as a data.table restricted to the requested columns.
 }
 \section{Deprecated}{
 
 This lookup is deprecated as a public entry point, along with the
 \code{csfmt_rts_data_v2} format it was written for. Nothing warns at run time, and
-it is not going away: \code{heal.csfmt_rts_data_v3()} calls it to derive v3's
-time columns, so it is still the healing engine behind
+it is not going away. \code{heal.csfmt_rts_data_v3()} calls it to derive v3's
+time columns. It is still the healing engine behind
 \code{\link{set_csfmt_rts_data_v3}()}. See
 \code{\link{set_csfmt_rts_data_v2}()} for what replaces the format, and for
 the three limits of that replacement.

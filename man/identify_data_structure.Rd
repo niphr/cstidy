@@ -24,9 +24,10 @@ csfmt_rts_data_structure_hash_v2, a summary object that can be plotted.
 }
 \description{
 Summarises the data structure of a single column inside a dataset. For each
-combination of granularity_time, granularity_geo, age, and sex it records
-whether the column is structurally missing, only NA, only data, or a mix of
-data and NA. The result can be passed to \code{plot()} for a visual overview.
+combination of granularity_time, granularity_geo, age and sex it records the
+state of the column. The four states are structurally missing, only NA, only
+data, and a mix of data and NA. Pass the result to \code{plot()} for a visual
+overview.
 }
 \section{Deprecated}{
 

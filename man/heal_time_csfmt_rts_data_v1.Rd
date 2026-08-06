@@ -17,18 +17,18 @@ heal_time_csfmt_rts_data_v1(x, cols, granularity_time = "date")
 data.table, a dataset with time columns corresponding to the values given in x.
 }
 \description{
-Looks up the time columns (such as isoyear, isoweek, season, and date) that
-correspond to a vector of dates, isoyearweeks, or isoyears, returning them as
-a data.table restricted to the requested columns.
+Looks up the time columns (such as isoyear, isoweek, season and date) that
+correspond to a vector of dates, isoyearweeks or isoyears. Returns them as a
+data.table restricted to the requested columns.
 }
 \section{Deprecated}{
 
 This lookup is deprecated along with the \code{csfmt_rts_data_v1} format it
 serves. Nothing warns at run time and nothing has been removed; the mark is a
 signpost for new work. \code{\link{heal_time_csfmt_rts_data_v2}()} replaces
-it. The two take the same three arguments, v2 accepts every
-\code{granularity_time} this function accepts ("date", "isoyearweek", "isoyear")
-plus "season", and v2 can also return \code{isoquarter} and \code{isoyearquarter}. See
+it. The two take the same three arguments. v2 accepts every
+\code{granularity_time} this function accepts ("date", "isoyearweek", "isoyear"),
+plus "season". v2 can also return \code{isoquarter} and \code{isoyearquarter}. See
 \code{\link{set_csfmt_rts_data_v1}()} for the format itself.
 }
 

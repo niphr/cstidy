@@ -2,9 +2,10 @@
 #'
 #' @description
 #' Summarises the data structure of a single column inside a dataset. For each
-#' combination of granularity_time, granularity_geo, age, and sex it records
-#' whether the column is structurally missing, only NA, only data, or a mix of
-#' data and NA. The result can be passed to `plot()` for a visual overview.
+#' combination of granularity_time, granularity_geo, age and sex it records the
+#' state of the column. The four states are structurally missing, only NA, only
+#' data, and a mix of data and NA. Pass the result to `plot()` for a visual
+#' overview.
 #'
 #' @param x An object of type \code{\link{csfmt_rts_data_v2}}.
 #' @param col Column name (character) whose data structure is summarised.

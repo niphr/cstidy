@@ -240,9 +240,9 @@ formats$csfmt_rts_data_v1$unified$date <- list(
 #' Provides corresponding healed times (deprecated)
 #'
 #' @description
-#' Looks up the time columns (such as isoyear, isoweek, season, and date) that
-#' correspond to a vector of dates, isoyearweeks, or isoyears, returning them as
-#' a data.table restricted to the requested columns.
+#' Looks up the time columns (such as isoyear, isoweek, season and date) that
+#' correspond to a vector of dates, isoyearweeks or isoyears. Returns them as a
+#' data.table restricted to the requested columns.
 #'
 #' @param x A vector containing either dates, isoyearweek, or isoyear.
 #' @param cols Columns to restrict the output to.
@@ -258,9 +258,9 @@ formats$csfmt_rts_data_v1$unified$date <- list(
 #' This lookup is deprecated along with the `csfmt_rts_data_v1` format it
 #' serves. Nothing warns at run time and nothing has been removed; the mark is a
 #' signpost for new work. \code{\link{heal_time_csfmt_rts_data_v2}()} replaces
-#' it. The two take the same three arguments, v2 accepts every
-#' `granularity_time` this function accepts ("date", "isoyearweek", "isoyear")
-#' plus "season", and v2 can also return `isoquarter` and `isoyearquarter`. See
+#' it. The two take the same three arguments. v2 accepts every
+#' `granularity_time` this function accepts ("date", "isoyearweek", "isoyear"),
+#' plus "season". v2 can also return `isoquarter` and `isoyearquarter`. See
 #' \code{\link{set_csfmt_rts_data_v1}()} for the format itself.
 #' @family time healing lookups
 #' @seealso No vignette covers this function.
@@ -828,7 +828,7 @@ assert_classes.csfmt_rts_data_v1 <- function(x, ...) {
 #'
 #' @param x The data.table to be converted to csfmt_rts_data_v1
 #' @param create_unified_columns Do you want it to create unified columns?
-#' @param heal Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see `cstime` and `csdata`); nothing is statistically imputed and no count is invented. Time healing reads `granularity_time` to decide which time column the others are derived from, so supply it.
+#' @param heal Derive the missing time and geography columns on creation? These are deterministically looked up from the time and location columns you supply (see `cstime` and `csdata`). Nothing is statistically imputed and no count is invented. Time healing reads `granularity_time` to decide which time column the others are derived from, so supply it.
 #' @examples
 #' # granularity_time names the time column that the others are derived from.
 #' d <- data.table::data.table(

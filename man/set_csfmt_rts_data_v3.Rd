@@ -57,17 +57,17 @@ No vignette covers csfmt_rts_data_v3. The data-format vignette
 documents the csfmt_rts_data_v2 columns that this format takes its own from:
 \code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
 
-Other csfmt_rts_data: 
-\code{\link{expand_time_to}()},
-\code{\link{identify_data_structure}()},
-\code{\link{remove_class_csfmt_rts_data}()},
-\code{\link{set_csfmt_rts_data_v1}()},
-\code{\link{set_csfmt_rts_data_v2}()},
-\code{\link{unique_time_series}()}
+Other csfmt_rts_data:
+\code{\link[=expand_time_to]{expand_time_to()}},
+\code{\link[=identify_data_structure]{identify_data_structure()}},
+\code{\link[=remove_class_csfmt_rts_data]{remove_class_csfmt_rts_data()}},
+\code{\link[=set_csfmt_rts_data_v1]{set_csfmt_rts_data_v1()}},
+\code{\link[=set_csfmt_rts_data_v2]{set_csfmt_rts_data_v2()}},
+\code{\link[=unique_time_series]{unique_time_series()}}
 
-Other csfmt format converters: 
-\code{\link{set_csfmt_rts_data_v1}()},
-\code{\link{set_csfmt_rts_data_v2}()}
+Other csfmt format converters:
+\code{\link[=set_csfmt_rts_data_v1]{set_csfmt_rts_data_v1()}},
+\code{\link[=set_csfmt_rts_data_v2]{set_csfmt_rts_data_v2()}}
 }
 \concept{csfmt format converters}
 \concept{csfmt_rts_data}

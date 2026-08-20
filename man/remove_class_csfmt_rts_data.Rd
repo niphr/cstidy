@@ -28,12 +28,12 @@ Two vignettes run this function inside a pipe:
 \code{vignette("cstidy", package = "cstidy")} and
 \code{vignette("csfmt_rts_data_v2", package = "cstidy")}.
 
-Other csfmt_rts_data: 
-\code{\link{expand_time_to}()},
-\code{\link{identify_data_structure}()},
-\code{\link{set_csfmt_rts_data_v1}()},
-\code{\link{set_csfmt_rts_data_v2}()},
-\code{\link{set_csfmt_rts_data_v3}()},
-\code{\link{unique_time_series}()}
+Other csfmt_rts_data:
+\code{\link[=expand_time_to]{expand_time_to()}},
+\code{\link[=identify_data_structure]{identify_data_structure()}},
+\code{\link[=set_csfmt_rts_data_v1]{set_csfmt_rts_data_v1()}},
+\code{\link[=set_csfmt_rts_data_v2]{set_csfmt_rts_data_v2()}},
+\code{\link[=set_csfmt_rts_data_v3]{set_csfmt_rts_data_v3()}},
+\code{\link[=unique_time_series]{unique_time_series()}}
 }
 \concept{csfmt_rts_data}

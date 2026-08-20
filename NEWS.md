@@ -1,3 +1,16 @@
+# Version 2026.8.20
+
+## Development
+
+- `R/csfmt_rts_v2.R` held 1091 code lines, and the shared CI workflow fails any
+  `R/*.R` file over 1000. The methods now live in four sibling files:
+  `csfmt_rts_v2_heal.R`, `csfmt_rts_v2_set.R`, `csfmt_rts_v2_structure.R` and
+  `csfmt_rts_v2_expand_time.R`.
+- The split moved whole top-level expressions and changed none of them.
+  `csfmt_rts_v2.R` keeps the format definition. `csfmt_rts_v3.R` reads
+  `formats$csfmt_rts_data_v2$unified` while it loads, and R sources `R/` in C
+  collation order.
+
 # Version 2026.8.6
 
 ## Licensing

@@ -15,7 +15,7 @@ overview."><meta property="og:image" content="https://niphr.github.io/cstidy/log
 
     <a class="navbar-brand me-2" href="../index.html">cstidy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.20</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.21</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -124,9 +124,9 @@ along with the format it dispatches on. Nothing warns at run time. See
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu">identify_data_structure</span><span class="op">(</span><span class="st">"deaths_n"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu">identify_data_structure</span><span class="op">(</span><span class="st">"deaths_n"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="identify_data_structure-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>

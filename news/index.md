@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 2026.8.21
+
+- The package drops `magrittr`. Every `%>%` is now the base pipe `|>`,
+  and `magrittr` is gone from `DESCRIPTION`.
+- The rewrite is a relocation, not an edit. Each `%>%` call was
+  transformed the way R’s parser transforms `|>`, and the resulting tree
+  was required to match the tree parsed from the rewritten file. A file
+  whose trees disagreed was left untouched and converted by hand
+  instead.
+- `%>%` is no longer exported. `R/utils-pipe.R` existed only to
+  re-export it and is deleted. Code that relied on
+  [`library(cstidy)`](https://niphr.github.io/cstidy/) for the pipe must
+  use `|>` or attach `magrittr` itself.
+
 ## Version 2026.8.20
 
 ### Development

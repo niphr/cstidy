@@ -37,7 +37,7 @@ Other csfmt_rts_data:
 ## Examples
 
 ``` r
-x <- cstidy::generate_test_data() %>%
+x <- cstidy::generate_test_data() |>
   cstidy::set_csfmt_rts_data_v2()
 class(x)
 #> [1] "csfmt_rts_data_v2" "data.table"        "data.frame"       

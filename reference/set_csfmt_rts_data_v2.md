@@ -501,14 +501,14 @@ d
 #> 5:         21      NA       NA         <NA> 2022-01-23        5
 
 # Investigating the data structure of one column inside a dataset
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
-  cstidy::identify_data_structure("deaths_n") %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
+  cstidy::identify_data_structure("deaths_n") |>
   plot()
 
 # Investigating the data structure via summary
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
   summary()
 #> 
 #> granularity_time

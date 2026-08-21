@@ -502,8 +502,8 @@ d
 
 # Collapsing down to different levels, and healing the dataset
 # (so that it can be worked on further with regards to real time surveillance)
-d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_time)] %>%
-  cstidy::set_csfmt_rts_data_v2(create_unified_columns = TRUE) %>%
+d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_time)] |>
+  cstidy::set_csfmt_rts_data_v2(create_unified_columns = TRUE) |>
   print()
 #>    granularity_time granularity_geo country_iso3 location_code border    age
 #>              <char>          <char>       <char>        <char>  <int> <char>
@@ -523,7 +523,7 @@ d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_
 
 # Collapsing down to different levels, without healing the dataset and without
 # removing the class csfmt_rts_data_v2 (this is uncommon)
-d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_time)] %>%
+d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_time)] |>
   print()
 #> Key: <granularity_time>
 #>    granularity_time deaths_n location_code
@@ -534,8 +534,8 @@ d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_
 
 # Collapsing to different levels, and removing the class csfmt_rts_data_v2 because
 # it is going to be used in new output/analyses
-d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_time)] %>%
-  cstidy::remove_class_csfmt_rts_data() %>%
+d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_time)] |>
+  cstidy::remove_class_csfmt_rts_data() |>
   print()
 #> Key: <granularity_time>
 #>    granularity_time deaths_n location_code
@@ -551,10 +551,10 @@ d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_
 adds rows to extend a dataset up to a given future time point.
 
 ``` r
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
-  dplyr::filter(location_code == "county03") %>%
-  cstidy::expand_time_to(max_isoyearweek = "2022-08") %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
+  dplyr::filter(location_code == "county03") |>
+  cstidy::expand_time_to(max_isoyearweek = "2022-08") |>
   print()
 #> Null data.table (0 rows and 0 cols)
 ```
@@ -565,8 +565,8 @@ cstidy::generate_test_data() %>%
 counts the distinct time series in a dataset.
 
 ``` r
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
   cstidy::unique_time_series()
 ```
 
@@ -576,8 +576,8 @@ cstidy::generate_test_data() %>%
 overview of the data structure.
 
 ``` r
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
   summary()
 #> 
 #> granularity_time
@@ -672,9 +672,9 @@ cstidy::generate_test_data() %>%
 inspects a single column and returns a plottable object.
 
 ``` r
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
-  cstidy::identify_data_structure("deaths_n") %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
+  cstidy::identify_data_structure("deaths_n") |>
   plot()
 ```
 

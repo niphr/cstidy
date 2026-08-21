@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cstidy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.20</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.21</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -595,8 +595,8 @@ geography. When the <strong>bold</strong> variables below are set with
 <span></span>
 <span><span class="co"># Collapsing down to different levels, and healing the dataset </span></span>
 <span><span class="co"># (so that it can be worked on further with regards to real time surveillance)</span></span>
-<span><span class="va">d</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span>deaths_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">deaths_n</span><span class="op">)</span>, location_code <span class="op">=</span> <span class="st">"norge"</span><span class="op">)</span>, keyby<span class="op">=</span><span class="fu">.</span><span class="op">(</span><span class="va">granularity_time</span><span class="op">)</span><span class="op">]</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span>create_unified_columns <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">d</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span>deaths_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">deaths_n</span><span class="op">)</span>, location_code <span class="op">=</span> <span class="st">"norge"</span><span class="op">)</span>, keyby<span class="op">=</span><span class="fu">.</span><span class="op">(</span><span class="va">granularity_time</span><span class="op">)</span><span class="op">]</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span>create_unified_columns <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    granularity_time deaths_n location_code   date</span></span>
 <span><span class="co">#&gt;              &lt;char&gt;    &lt;int&gt;        &lt;char&gt; &lt;Date&gt;</span></span>
@@ -606,8 +606,8 @@ geography. When the <strong>bold</strong> variables below are set with
 <span></span>
 <span><span class="co"># Collapsing to different levels, and removing the class csfmt_rts_data_v2 because</span></span>
 <span><span class="co"># it is going to be used in new output/analyses</span></span>
-<span><span class="va">d</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span>deaths_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">deaths_n</span><span class="op">)</span>, location_code <span class="op">=</span> <span class="st">"norge"</span><span class="op">)</span>, keyby<span class="op">=</span><span class="fu">.</span><span class="op">(</span><span class="va">granularity_time</span><span class="op">)</span><span class="op">]</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/remove_class_csfmt_rts_data.html">remove_class_csfmt_rts_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">d</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span>deaths_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">deaths_n</span><span class="op">)</span>, location_code <span class="op">=</span> <span class="st">"norge"</span><span class="op">)</span>, keyby<span class="op">=</span><span class="fu">.</span><span class="op">(</span><span class="va">granularity_time</span><span class="op">)</span><span class="op">]</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/remove_class_csfmt_rts_data.html">remove_class_csfmt_rts_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Key: &lt;granularity_time&gt;</span></span>
 <span><span class="co">#&gt;    granularity_time deaths_n location_code</span></span>
@@ -622,8 +622,8 @@ geography. When the <strong>bold</strong> variables below are set with
 <p><code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> gives a concise overview of the data
 structure.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="text-decoration: underline;">granularity_time</span></span></span>
@@ -717,9 +717,9 @@ structure.</p>
 <p><code><a href="../reference/identify_data_structure.html">cstidy::identify_data_structure()</a></code> inspects a single
 column and returns a plottable object.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/identify_data_structure.html">identify_data_structure</a></span><span class="op">(</span><span class="st">"deaths_n"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_test_data.html">generate_test_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/set_csfmt_rts_data_v2.html">set_csfmt_rts_data_v2</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">cstidy</span><span class="fu">::</span><span class="fu"><a href="../reference/identify_data_structure.html">identify_data_structure</a></span><span class="op">(</span><span class="st">"deaths_n"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="cstidy_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="700"></p>
 </div>

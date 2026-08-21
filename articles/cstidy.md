@@ -506,8 +506,8 @@ d
 
 # Collapsing down to different levels, and healing the dataset 
 # (so that it can be worked on further with regards to real time surveillance)
-d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby=.(granularity_time)] %>%
-  cstidy::set_csfmt_rts_data_v2(create_unified_columns = FALSE) %>%
+d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby=.(granularity_time)] |>
+  cstidy::set_csfmt_rts_data_v2(create_unified_columns = FALSE) |>
   print()
 #>    granularity_time deaths_n location_code   date
 #>              <char>    <int>        <char> <Date>
@@ -517,8 +517,8 @@ d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby=.(granularity_ti
 
 # Collapsing to different levels, and removing the class csfmt_rts_data_v2 because
 # it is going to be used in new output/analyses
-d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby=.(granularity_time)] %>%
-  cstidy::remove_class_csfmt_rts_data() %>%
+d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby=.(granularity_time)] |>
+  cstidy::remove_class_csfmt_rts_data() |>
   print()
 #> Key: <granularity_time>
 #>    granularity_time deaths_n location_code
@@ -534,8 +534,8 @@ d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby=.(granularity_ti
 overview of the data structure.
 
 ``` r
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
   summary()
 #> 
 #> granularity_time
@@ -630,9 +630,9 @@ cstidy::generate_test_data() %>%
 inspects a single column and returns a plottable object.
 
 ``` r
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
-  cstidy::identify_data_structure("deaths_n") %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
+  cstidy::identify_data_structure("deaths_n") |>
   plot()
 ```
 

@@ -65,8 +65,8 @@ Other csfmt_rts_data:
 ## Examples
 
 ``` r
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
-  cstidy::identify_data_structure("deaths_n") %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
+  cstidy::identify_data_structure("deaths_n") |>
   plot()
 ```

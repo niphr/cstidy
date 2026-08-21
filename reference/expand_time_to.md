@@ -80,7 +80,7 @@ Other csfmt_rts_data:
 ## Examples
 
 ``` r
-x <- cstidy::generate_test_data() %>%
+x <- cstidy::generate_test_data() |>
   cstidy::set_csfmt_rts_data_v2()
 cstidy::expand_time_to(x, max_isoyearweek = "2022-10")
 #>      granularity_time granularity_geo country_iso3 location_code border     age

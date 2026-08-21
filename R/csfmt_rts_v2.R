@@ -171,7 +171,7 @@ formats$csfmt_rts_data_v2$unified$date <- list(
 #   # classes
 #   variable_classes <- paste0("<", unlist(lapply(to_print, class)), ">")
 #   variable_names <- names(to_print)
-#   row_numbers <- formatC(row_numbers, width = max(nchar(row_numbers))) %>%
+#   row_numbers <- formatC(row_numbers, width = max(nchar(row_numbers))) |>
 #     paste0(":", sep = "")
 #   row_number_spacing <- formatC("", width = max(nchar(row_numbers)))
 #
@@ -193,11 +193,11 @@ formats$csfmt_rts_data_v2$unified$date <- list(
 #     }
 #   }
 #
-#   width_char <- apply(to_print, 2, nchar, keepNA = F) %>%
-#     rbind(nchar(variable_types)) %>%
-#     rbind(nchar(variable_classes)) %>%
-#     rbind(nchar(na_percent)) %>%
-#     rbind(nchar(variable_names)) %>%
+#   width_char <- apply(to_print, 2, nchar, keepNA = F) |>
+#     rbind(nchar(variable_types)) |>
+#     rbind(nchar(variable_classes)) |>
+#     rbind(nchar(na_percent)) |>
+#     rbind(nchar(variable_names)) |>
 #     apply(2, max)
 #
 #   max_width <- getOption("width") - 5

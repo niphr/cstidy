@@ -1,6 +1,5 @@
 ## code to prepare `DATASET` dataset goes here
 library(data.table)
-library(magrittr)
 devtools::load_all()
 
 # import data
@@ -47,7 +46,7 @@ week <- d[,.(
     age,
     sex,
     isoyearweek
-  )] %>%
+  )] |>
   cstidy::create_unified_columns()
 
 week

@@ -1,6 +1,5 @@
 # create cstidy format data for cases
 library(data.table)
-library(magrittr)
 devtools::load_all()
 
 # import data
@@ -66,7 +65,7 @@ keyby=.(
   age,
   sex,
   isoyearweek
-)] %>%
+)] |>
   cstidy::create_unified_columns()
 
 week

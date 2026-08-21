@@ -11,9 +11,9 @@
 #' @param col Column name (character) whose data structure is summarised.
 #' @param ... Arguments passed to or from other methods.
 #' @examples
-#' cstidy::generate_test_data() %>%
-#'   cstidy::set_csfmt_rts_data_v2() %>%
-#'   cstidy::identify_data_structure("deaths_n") %>%
+#' cstidy::generate_test_data() |>
+#'   cstidy::set_csfmt_rts_data_v2() |>
+#'   cstidy::identify_data_structure("deaths_n") |>
 #'   plot()
 #' @family csfmt_rts_data
 #' @returns csfmt_rts_data_structure_hash_v2, a summary object that can be plotted.
@@ -48,7 +48,7 @@ identify_data_structure <- function(x, col, ...) {
 #' @param ... Not used.
 #' @returns data.table, a dataset that lists all the unique time series in x.
 #' @examples
-#' x <- cstidy::generate_test_data() %>%
+#' x <- cstidy::generate_test_data() |>
 #'   cstidy::set_csfmt_rts_data_v2()
 #' cstidy::unique_time_series(x)
 #' @family csfmt_rts_data
@@ -84,7 +84,7 @@ unique_time_series <- function(x, set_time_series_id = FALSE, ...) {
 #' The csfmt_rts_data_v2 class is dropped from the result. Call
 #' \code{\link{set_csfmt_rts_data_v2}()} on it to put the class back.
 #' @examples
-#' x <- cstidy::generate_test_data() %>%
+#' x <- cstidy::generate_test_data() |>
 #'   cstidy::set_csfmt_rts_data_v2()
 #' cstidy::expand_time_to(x, max_isoyearweek = "2022-10")
 #' @family csfmt_rts_data
@@ -171,7 +171,7 @@ heal <- function(x, ...) {
 #' Remove class csfmt_rts_data_*
 #' @param x data.table
 #' @examples
-#' x <- cstidy::generate_test_data() %>%
+#' x <- cstidy::generate_test_data() |>
 #'   cstidy::set_csfmt_rts_data_v2()
 #' class(x)
 #' cstidy::remove_class_csfmt_rts_data(x)

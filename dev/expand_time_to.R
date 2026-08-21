@@ -1,8 +1,7 @@
 library(data.table)
-library(magrittr)
 devtools::load_all()
 d <- as.data.table(tidyr::fish_encounters)
-d %>%
+d |>
   pivot_wider(names_from = station, values_from = seen)
 
 

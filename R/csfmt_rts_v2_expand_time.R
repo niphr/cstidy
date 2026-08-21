@@ -32,8 +32,8 @@ unique_time_series.csfmt_rts_data_v2 <- function(
     )
   )
   ids <- ids[ids %in% names(x)]
-  retval <- x[, ids, with = F] %>%
-    unique() %>%
+  retval <- x[, ids, with = F] |>
+    unique() |>
     remove_class_csfmt_rts_data()
   data.table::shouldPrint(retval)
 

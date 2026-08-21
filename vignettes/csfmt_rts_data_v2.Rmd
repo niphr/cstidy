@@ -24,7 +24,6 @@ knitr::opts_chunk$set(
 
 ```{r echo=FALSE, include=FALSE}
 library(data.table)
-library(magrittr)
 library(ggplot2)
 ```
 
@@ -95,23 +94,23 @@ d <- rbind(
   )
 )
 
-gt::gt(d) %>%
+gt::gt(d) |>
   gt::tab_options(
     table.width = "1100px"
-  ) %>%
-  gt::tab_header(title = "Valid times in the csverse format") %>%
+  ) |>
+  gt::tab_header(title = "Valid times in the csverse format") |>
   gt::cols_label(
     granularity_time = "Time (Granularity)",
     class = "Class",
     fn = "Function",
     example = "Example(s)"
-  ) %>%
+  ) |>
   gt::cols_width(
     granularity_time ~ "20%",
     class ~ "15%",
     fn ~ "20%",
     example ~ "55%"
-  ) %>%
+  ) |>
   gt::tab_footnote(
     footnote = "If the event is ongoing, then the 'to' date should be 9999_09_09.",
     locations = gt::cells_body(
@@ -137,17 +136,17 @@ d <- rbind(
   )
 )
 
-gt::gt(d) %>%
+gt::gt(d) |>
   gt::tab_options(
     table.width = "750px"
-  ) %>%
+  ) |>
   gt::cols_width(
     granularity_time ~ "65%",
     definition ~ "35%"
-  ) %>%
+  ) |>
   gt::cols_align(
     align = "left"
-  ) %>%
+  ) |>
   gt::tab_header(title = "Approved events")
 ```
 
@@ -167,37 +166,37 @@ d <- csdata::nor_locations_names()[, .(
 by = .(granularity_geo)
 ]
 
-gt::gt(d) %>%
+gt::gt(d) |>
   gt::tab_options(
     table.width = "1500px"
-  ) %>%
-  gt::tab_header(title = "Valid locations and location types in the csverse format") %>%
+  ) |>
+  gt::tab_header(title = "Valid locations and location types in the csverse format") |>
   gt::cols_label(
     granularity_geo = "Geo (Granularity)",
     n = "N"
-  ) %>%
+  ) |>
   # gt::cols_width(
   #   granularity_time ~ "20%",
   #   class ~ "15%",
   #   fn ~ "20%",
   #   example ~ "55%"
-  # ) %>%
+  # ) |>
   gt::tab_spanner(
     label = "Examples",
     columns = c(location_code, location_name, location_name_description_nb, location_name_file_nb_utf, location_name_file_nb_ascii)
-  ) %>%
+  ) |>
   gt::tab_footnote(
     footnote = gt::md("**location_code**: Used a) **inside datasets** and b) in data **file names** for transfer of data/results between analytic systems. All values are unique."),
     locations = gt::cells_column_labels(
       columns = location_code
     )
-  ) %>%
+  ) |>
   gt::tab_footnote(
     footnote = gt::md("**location_name**: Used (rarely) **inside results** (figures, tables, documents). Can be confusing as some names are duplicated. Its rare usage is demarcated by a line through the text."),
     locations = gt::cells_column_labels(
       columns = location_name
     )
-  ) %>%
+  ) |>
   gt::tab_style(
     style = list(
       gt::cell_text(decorate = "line-through")
@@ -206,32 +205,32 @@ gt::gt(d) %>%
       columns = location_name,
       rows = gt::everything()
     )
-  ) %>%
+  ) |>
   gt::tab_footnote(
     footnote = gt::md("**location_name_description_nb**: Used (frequently) **inside results** (figures, tables, documents). All values are unique."),
     locations = gt::cells_column_labels(
       columns = location_name_description_nb
     )
-  ) %>%
+  ) |>
   gt::tab_footnote(
     footnote = gt::md("**location_name_file_nb_utf**: Used (frequently) in the **file names** for results (figures, tables, documents). All values are unique."),
     locations = gt::cells_column_labels(
       columns = location_name_file_nb_utf
     )
-  ) %>%
+  ) |>
   gt::tab_footnote(
     footnote = gt::md("**location_name_file_nb_ascii**: Used (rarely) in the **file names** for results (figures, tables, documents). Used if file systems have problems with the Norwegian letters æøå. All values are unique."),
     locations = gt::cells_column_labels(
       columns = location_name_file_nb_ascii
     )
-  ) %>%
+  ) |>
   gt::tab_footnote(
     footnote = "Bo- og arbeidsmarkedsregioner. Housing and labor market regions.",
     locations = gt::cells_body(
       columns = granularity_geo,
       rows = granularity_geo == "baregion"
     )
-  ) %>%
+  ) |>
   gt::tab_footnote(
     footnote = "Mattilsynet-regioner. Food authority regions.",
     locations = gt::cells_body(
@@ -281,8 +280,8 @@ d <- rbind(
   )
 )
 
-gt::gt(d) %>%
-  gt::tab_header(title = "Valid ages in the csverse format") %>%
+gt::gt(d) |>
+  gt::tab_header(title = "Valid ages in the csverse format") |>
   gt::cols_label(
     value = "Value",
     definition = "Definition"
@@ -321,8 +320,8 @@ d <- rbind(
   )
 )
 
-gt::gt(d) %>%
-  gt::tab_header(title = "Valid sexes in the csverse format") %>%
+gt::gt(d) |>
+  gt::tab_header(title = "Valid sexes in the csverse format") |>
   gt::cols_label(
     value = "Value",
     definition = "Definition"
@@ -427,24 +426,24 @@ d <- rbind(
     accepted_values = "YYYY-MM-DD",
     definition = "Always corresponds to the last date in the time period. E.g. if granularity_time=='isoweek' then date is the Sunday of that week. If granularity_time == 'event_*_date1_to_9999_09_09' then date is 9999-09-09"
   )
-) %>%
+) |>
   dplyr::mutate(
     accepted_values = purrr::map(accepted_values, ~ gt::html(as.character(.)))
   )
 
-gt::gt(d) %>%
+gt::gt(d) |>
   gt::tab_options(
     table.width = "750px"
-  ) %>%
+  ) |>
   gt::cols_width(
     variable ~ "20%",
     accepted_values ~ "40%",
     definition ~ "40%"
-  ) %>%
+  ) |>
   gt::cols_align(
     align = "left"
-  ) %>%
-  gt::tab_header(title = "Unified columns (18) in the csverse format csfmt_rts_data_v2") %>%
+  ) |>
+  gt::tab_header(title = "Unified columns (18) in the csverse format csfmt_rts_data_v2") |>
   gt::cols_label(
     variable = "Variable",
     accepted_values = "Accepted values",
@@ -628,44 +627,44 @@ d <- rbind(
   )
 )
 
-gt::gt(d) %>%
+gt::gt(d) |>
   gt::tab_options(
     table.width = "750px"
-  ) %>%
+  ) |>
   gt::cols_width(
     x ~ "5%",
     examples ~ "35%",
     definition ~ "60%"
-  ) %>%
+  ) |>
   gt::cols_align(
     align = "left"
-  ) %>%
-  gt::tab_header(title = "Context-specific columns in the csverse format csfmt_rts_data_v2") %>%
+  ) |>
+  gt::tab_header(title = "Context-specific columns in the csverse format csfmt_rts_data_v2") |>
   gt::cols_label(
     x = "",
     examples = "Examples",
     definition = "Definition"
-  ) %>%
+  ) |>
   gt::tab_row_group(
     label = "Censored/Status (optional)",
     rows = 21:nrow(d)
-  ) %>%
+  ) |>
   gt::tab_row_group(
     label = "Forecast (optional)",
     rows = 20
-  ) %>%
+  ) |>
   gt::tab_row_group(
     label = "Format (mandatory)",
     rows = 13:19
-  ) %>%
+  ) |>
   gt::tab_row_group(
     label = "Statistics (optional)",
     rows = 9:12
-  ) %>%
+  ) |>
   gt::tab_row_group(
     label = "Time (optional)",
     rows = 5:8
-  ) %>%
+  ) |>
   gt::tab_row_group(
     label = "Description (mandatory)",
     rows = 1:4
@@ -748,19 +747,19 @@ d
 
 # Collapsing down to different levels, and healing the dataset
 # (so that it can be worked on further with regards to real time surveillance)
-d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_time)] %>%
-  cstidy::set_csfmt_rts_data_v2(create_unified_columns = TRUE) %>%
+d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_time)] |>
+  cstidy::set_csfmt_rts_data_v2(create_unified_columns = TRUE) |>
   print()
 
 # Collapsing down to different levels, without healing the dataset and without
 # removing the class csfmt_rts_data_v2 (this is uncommon)
-d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_time)] %>%
+d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_time)] |>
   print()
 
 # Collapsing to different levels, and removing the class csfmt_rts_data_v2 because
 # it is going to be used in new output/analyses
-d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_time)] %>%
-  cstidy::remove_class_csfmt_rts_data() %>%
+d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_time)] |>
+  cstidy::remove_class_csfmt_rts_data() |>
   print()
 ```
 
@@ -769,10 +768,10 @@ d[, .(deaths_n = sum(deaths_n), location_code = "norge"), keyby = .(granularity_
 `cstidy::expand_time_to()` adds rows to extend a dataset up to a given future time point.
 
 ```{r}
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
-  dplyr::filter(location_code == "county03") %>%
-  cstidy::expand_time_to(max_isoyearweek = "2022-08") %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
+  dplyr::filter(location_code == "county03") |>
+  cstidy::expand_time_to(max_isoyearweek = "2022-08") |>
   print()
 ```
 
@@ -781,8 +780,8 @@ cstidy::generate_test_data() %>%
 `cstidy::unique_time_series()` counts the distinct time series in a dataset.
 
 ```{r}
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
   cstidy::unique_time_series()
 ```
 
@@ -791,8 +790,8 @@ cstidy::generate_test_data() %>%
 `summary()` gives a concise overview of the data structure.
 
 ```{r}
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
   summary()
 ```
 
@@ -801,9 +800,9 @@ cstidy::generate_test_data() %>%
 `cstidy::identify_data_structure()` inspects a single column and returns a plottable object.
 
 ```{r}
-cstidy::generate_test_data() %>%
-  cstidy::set_csfmt_rts_data_v2() %>%
-  cstidy::identify_data_structure("deaths_n") %>%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
+  cstidy::identify_data_structure("deaths_n") |>
   plot()
 ```
 
@@ -818,11 +817,11 @@ d <- csdata::nor_locations_names()[, .(
   location_name_description_nb
 )]
 
-gt::gt(d) %>%
+gt::gt(d) |>
   gt::tab_options(
     table.width = "750px"
-  ) %>%
-  gt::tab_header(title = "Reference table of location_code and location_name_description_nb") %>%
+  ) |>
+  gt::tab_header(title = "Reference table of location_code and location_name_description_nb") |>
   gt::cols_label(
     location_order = "#"
   )

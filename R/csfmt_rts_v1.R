@@ -151,7 +151,7 @@ formats$csfmt_rts_data_v1$unified$date <- list(
 #   # classes
 #   variable_classes <- paste0("<", unlist(lapply(to_print, class)), ">")
 #   variable_names <- names(to_print)
-#   row_numbers <- formatC(row_numbers, width = max(nchar(row_numbers))) %>%
+#   row_numbers <- formatC(row_numbers, width = max(nchar(row_numbers))) |>
 #     paste0(":", sep = "")
 #   row_number_spacing <- formatC("", width = max(nchar(row_numbers)))
 #
@@ -173,11 +173,11 @@ formats$csfmt_rts_data_v1$unified$date <- list(
 #     }
 #   }
 #
-#   width_char <- apply(to_print, 2, nchar, keepNA = F) %>%
-#     rbind(nchar(variable_types)) %>%
-#     rbind(nchar(variable_classes)) %>%
-#     rbind(nchar(na_percent)) %>%
-#     rbind(nchar(variable_names)) %>%
+#   width_char <- apply(to_print, 2, nchar, keepNA = F) |>
+#     rbind(nchar(variable_types)) |>
+#     rbind(nchar(variable_classes)) |>
+#     rbind(nchar(na_percent)) |>
+#     rbind(nchar(variable_names)) |>
 #     apply(2, max)
 #
 #   max_width <- getOption("width") - 5
@@ -963,7 +963,7 @@ summary.csfmt_rts_data_v1 <- function(object, ...) {
         stringr::str_detect(var, "_tag$") |
         stringr::str_detect(var, "_status$")
     ) {
-      details <- object[, .(n = .N), keyby = .(get(var))] %>%
+      details <- object[, .(n = .N), keyby = .(get(var))] |>
         remove_class_csfmt_rts_data()
       setnames(details, "get", "val")
       details[is.na(val), val := "<NA>"]
@@ -1041,8 +1041,8 @@ plot.csfmt_rts_data_structure_hash_v1 <- function(x, y, ...) {
   age <- NULL
   sex <- NULL
 
-  # x <- generate_test_data() %>%
-  #   set_csfmt_rts_data_v1() %>%
+  # x <- generate_test_data() |>
+  #   set_csfmt_rts_data_v1() |>
   #   identify_data_structure("deaths_n")
 
   pd <- copy(x)
@@ -1099,8 +1099,8 @@ unique_time_series.csfmt_rts_data_v1 <- function(
     )
   )
   ids <- ids[ids %in% names(x)]
-  retval <- x[, ids, with = F] %>%
-    unique() %>%
+  retval <- x[, ids, with = F] |>
+    unique() |>
     remove_class_csfmt_rts_data()
   data.table::shouldPrint(retval)
 

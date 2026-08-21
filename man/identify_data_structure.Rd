@@ -39,9 +39,9 @@ along with the format it dispatches on. Nothing warns at run time. See
 }
 
 \examples{
-cstidy::generate_test_data() \%>\%
-  cstidy::set_csfmt_rts_data_v2() \%>\%
-  cstidy::identify_data_structure("deaths_n") \%>\%
+cstidy::generate_test_data() |>
+  cstidy::set_csfmt_rts_data_v2() |>
+  cstidy::identify_data_structure("deaths_n") |>
   plot()
 }
 \seealso{

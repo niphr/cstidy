@@ -33,7 +33,7 @@ A time series is defined as a unique combination of:
 }
 }
 \examples{
-x <- cstidy::generate_test_data() \%>\%
+x <- cstidy::generate_test_data() |>
   cstidy::set_csfmt_rts_data_v2()
 cstidy::unique_time_series(x)
 }

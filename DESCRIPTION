@@ -1,6 +1,6 @@
 Package: cstidy
 Title: Helpful Functions for Cleaning Surveillance Data
-Version: 2026.8.20
+Version: 2026.8.21
 Authors@R:
     c(
       person(
@@ -23,7 +23,6 @@ BugReports: https://github.com/niphr/cstidy/issues
 Encoding: UTF-8
 LazyData: true
 Imports: data.table,
-    magrittr,
     ggplot2,
     csdata,
     cstime,

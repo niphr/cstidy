@@ -17,7 +17,7 @@ nothing, which is what lets it sit in the middle of a pipe.
 Remove class csfmt_rts_data_*
 }
 \examples{
-x <- cstidy::generate_test_data() \%>\%
+x <- cstidy::generate_test_data() |>
   cstidy::set_csfmt_rts_data_v2()
 class(x)
 cstidy::remove_class_csfmt_rts_data(x)

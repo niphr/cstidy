@@ -185,23 +185,23 @@ identify_data_structure.csfmt_rts_data_v2 <- function(x, col, ...) {
   # data <- data$cases
   # data <- data$vax
 
-  summarized <- x %>%
-    dplyr::rename(col = !!col) %>%
+  summarized <- x |>
+    dplyr::rename(col = !!col) |>
     dplyr::group_by(
       granularity_time,
       granularity_geo,
       age,
       sex
-    ) %>%
+    ) |>
     dplyr::summarize(
       num_total = n(),
       num_na = sum(as.numeric(is.na(col)))
-    ) %>%
+    ) |>
     dplyr::mutate(
       num_valid = num_total - num_na
-    ) %>%
-    dplyr::select(-num_total) %>%
-    dplyr::collect() %>%
+    ) |>
+    dplyr::select(-num_total) |>
+    dplyr::collect() |>
     as.data.table()
 
   identify_data_structure_internal(
@@ -222,8 +222,8 @@ plot.csfmt_rts_data_structure_hash_v2 <- function(x, y, ...) {
   age <- NULL
   sex <- NULL
 
-  # x <- generate_test_data() %>%
-  #   set_csfmt_rts_data_v2() %>%
+  # x <- generate_test_data() |>
+  #   set_csfmt_rts_data_v2() |>
   #   identify_data_structure("deaths_n")
 
   pd <- copy(x)
